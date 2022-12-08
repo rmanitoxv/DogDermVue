@@ -33,37 +33,24 @@
     </div>
 </template>
 <script>
-import parseCookie from '../utils/parseCookie'
 export default {
     methods: {
         getCounts() {
-            axios.get('/api/user/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/users/')
             .then((response) => {
                 this.userCount = response.data.length
             })
             .catch((error) => {
                 console.log(error)
             })
-            axios.get('/api/disease/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/diseases/')
             .then((response) => {
                 this.diseaseCount = response.data.length
             })
             .catch((error) => {
                 console.log(error)
             })
-            axios.get('/api/clinics/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/clinics/')
             .then((response) => {
                 this.clinicsCount = response.data.length
             })
@@ -81,6 +68,6 @@ export default {
     },
     created(){
         this.getCounts()
-    }
+    },
 }
 </script>

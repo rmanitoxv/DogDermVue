@@ -114,12 +114,8 @@ export default {
                 prevention: prevention.value,
                 url: this.dburl,
                 symptoms: JSON.stringify(this.symptoms)
-            },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+            }
+                )
                 .then((response) => {
                     this.$router.push({ name: 'AdminDiseases' })
                 })
@@ -132,11 +128,7 @@ export default {
                 })
         },
         getData(id) {
-            axios.get(`/api/disease/${id}`, {
-                headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-            })
+            axios.get(`/api/disease/${id}`)
             .then((response) => {
                 this.datas = response.data
                 this.dburl = response.data.url

@@ -7,7 +7,7 @@
             <span class="text-2xl text-first barlow">Dog</span>
             <span class="text-2xl text-second barlow">Derma</span>
         </div>
-        <DatabaseCount />
+        <DatabaseCount :key="recount"/>
         <div class="mt-[3.5rem] mx-[2.5rem]">
             <div class="flex justify-between">
                 <div class="amiko font-bold text-[2rem]">
@@ -82,11 +82,7 @@ export default {
     },
     methods: {
         getClinics() {
-            axios.get('/api/clinics/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/clinics/')
                 .then((response) => {
                     this.clinics = response.data
                     for (let i=0; i < this.clinics.length; i++){
@@ -103,12 +99,9 @@ export default {
                 })
         },
         deleteClinics(id) {
-            axios.delete(`/api/clinics/${id}`, {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.delete(`/api/clinics/${id}`)
             .then((response) => {
+                this.recount++
                 this.getClinics()
             })
             .catch((error) => {

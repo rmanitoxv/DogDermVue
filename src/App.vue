@@ -25,7 +25,6 @@
     import Sidebar from './layouts/Sidebar.vue'
     import Footer from './layouts/Footer.vue'
     import Style from './layouts/Style.vue'
-    import parseCookie from './utils/parseCookie'
     import * as firebase from 'firebase/app'
 import axios from 'axios'
     firebase.initializeApp(firebaseConfig)
@@ -50,17 +49,19 @@ import axios from 'axios'
         },
         methods: {
             checkAuth() {
-                if (parseCookie(document.cookie).token){
-                    axios.get('/api/get_token/')
+                if (localStorage.getItem("token")){
+                    axios.get('/api/users/me/'
+                    )
                     .then((response) => {
-                        let path = '/admin/'
-                        if (response.data.isAdmin == 1){
+                        const path = '/admin/'
+                        const role = response.data.is_staff
+                        if (role == true){
                             this.isAdmin = 1;
                             if (!this.$route.path.includes(path)){
                                 this.$router.push('/admin/profile')
                             }
                         }
-                        else {
+                        else{
                             this.isAdmin = 0;
                             if (this.$route.path.includes(path)){
                                 this.$router.push('/')
@@ -68,9 +69,7 @@ import axios from 'axios'
                         }
                     })
                     .catch((error) => {
-                        document.cookie = "token= ; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-                        this.isAdmin = 0;
-                        this.$router.push('/')
+                        console.log(error)
                     })
                 }
                 else{

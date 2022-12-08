@@ -78,12 +78,8 @@ export default {
                 email: email.value,
                 password: password.value,
                 isAdmin: role.value
-            },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+            }
+                )
                 .then((response) => {
                     this.$router.push({name: 'AdminUsers'})
                 })

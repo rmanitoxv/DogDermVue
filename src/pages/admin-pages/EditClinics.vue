@@ -89,19 +89,15 @@ export default {
     },
     methods: {
         editClinics() {
-            axios.put(`/api/clinics/${this.id}`, {
+            axios.patch(`/api/clinics/${this.id}`, {
                 clinic_name: clinic_name.value,
                 clinic_address: clinic_address.value,
                 clinic_mobile: clinic_mobile.value,
                 clinic_landline: clinic_landline.value,
                 clinic_email: clinic_email.value,
                 url: this.dburl
-            },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+            }
+                )
                 .then((response) => {
                     this.$router.push({ name: 'AdminClinics' })
                 })
@@ -114,11 +110,7 @@ export default {
                 })
         },
         getData(id) {
-            axios.get(`/api/clinics/${id}`, {
-                headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-            })
+            axios.get(`/api/clinics/${id}`)
             .then((response) => {
                 this.datas = response.data
                 this.dburl = response.data.url

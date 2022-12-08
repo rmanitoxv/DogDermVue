@@ -100,13 +100,11 @@ export default {
     },
     methods:{
         logout(){
-            axios.post('/api/logout/', {}, {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.post('/api/token/logout/', {})
             .then((response) => {
-                document.cookie = 'token =; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                axios.defaults.headers.common['Authorization'] = ""
+                localStorage.removeItem("token")
+                this.$store.commit('removeToken')
                 this.$router.push({ path: "/"});
             })
             .catch((error) => {
@@ -114,16 +112,12 @@ export default {
             })
         },
         getData(){
-            axios.get('/api/get_token/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/user/')
             .then((response) => {
-                this.datas = response.data
-                if (response.data.url){
+                this.datas = response.data[0]
+                if (response.data[0].url){
                     const storage = getStorage();
-                    const storageRef = ref(storage, 'images/' + response.data.url);
+                    const storageRef = ref(storage, 'images/' + response.data[0].url);
                     getDownloadURL(storageRef)
                         .then((url) => {
                             this.url = url

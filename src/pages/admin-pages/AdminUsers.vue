@@ -38,7 +38,8 @@
                                     <input type="checkbox" v-bind:id="item.id" />
                                 </div>
                                 <div class="font-medium w-[50%]">
-                                    <img src="/images/circle.svg" />
+                                    <img v-if="item.url" :src="item.url" class="w-9 h-9 object-cover rounded-full" />
+                                    <img v-else src="/images/circle.svg" />
                                 </div>
                                 <div class="font-medium w-full">{{item.email}} {{index}}</div>
                                 <div class="font-medium w-full">{{item.first_name}}</div>
@@ -48,7 +49,7 @@
                                 <div class="font-medium w-[50%] text-white">
                                     <button class="bg-blue w-[2.25rem] h-[2.25rem] rounded-xl mx-[0.25rem]"
                                         @click="$router.push({ name: 'EditUser', params: { id: item.id } })">
-                                        <i class='bx bx-edit text-base'></i>
+                                        <i class='bx bx-edit'></i>
                                     </button>
                                     <button class="bg-red w-[2.25rem] h-[2.25rem] rounded-xl mx-[0.25rem]"
                                         @click="deleteUser(item.id)">
@@ -65,8 +66,8 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
 import DatabaseCount from '../../components/DatabaseCount.vue'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 export default {
     components: {
         DatabaseCount
@@ -81,13 +82,19 @@ export default {
     },
     methods: {
         getUser() {
-            axios.get('/api/user/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/alluser/')
                 .then((response) => {
                     this.users = response.data
+                    for (let i=0; i < this.users.length; i++){
+                        if (this.users[i].url){
+                            const storage = getStorage();
+                            const storageRef = ref(storage, 'images/' + this.users[i].url);
+                            getDownloadURL(storageRef)
+                                .then((url) => {
+                                    this.users[i].url = url
+                                })
+                        }
+                    }
                 })
                 .catch((error) => {
                     console.log(error)
@@ -95,9 +102,6 @@ export default {
         },
         deleteUser(id) {
             axios.delete(`/api/user/${id}`, {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
             })
             .then((response) => {
                 this.getUser()

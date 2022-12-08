@@ -86,12 +86,8 @@ export default {
                 email: email.value,
                 password: password.value,
                 isAdmin: role.value
-            },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+            }
+                )
                 .then((response) => {
                     this.$router.push({ name: 'AdminUsers' })
                 })
@@ -101,11 +97,7 @@ export default {
                 })
         },
         getData(id) {
-            axios.get(`/api/user/${id}`, {
-                headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-            })
+            axios.get(`/api/user/${id}`)
             .then((response) => {
                 this.datas = response.data
                 this.role = response.data.isAdmin

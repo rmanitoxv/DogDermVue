@@ -10,11 +10,11 @@
         <form @submit.prevent="afterComplete(file)">
             <div class="flex mt-32 justify-center">
                 <div class="ml-[4.5rem] text-center">
-                    <img v-if="url" :src="url" class="rounded-full w-[21.625rem] h-[21.625rem] object-cover" />
+                    <img v-if="url" :src="url" class="rounded-full w-[21.625rem] h-[21.625rem] object-cover mb-6" />
                     <img v-else src="/images/sample-profile.svg"
-                        class="rounded-full w-[21.625rem] h-[21.625rem] object-cover" />
+                        class="rounded-full w-[21.625rem] h-[21.625rem] object-cover mb-6" />
                     <label for="upload"
-                        class="w-[15.5rem] bg-first text-white py-3 rounded-2xl mt-[2.5rem] text-lg cursor-pointer">
+                        class="w-[15.5rem] bg-first text-white p-3 rounded-2xl mt-[2.5rem] text-lg cursor-pointer">
                         Upload Image
                     </label>
                     <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg"
@@ -80,18 +80,13 @@ export default {
     methods: {
         addClinics() {
             axios.post('/api/clinics/', {
-                image: this.url,
+                url: this.url,
                 clinic_name: clinic_name.value,
                 clinic_address: clinic_address.value,
                 clinic_mobile: clinic_mobile.value,
                 clinic_landline: clinic_landline.value,
                 clinic_email: clinic_email.value
-            },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+            })
                 .then((response) => {
                     this.$router.push({name: 'AdminClinics'})
                 })

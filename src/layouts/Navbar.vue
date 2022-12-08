@@ -125,11 +125,7 @@ export default {
     methods: {
         checkAuth() {
             if (parseCookie(document.cookie).token){
-                axios.get('/api/get_token/', {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+                axios.get('/api/get_token/', )
                 .then((response) => {
                     this.authenticated = true
                     this.name = response.data.first_name + " " + response.data.last_name
@@ -141,11 +137,7 @@ export default {
             }
         },
         logout(){
-            axios.post('/api/logout/', {}, {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.post('/api/logout/', {})
             .then((response) => {
                 this.authenticated = false
                 document.cookie = "token= ; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";

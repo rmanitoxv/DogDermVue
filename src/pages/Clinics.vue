@@ -176,11 +176,7 @@ export default {
             });
         },
         getClinics() {
-            axios.get('/api/clinics/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/clinics/')
                 .then((response) => {
                     this.clinics = response.data
                     for (let i=0; i < this.clinics.length; i++){

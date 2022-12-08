@@ -10,9 +10,9 @@
         <form @submit.prevent="afterComplete(file)">
             <div class="flex mt-32 justify-center">
                 <div class="ml-[4.5rem] text-center">
-                    <img v-if="url" :src="url" class="rounded-full w-[21.625rem] h-[21.625rem] object-cover" />
+                    <img v-if="url" :src="url" class="rounded-full w-[21.625rem] h-[21.625rem] mb-6 object-cover" />
                     <img v-else src="/images/sample-profile.svg"
-                        class="rounded-full w-[21.625rem] h-[21.625rem] object-cover" />
+                        class="rounded-full w-[21.625rem] h-[21.625rem] mb-6 object-cover" />
                     <label for="upload"
                         :class="labelClass">
                         Upload Image
@@ -74,9 +74,9 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
+import SidebarVue from "../../layouts/Sidebar.vue";
 export default {
     props: {
         sidebarFunction: Function
@@ -91,37 +91,33 @@ export default {
             file: null,
             dburl: null,
             isLoading: false,
-            labelClass: 'w-[15.5rem] bg-grey text-white py-3 rounded-2xl mt-[2.5rem] text-lg',
-            buttonClass: 'w-[7.5rem] bg-grey text-white py-2 rounded-3xl mt-[2.5rem] text-lg',
+            labelClass: 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg',
+            buttonClass: 'w-[7.5rem] bg-grey text-white p-2 rounded-3xl mt-[2.5rem] text-lg',
             buttonLabel: 'Save'
         }
     },
-    mounted() {
+    created() {
         this.getUserData()
     },
     methods: {
         editProfile() {
             this.validated = !this.validated
-            if (this.labelClass == 'w-[15.5rem] bg-grey text-white py-3 rounded-2xl mt-[2.5rem] text-lg'){
-                this.labelClass = 'w-[15.5rem] bg-first text-white py-3 rounded-2xl mt-[2.5rem] text-lg cursor-pointer'
-                this.buttonClass = "w-[7.5rem] bg-first text-white py-2 rounded-3xl mt-[2.5rem] text-lg"
+            if (this.labelClass == 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'){
+                this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl mt-[2.5rem] text-lg cursor-pointer'
+                this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
             }
             else{
-                this.labelClass = 'w-[15.5rem] bg-grey text-white py-3 rounded-2xl mt-[2.5rem] text-lg'
-                this.buttonClass = "w-[7.5rem] bg-grey text-white py-2 rounded-3xl mt-[2.5rem] text-lg"
+                this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
+                this.buttonClass = "w-[7.5rem] bg-grey text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
             }
         },
         getUserData() {
-            axios.get('/api/get_token/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/user/')
                 .then((response) => {
-                    this.datas = response.data
-                    if (response.data.url){
+                    this.datas = response.data[0]
+                    if (this.datas.url){
                         const storage = getStorage();
-                        const storageRef = ref(storage, 'images/' + response.data.url);
+                        const storageRef = ref(storage, 'images/' + this.datas.url);
                         getDownloadURL(storageRef)
                         .then((url) => {
                             this.url = url
@@ -137,53 +133,52 @@ export default {
         },
         saveProfile(id) {
             if (password.value == ''){
-                axios.put(`/api/user/${id}`, {
+                axios.put(`/api/user/${id}/`, {
                     first_name: first_name.value,
                     last_name: last_name.value,
                     email: email.value,
                     url: this.dburl
-                },
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${parseCookie(document.cookie).token}`,
-                        }
-                    })
+                })
                     .then((response) => {
                         this.datas = response.data
                         this.validated = 1
                         this.response = "Successfully Saved"
                         this.responseClass = "text-green text-end"
                         this.buttonLabel = 'Save'
-                        this.labelClass = 'w-[15.5rem] bg-grey text-white py-3 rounded-2xl mt-[2.5rem] text-lg'
+                        this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
+                        SidebarVue.methods.getData()
                     })
                     .catch((error) => {
+                        this.buttonLabel = 'Save'
+                        this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl mt-[2.5rem] text-lg cursor-pointer'
+                        this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
                         this.response = "There was an Error Editing Profile"
                         this.responseClass = "text-red text-end"
+                        this.validated=0
                         console.log(error)
                     })
             }
             else{
-                axios.put(`/api/user/${id}`, {
+                axios.put(`/api/user/${id}/`, {
                     first_name: first_name.value,
                     last_name: last_name.value,
                     email: email.value,
                     password: password.value,
                     url: this.dburl
-                },
-                    {
-                        headers: {
-                            "Authorization": `Bearer ${parseCookie(document.cookie).token}`,
-                        }
-                    })
+                })
                     .then((response) => {
                         this.datas = response.data
                         this.validated = 1
                         this.response = "Successfully Saved"
                         this.responseClass = "text-green text-end"
                         this.buttonLabel = 'Save'
-                        this.labelClass = 'w-[15.5rem] bg-grey text-white py-3 rounded-2xl mt-[2.5rem] text-lg'
+                        this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
+                        SidebarVue.methods.getData()
                     })
                     .catch((error) => {
+                        this.buttonLabel = 'Save'
+                        this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl mt-[2.5rem] text-lg cursor-pointer'
+                        this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
                         this.response = "There was an Error Editing Profile"
                         this.responseClass = "text-red text-end"
                         console.log(error)

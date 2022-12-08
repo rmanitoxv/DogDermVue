@@ -116,11 +116,7 @@ export default {
     },
     methods: {
         getData(id) {
-            axios.get(`/api/disease/${id}`, {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get(`/api/disease/${id}`)
                 .then((response) => {
                     this.datas = response.data
                     const storage = getStorage();

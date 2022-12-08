@@ -7,7 +7,7 @@
             <span class="text-2xl text-first barlow">Dog</span>
             <span class="text-2xl text-second barlow">Derma</span>
         </div>
-        <DatabaseCount />
+        <DatabaseCount :key="recount"/>
         <div class="mt-[3.5rem] mx-[2.5rem]">
             <div class="flex justify-between">
                 <div class="amiko font-bold text-[2rem]">
@@ -66,7 +66,6 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
 import DatabaseCount from '../../components/DatabaseCount.vue'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 export default {
@@ -84,11 +83,7 @@ export default {
     },
     methods: {
         getDiseases() {
-            axios.get('/api/disease/', {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.get('/api/diseases/')
                 .then((response) => {
                     this.diseases = response.data
                     for (let i=0; i < this.diseases.length; i++){
@@ -106,21 +101,18 @@ export default {
                 })
         },
         deleteDisease(id) {
-            axios.delete(`/api/disease/${id}`, {
-                headers: {
-                    "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                }
-            })
+            axios.delete(`/api/diseases/${id}`)
             .then((response) => {
+                this.recount++
+                
                 this.getDiseases()
             })
             .catch((error) => {
                 console.log(error)
             })
         }
-            
     },
-    created() {
+    mounted() {
         this.getDiseases()
     }
 }

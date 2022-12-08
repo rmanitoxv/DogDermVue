@@ -10,11 +10,11 @@
         <form @submit.prevent="afterComplete(file)">
             <div class="flex my-32 justify-center">
                 <div class="ml-[4.5rem] text-center">
-                    <img v-if="url" :src="url" class="rounded-full w-[15rem] h-[15rem] object-cover" />
+                    <img v-if="url" :src="url" class="rounded-full w-[15rem] h-[15rem] object-cover mb-6" />
                     <img v-else src="/images/sample-profile.svg"
-                        class="rounded-full w-[15rem] h-[15rem] object-cover" />
+                        class="rounded-full w-[15rem] h-[15rem] object-cover mb-6" />
                     <label for="upload"
-                        class="w-[12rem] bg-first text-white py-2 rounded-3xl mt-[2.5rem] text-lg cursor-pointer">
+                        class="w-[12rem] bg-first text-white p-2 rounded-3xl text-lg cursor-pointer">
                         Upload Image
                     </label>
                     <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg"
@@ -90,31 +90,25 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
 export default {
     methods: {
         addDisease() {
-            axios.post('/api/disease/', {
+            axios.post('/api/diseases/', {
                 disease: disease.value,
                 overview: overview.value,
                 causes: causes.value,
                 treatment: treatment.value,
                 prevention: prevention.value,
-                image: this.url,
+                url: this.url,
                 symptoms: JSON.stringify(this.symptoms)
-            },
-                {
-                    headers: {
-                        "Authorization": `Bearer ${parseCookie(document.cookie).token}`
-                    }
-                })
+            }
+                )
                 .then((response) => {
                     this.$router.push({name: 'AdminDiseases'})
                 })
                 .catch((error) => {
-                    console.log(this.url)
                     console.log(error)
                     this.response = error.response.data.message
                     this.saving = 0
@@ -136,6 +130,7 @@ export default {
                 await uploadBytesResumable(storageRef, file);
                 this.url = fileName
             }
+            console.log(this.url)
             this.addDisease()
         },
         getImage() {
