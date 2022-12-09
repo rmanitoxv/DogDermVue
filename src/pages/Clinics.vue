@@ -7,7 +7,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-2 grid-cols-1 three wide column">
-            <form class="ui segment large form m-0" @submit.prevent="findCloseByButtonPressed()">
+            <form class="!m-0 ui segment large form" @submit.prevent="findCloseByButtonPressed()">
                 <div class="ui segment">
                     <!-- LOCATION COORDINATES -->
                     <div class="field">
@@ -53,7 +53,7 @@
                 </div>
             </form>
             
-            <div class="ten wide column segment ui m-0" ref="map">
+            <div class="ten wide column segment ui !m-0" ref="map">
                 <!-- <iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
                     src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=intramuros&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                     style=".mapouter{position:relative;text-align:right;width:600px;height:500px;}.gmap_canvas {overflow:hidden;background:none!important;width:600px;height:500px;}.gmap_iframe {height:400px!important;}"
