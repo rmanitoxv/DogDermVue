@@ -71,7 +71,6 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
 export default {

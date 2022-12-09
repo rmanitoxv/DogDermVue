@@ -7,12 +7,16 @@
             <span class="text-2xl text-first barlow">Dog</span>
             <span class="text-2xl text-second barlow">Derma</span>
         </div>
-        <form @submit.prevent="editUser()">
+        <form @submit.prevent="afterComplete(file)">
             <div class="flex justify-center">
-                <div class="ml-[4.5rem] text-center">
-                    <img src="/images/sample-profile.svg" />
-                    <button class="w-[15.5rem] bg-first text-white py-3 rounded-2xl mt-[2.5rem] text-lg"> Upload Image
-                    </button>
+                <div class="ml-[2rem] text-center">
+                    <img :src="url" class="rounded-full w-[15rem] h-[15rem] shadow-md object-cover mb-6" />
+                    <label for="upload"
+                        class="w-[12rem] bg-first text-white py-2 px-4 rounded-3xl mt-[2.5rem] text-lg cursor-pointer">
+                        Upload Image
+                    </label>
+                    <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg"
+                        class="hidden" @input="getImage()" />
                 </div>
                 <div class="mt-[2.5rem] mx-[5.5rem] ">
                     <div class="flex items-center justify-end">
@@ -20,7 +24,7 @@
                             First Name:
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
-                            <input type="text" placeholder="First Name" class="login__input" id="first_name" :value="datas.first_name">
+                            <input type="text" placeholder="First Name" class="login__input" id="first_name" v-model="datas.first_name">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -28,7 +32,7 @@
                             Last Name:
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
-                            <input type="text" placeholder="Last Name" class="login__input" id="last_name" :value="datas.last_name">
+                            <input type="text" placeholder="Last Name" class="login__input" id="last_name" v-model="datas.last_name">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -36,7 +40,7 @@
                             Email:
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
-                            <input type="text" placeholder="Email" class="login__input" id="email" :value="datas.email">
+                            <input type="text" placeholder="Email" class="login__input" id="email" v-model="datas.email">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -44,21 +48,21 @@
                             Password:
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
-                            <input type="text" placeholder="Password" class="login__input" id="password" :value="datas.password">
+                            <input type="password" placeholder="Password" class="login__input" id="password" v-model="datas.password">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-2xl mr-6">
                             Role:
                         </label>
-                        <select id="role" class="login__box1 w-[18.75rem] mt-0" v-model="role">
-                            <option value="0">User</option>
-                            <option value="1">Admin</option>
+                        <select id="role" class="login__box1 w-[18.75rem] mt-0" v-model="datas.is_staff">
+                            <option :value="false">User</option>
+                            <option :value="true">Admin</option>
                         </select>
                     </div>
                     <div class="flex items-center mt-[1rem] justify-end">
-                        <button class="w-[7.5rem] bg-first text-white py-2 rounded-3xl mt-[2.5rem] text-lg">
-                            Edit
+                        <button :class="buttonClass" :disabled="saving">
+                            {{ status }}
                         </button>
                     </div>
                     <p v-if="response" class="text-red text-end">{{response}}</p>
@@ -68,24 +72,29 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { v4 as uuid } from 'uuid';
 export default {
     data() {
         return {
             id: this.$route.params.id,
             datas: {},
             response: null,
-            role: ""
+            url: null,
+            dburl: null,
+            status: 'Edit',
+            saving: 0,
+            buttonClass: 'w-[7.5rem] bg-first text-white py-2 rounded-2xl mt-[2.5rem] text-lg',
         }
     },
     methods: {
         editUser() {
-            axios.put(`/api/user/${this.id}`, {
-                first_name: first_name.value,
-                last_name: last_name.value,
-                email: email.value,
-                password: password.value,
-                isAdmin: role.value
+            axios.put(`/api/alluser/${this.id}/`, {
+                first_name: this.datas.first_name,
+                last_name: this.datas.last_name,
+                email: this.datas.email,
+                password: this.datas.password,
+                is_staff: this.datas.is_staff
             }
                 )
                 .then((response) => {
@@ -97,15 +106,41 @@ export default {
                 })
         },
         getData(id) {
-            axios.get(`/api/user/${id}`)
+            axios.get(`/api/alluser/${id}`)
             .then((response) => {
                 this.datas = response.data
-                this.role = response.data.isAdmin
+                this.dburl = response.data.url
+                const storage = getStorage();
+                const storageRef = ref(storage, 'images/' + this.datas.url);
+                getDownloadURL(storageRef)
+                    .then((url) => {
+                        this.url = url
+                    })
             })
             .catch((error) => {
                 console.log(error)
             })
-        }
+        },
+        getImage() {
+            this.file = upload.files[0];
+            this.url = URL.createObjectURL(this.file);
+        },
+        async afterComplete(e) {
+            this.saving = 1
+            this.status = 'Saving...'
+            this.buttonClass = 'w-[7.5rem] bg-grey cursor-none text-white py-2 rounded-2xl mt-[2.5rem] text-lg'
+            if (this.file) {
+                const file = e;
+                const re = /(?:\.([^.]+))?$/;
+                const ext = re.exec(file.name)[1];
+                const fileName = uuid() + '.' + ext ;
+                const storage = getStorage();
+                const storageRef = ref(storage, 'images/' + fileName);
+                await uploadBytesResumable(storageRef, file);
+                this.dburl = fileName
+            }
+            this.editUser()
+        },
     },
     created() {
         this.getData(this.id)

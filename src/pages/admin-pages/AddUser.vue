@@ -63,8 +63,8 @@
                         </select>
                     </div>
                     <div class="flex items-center mt-[1rem] justify-end">
-                        <button class="w-[7.5rem] bg-first text-white py-2 rounded-3xl mt-[2.5rem] text-lg">
-                            Add
+                        <button :class="buttonClass" :disabled="saving">
+                            {{ status }}
                         </button>
                     </div>
                     <p v-if="response" class="text-red text-end">{{response}}</p>
@@ -89,7 +89,7 @@ export default {
             }
                 )
                 .then((response) => {
-                    console.log(response.data)
+                    this.$router.push({name: 'AdminUsers'})
                 })
                 .catch((error) => {
                     console.log(error)

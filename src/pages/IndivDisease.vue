@@ -116,7 +116,7 @@ export default {
     },
     methods: {
         getData(id) {
-            axios.get(`/api/disease/${id}`)
+            axios.get(`/api/diseases/${id}`)
                 .then((response) => {
                     this.datas = response.data
                     const storage = getStorage();
