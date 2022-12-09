@@ -14,6 +14,7 @@ import CardSlider from './pages/CardSlider.vue';
 import MyMaps from './pages/MyMaps.vue';
 
 import Clinics from './pages/Clinics.vue';
+import Results from './pages/Results.vue';
 import Diseases from './pages/Diseases.vue';
 import IndivDisease from './pages/IndivDisease.vue';
 import IndividualSkinDiseases from './pages/IndividualSkinDiseases.vue';
@@ -33,11 +34,11 @@ const routes = [
     { path: '/', name: 'Homepage', component: Homepage },
     { path: '/login', name: 'Login', component: Login },
     { path: '/register', name: 'Register', component: Register },
-    { path: '/forgotpassword', name: 'ForgotPassword', component: ForgotPassword },
-    { path: '/resetpassword', name: 'ResetPassword', component: ResetPassword },
-    { path: '/profile', name: 'Profile', component: Profile },
-    { path: '/upload', name: 'Upload', component: Upload },
-    { path: '/uploadresult', name: 'UploadResult', component: UploadResult },
+    { path: '/forgotpassword', name: 'ForgotPassword', component: ForgotPassword, meta: {requireLogin: true} },
+    { path: '/resetpassword', name: 'ResetPassword', component: ResetPassword, meta: {requireLogin: true} },
+    { path: '/profile', name: 'Profile', component: Profile, meta: {requireLogin: true} },
+    { path: '/upload', name: 'Upload', component: Upload, meta: {requireLogin: true} },
+    { path: '/uploadresult', name: 'UploadResult', component: UploadResult, meta: {requireLogin: true} },
 
     { path: '/cardslider', name: 'CardSlider', component: CardSlider },
 
@@ -45,20 +46,21 @@ const routes = [
     { path: '/mymaps', name: 'MyMaps', component: MyMaps },
 
     { path: '/clinics', name: 'Clinics', component: Clinics },
+    { path: '/results', name: 'Results', component: Results, meta: {requireLogin: true} },
     { path: '/diseases', name: 'Diseases', component: Diseases },
     { path: '/diseases/:id', name: 'IndivDisease', component: IndivDisease },
     
     // Admin Routes
     { path: '/admin/profile', name: 'AdminProfile', component: AdminProfile, meta: {requireLogin: true} },
-    { path: '/admin/diseases', name: 'AdminDiseases', component: AdminDiseases },
-    { path: '/admin/clinics', name: 'AdminClinics', component: AdminClinics },
-    { path: '/admin/users', name: 'AdminUsers', component: AdminUsers },
-    { path: '/admin/adddisease', name: 'AddDisease', component: AddDisease },
-    { path: '/admin/editdisease/:id', name: 'EditDisease', component: EditDisease },
-    { path: '/admin/addclinics', name: 'AddClinics', component: AddClinics },
-    { path: '/admin/editclinics/:id', name: 'EditClinics', component: EditClinics },
-    { path: '/admin/adduser', name: 'AddUser', component: AddUser },
-    { path: '/admin/edituser/:id', name: 'EditUser', component: EditUser },
+    { path: '/admin/diseases', name: 'AdminDiseases', component: AdminDiseases, meta: {requireLogin: true} },
+    { path: '/admin/clinics', name: 'AdminClinics', component: AdminClinics, meta: {requireLogin: true} },
+    { path: '/admin/users', name: 'AdminUsers', component: AdminUsers, meta: {requireLogin: true} },
+    { path: '/admin/adddisease', name: 'AddDisease', component: AddDisease, meta: {requireLogin: true} },
+    { path: '/admin/editdisease/:id', name: 'EditDisease', component: EditDisease, meta: {requireLogin: true} },
+    { path: '/admin/addclinics', name: 'AddClinics', component: AddClinics, meta: {requireLogin: true} },
+    { path: '/admin/editclinics/:id', name: 'EditClinics', component: EditClinics, meta: {requireLogin: true} },
+    { path: '/admin/adduser', name: 'AddUser', component: AddUser, meta: {requireLogin: true} },
+    { path: '/admin/edituser/:id', name: 'EditUser', component: EditUser, meta: {requireLogin: true} },
 ]
 
 
