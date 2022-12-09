@@ -76,7 +76,6 @@
 <script>
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
-import SidebarVue from "../../layouts/Sidebar.vue";
 export default {
     props: {
         sidebarFunction: Function
@@ -163,7 +162,8 @@ export default {
                     last_name: last_name.value,
                     email: email.value,
                     password: password.value,
-                    url: this.dburl
+                    url: this.dburl,
+                    is_staff: "True"
                 })
                     .then((response) => {
                         this.datas = response.data

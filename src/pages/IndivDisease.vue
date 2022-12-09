@@ -58,7 +58,7 @@
                         </h2>
                         <!-- ACCORDION -->
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample" style="visibility: unset">
+                            data-bs-parent="#accordionExample">
                             <div class="accordion-body py-4 px-5">
                                 <div class="grid md:grid-cols-3 grid-cols-2 gap-3">
                                     <!-- IMG -->

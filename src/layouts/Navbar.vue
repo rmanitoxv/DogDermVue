@@ -89,17 +89,81 @@
                         </div>
                     </div>
                     <div class="nav__item__register" v-else>
-                        <div class="nav-item dropdown has-arrow main-drop">
-                            <a href="javascript:void(0)" class="dropdown-toggle nav-divnk" data-bs-toggle="dropdown">
+                        <div class="dropdown relative">
+                            <a href="#" 
+                                class="dropdown-toggle
+                                    text-second
+                                    transition
+                                    duration-150
+                                    ease-in-out
+                                    flex
+                                    items-center
+                                    hover:text-first" 
+                                    type="button"
+                                id="dropdownMenuButton2"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
                             <span class="adminmodule user-img">
                                 <img src="/images/sample-profile.svg" alt="" class="w-5 inline"/>
                                 {{ name }}
+                                
                             </span>
                             </a>
-                            <div class="dropdown-menu">
-                                <router-link class="dropdown-item" to="/profile">Profile</router-link>
-                                <button class="dropdown-item" @click="logout"> Logout</button>
-                            </div>
+                            <ul class="dropdown-menu
+                                w-full
+                                absolute
+                                hidden
+                                bg-white
+                                text-base
+                                z-50
+                                float-left
+                                py-2
+                                list-none
+                                text-left
+                                rounded-lg
+                                shadow-lg
+                                mt-1
+                                m-0
+                                bg-clip-padding
+                                border-none
+                                "
+                            aria-labelledby="dropdownMenuButton2">
+                                <li>
+                                    <router-link to="/profile" tag="button" class="dropdown-item
+                                        py-2
+                                        px-4
+                                        text-base
+                                        font-normal
+                                        font-sans
+                                        block
+                                        w-full
+                                        whitespace-nowrap
+                                        bg-transparent
+                                        text-grey
+                                        hover:text-second
+                                        active:bg-first
+                                        active:text-white
+                                        text-center" 
+                                    >Profile</router-link>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item
+                                        py-2
+                                        px-4
+                                        text-base
+                                        font-normal
+                                        block
+                                        w-full
+                                        whitespace-nowrap
+                                        bg-transparent
+                                        text-grey
+                                        hover:text-second
+                                        active:bg-first
+                                        active:text-white" 
+                                        @click="logout"
+                                        >Logout</button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                         
@@ -111,7 +175,6 @@
 </template>
 
 <script>
-import parseCookie from '../utils/parseCookie'
 export default {
     created() {
         this.currentRoute;
@@ -124,23 +187,22 @@ export default {
     },
     methods: {
         checkAuth() {
-            if (parseCookie(document.cookie).token){
-                axios.get('/api/get_token/', )
-                .then((response) => {
-                    this.authenticated = true
-                    this.name = response.data.first_name + " " + response.data.last_name
-                })
-                .catch((error) => {
-                    document.cookie = "token= ; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-                    console.log(error)
-                })
-            }
+            axios.get('/api/user/', )
+            .then((response) => {
+                this.authenticated = true
+                this.name = response.data[0].first_name + " " + response.data[0].last_name
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         },
         logout(){
-            axios.post('/api/logout/', {})
+            axios.post('/api/token/logout/', {})
             .then((response) => {
                 this.authenticated = false
-                document.cookie = "token= ; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+                axios.defaults.headers.common['Authorization'] = ""
+                localStorage.removeItem("token")
+                this.$store.commit('removeToken')
                 this.$router.push({ path: "/"});
             })
             .catch((error) => {
