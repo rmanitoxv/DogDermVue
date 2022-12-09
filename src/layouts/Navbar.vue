@@ -187,14 +187,16 @@ export default {
     },
     methods: {
         checkAuth() {
-            axios.get('/api/user/', )
-            .then((response) => {
-                this.authenticated = true
-                this.name = response.data[0].first_name + " " + response.data[0].last_name
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            if (localStorage.getItem("token")){
+                axios.get('/api/user/', )
+                    .then((response) => {
+                        this.authenticated = true
+                        this.name = response.data[0].first_name + " " + response.data[0].last_name
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
         },
         logout(){
             axios.post('/api/token/logout/', {})

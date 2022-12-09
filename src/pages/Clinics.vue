@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import parseCookie from '../utils/parseCookie'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 export default {
     data() {
@@ -122,15 +121,28 @@ export default {
     },
     methods: {
         locatorButtonPressed() {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    this.lat = position.coords.latitude;
-                    this.lng = position.coords.longitude;
-                },
-                error => {
-                    console.log("Error getting location");
-                }
-            );
+            this.$getLocation({
+                enableHighAccuracy: true,
+                timeout: Infinity,
+                maximumAge: 0
+            })
+            .then(coordinates => {
+                this.lat = coordinates.lat;
+                this.lng = coordinates.lng;
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            // navigator.geolocation.getCurrentPosition(
+            //     position => {
+            //         console.log(position)
+            //         this.lat = position.coords.latitude;
+            //         this.lng = position.coords.longitude;
+            //     },
+            //     error => {
+            //         console.log("Error getting location");
+            //     }
+            // );
         },
 
         findCloseByButtonPressed() {
