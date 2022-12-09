@@ -53,14 +53,14 @@
                             <textarea placeholder="Symptoms" class="login__input resize-none" rows="3" id="symptoms"></textarea>
                         </div>
                     </div>
+                    <div v-if="symptoms.length" class="flex mt-5 ml-40 w-[30rem]">
+                        Symptoms:
+                        <div v-for="item in symptoms" class="flex border border-grey rounded-full px-3 mx-1 text-grey">
+                            <button type="button" class="mr-3" @click="removeSymptom(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                        </div>
+                    </div>
                     <div class="flex justify-end">
                         <button type="button" class="w-[10rem] text-first border-[.15rem] border-first py-[.35rem] rounded-2xl mt-3 text-lg" @click="addSymptoms">Add Symptoms</button>
-                    </div>
-                    <div v-if="symptoms.length" class="ml-40 w-[30rem]">
-                        Symptoms:
-                        <div v-for="item in symptoms" class="flex">
-                            <button type="button" class="mr-3" @click="removeSymptom(item)"><i class="bi bi-x-lg text-red"></i></button>{{item}}
-                        </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-xl mr-6">

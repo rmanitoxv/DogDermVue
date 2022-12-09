@@ -44,7 +44,7 @@
                                 <div class="font-medium w-full">{{item.email}} {{index}}</div>
                                 <div class="font-medium w-full">{{item.first_name}}</div>
                                 <div class="font-medium w-full">{{item.last_name}}</div>
-                                <div class="font-medium w-full" v-if="item.isAdmin == 1">Admin</div>
+                                <div class="font-medium w-full" v-if="item.is_staff == 1">Admin</div>
                                 <div class="font-medium w-full" v-else>User</div>
                                 <div class="font-medium w-[50%] text-white">
                                     <button class="bg-blue w-[2.25rem] h-[2.25rem] rounded-xl mx-[0.25rem]"
@@ -101,7 +101,7 @@ export default {
                 })
         },
         deleteUser(id) {
-            axios.delete(`/api/user/${id}`, {
+            axios.delete(`/api/alluser/${id}/`, {
             })
             .then((response) => {
                 this.getUser()

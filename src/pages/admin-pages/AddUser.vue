@@ -7,12 +7,18 @@
             <span class="text-2xl text-first barlow">Dog</span>
             <span class="text-2xl text-second barlow">Derma</span>
         </div>
-        <form @submit.prevent="addUser()">
+        <form @submit.prevent="afterComplete(file)">
             <div class="flex mt-32 justify-center">
                 <div class="ml-[4.5rem] text-center">
-                    <img src="/images/sample-profile.svg" />
-                    <button class="w-[15.5rem] bg-first text-white py-3 rounded-2xl mt-[2.5rem] text-lg"> Upload Image
-                    </button>
+                    <img v-if="url" :src="url" class="rounded-full w-[15rem] h-[15rem] object-cover mb-6" />
+                    <img v-else src="/images/sample-profile.svg"
+                        class="rounded-full w-[15rem] h-[15rem] object-cover mb-6" />
+                    <label for="upload"
+                        class="w-[12rem] bg-first text-white p-2 rounded-3xl text-lg cursor-pointer">
+                        Upload Image
+                    </label>
+                    <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg"
+                        class="hidden" @input="getImage()" />
                 </div>
                 <div class="mt-[2.5rem] mx-[5.5rem] ">
                     <div class="flex items-center justify-end">
@@ -68,29 +74,51 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { v4 as uuid } from 'uuid';
 export default {
     methods: {
         addUser() {
-            axios.post('/api/user/', {
+            axios.post('/api/alluser/', {
                 first_name: first_name.value,
                 last_name: last_name.value,
                 email: email.value,
                 password: password.value,
-                isAdmin: role.value
+                is_staff: role.value,
+                url: this.url
             }
                 )
                 .then((response) => {
-                    this.$router.push({name: 'AdminUsers'})
+                    console.log(response.data)
                 })
                 .catch((error) => {
                     console.log(error)
                     this.response = error.response.data.message
+                    this.saving = 0
+                    this.status = 'Save'
+                    this.buttonClass = 'w-[7.5rem] bg-first cursor-none text-white py-2 rounded-2xl mt-[2.5rem] text-lg'
                 })
         },
-        test(){
-            console.log(role.value)
-        }
+        async afterComplete(e) {
+            this.saving = 1
+            this.status = 'Saving...'
+            this.buttonClass = 'w-[7.5rem] bg-grey cursor-none text-white py-2 rounded-2xl mt-[2.5rem] text-lg'
+            if (this.file) {
+                const file = e;
+                const re = /(?:\.([^.]+))?$/;
+                const ext = re.exec(file.name)[1];
+                const fileName = uuid() + '.' + ext ;
+                const storage = getStorage();
+                const storageRef = ref(storage, 'images/' + fileName);
+                await uploadBytesResumable(storageRef, file);
+                this.url = fileName
+            }
+            this.addUser()
+        },
+        getImage() {
+            this.file = upload.files[0];
+            this.url = URL.createObjectURL(this.file);
+        },
     },
     props: {
         sidebarFunction: Function
@@ -98,6 +126,13 @@ export default {
     data() {
         return{
             response: null,
+            url: null,
+            file: null,
+            dburl: null,
+            status: 'Add',
+            saving: 0,
+            buttonClass: 'w-[7.5rem] bg-first text-white py-2 rounded-2xl mt-[2.5rem] text-lg',
+            symptoms: []
         }
     }
 }

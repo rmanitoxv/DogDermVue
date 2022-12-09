@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col">
         <div class="left-10 top-6 absolute flex items-center">
-            <button @click="sidebarFunction">
+            <button type="buton" @click="sidebarFunction">
                 <img src="/images/list.svg" width="24" class="mr-3" />
             </button>
             <span class="text-2xl text-first barlow">Dog</span>
@@ -27,7 +27,7 @@
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
                             <input :disabled="validated == 1" type="text" placeholder="First Name" class="login__input"
-                                id="first_name" :value="datas.first_name" required />
+                                v-model="datas.first_name" required />
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -36,7 +36,7 @@
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
                             <input :disabled="validated == 1" type="text" placeholder="Last Name" class="login__input"
-                                id="last_name" :value="datas.last_name" required />
+                                id="last_name" v-model="datas.last_name" required />
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -45,7 +45,7 @@
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
                             <input :disabled="validated == 1" type="text" placeholder="Email" class="login__input"
-                                id="email" :value="datas.email" required />
+                                id="email" v-model="datas.email" required />
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -134,9 +134,9 @@ export default {
         saveProfile(id) {
             if (password.value == ''){
                 axios.put(`/api/user/${id}/`, {
-                    first_name: first_name.value,
-                    last_name: last_name.value,
-                    email: email.value,
+                    first_name: this.datas.first_name,
+                    last_name: this.datas.last_name,
+                    email: this.datas.email,
                     url: this.dburl
                 })
                     .then((response) => {
@@ -146,7 +146,6 @@ export default {
                         this.responseClass = "text-green text-end"
                         this.buttonLabel = 'Save'
                         this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
-                        SidebarVue.methods.getData()
                     })
                     .catch((error) => {
                         this.buttonLabel = 'Save'
@@ -173,7 +172,6 @@ export default {
                         this.responseClass = "text-green text-end"
                         this.buttonLabel = 'Save'
                         this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
-                        SidebarVue.methods.getData()
                     })
                     .catch((error) => {
                         this.buttonLabel = 'Save'

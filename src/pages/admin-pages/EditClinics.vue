@@ -10,9 +10,9 @@
         <form @submit.prevent="afterComplete(file)">
             <div class="flex justify-center">
                 <div class="ml-[2rem] text-center">
-                    <img :src="url" class="rounded-full w-[15rem] h-[15rem] object-cover" />
+                    <img :src="url" class="rounded-full w-[15rem] h-[15rem] shadow-md object-cover mb-6" />
                     <label for="upload"
-                        class="w-[12rem] bg-first text-white py-2 rounded-3xl mt-[2.5rem] text-lg cursor-pointer">
+                        class="w-[12rem] bg-first text-white py-2 px-4 rounded-3xl mt-[2.5rem] text-lg cursor-pointer">
                         Upload Image
                     </label>
                     <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg"
@@ -24,7 +24,7 @@
                             Clinic Name:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
-                            <input type="text" placeholder="Clinic Name" class="login__input" id="clinic_name" :value="datas.clinic_name">
+                            <input type="text" placeholder="Clinic Name" class="login__input" id="clinic_name" v-model="datas.clinic_name">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -32,7 +32,7 @@
                             Address:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
-                            <input type="text" placeholder="Address" class="login__input" id="clinic_address" :value="datas.clinic_address">
+                            <input type="text" placeholder="Address" class="login__input" id="clinic_address" v-model="datas.clinic_address">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -40,7 +40,7 @@
                             Mobile:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
-                            <input type="text" placeholder="Mobile" class="login__input" id="clinic_mobile" :value="datas.clinic_mobile">
+                            <input type="text" placeholder="Mobile" class="login__input" id="clinic_mobile" v-model="datas.clinic_mobile">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -48,7 +48,7 @@
                             Landline:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
-                            <input type="text" placeholder="Landline" class="login__input" id="clinic_landline" :value="datas.clinic_landline">
+                            <input type="text" placeholder="Landline" class="login__input" id="clinic_landline" v-model="datas.clinic_landline">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -56,7 +56,7 @@
                             Email:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
-                            <input type="text" placeholder="Email" class="login__input" id="clinic_email" :value="datas.clinic_email">
+                            <input type="text" placeholder="Email" class="login__input" id="clinic_email" v-model="datas.clinic_email">
                         </div>
                     </div>
                     <div class="flex items-center mt-[1rem] justify-end">
@@ -89,12 +89,12 @@ export default {
     },
     methods: {
         editClinics() {
-            axios.patch(`/api/clinics/${this.id}`, {
-                clinic_name: clinic_name.value,
-                clinic_address: clinic_address.value,
-                clinic_mobile: clinic_mobile.value,
-                clinic_landline: clinic_landline.value,
-                clinic_email: clinic_email.value,
+            axios.patch(`/api/clinics/${this.id}/`, {
+                clinic_name: this.datas.clinic_name,
+                clinic_address: this.datas.clinic_address,
+                clinic_mobile: this.datas.clinic_mobile,
+                clinic_landline: this.datas.clinic_landline,
+                clinic_email: this.datas.clinic_email,
                 url: this.dburl
             }
                 )
@@ -110,7 +110,7 @@ export default {
                 })
         },
         getData(id) {
-            axios.get(`/api/clinics/${id}`)
+            axios.get(`/api/clinics/${id}/`)
             .then((response) => {
                 this.datas = response.data
                 this.dburl = response.data.url
