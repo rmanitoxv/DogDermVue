@@ -30,14 +30,6 @@
                                 :size="225" />
                         </div>
                     </SwiperSlide>
-                    <SwiperSlide>
-                        <div class="flex flex-col items-center justify-center h-full mt-12">
-                            <h3> TREATMENTS </h3>
-                            <p class="pb-24 overflow-auto mx-5 ">
-                                {{ treatment }}
-                            </p>
-                        </div>
-                    </SwiperSlide>
                     <SwiperSlide class="flex flex-col items-center justify-center">
                         <img src="/images/map.svg" class="h-[55%] mb-3"/>
                         <router-link to="/clinics"
@@ -48,6 +40,7 @@
                 </Swiper>
             </div>
         </div>
+        <IndivDiseaseVue ref="childComponent" />
     </div>
 </template>
 <script setup>
@@ -60,7 +53,7 @@ import 'swiper/css/bundle';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
-import axios from 'axios';
+import IndivDiseaseVue from './IndivDisease.vue';
 export default {
     data() {
         return {
@@ -77,7 +70,6 @@ export default {
             ],
             id: this.$route.params.id,
             datas: {},
-            treatment: null
         }
     },
     methods:{
@@ -92,19 +84,19 @@ export default {
                         .then((url) => {
                             this.datas.url = url
                         })
-                this.getTreatments()
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        },
+                        this.getTreatments()
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                },
         getTreatments(){
             for(let i = 0; i<=8; i++){
                 if (this.data[i] == this.datas.disease){
                     axios.get(`/api/diseases/${i+1}`)
                     .then((response) => {
-                        console.log(response.data)
-                        this.treatment = response.data.treatment
+                        this.$refs.childComponent.getData(response.data.id)
+                        this.$refs.childComponent.hidden = true
                     })
                     .catch((error) => {
                         console.log(error)
@@ -114,6 +106,7 @@ export default {
         }
     },
     components() {
+        IndivDiseaseVue,
         { CircleProgress }
     },
     created(){

@@ -1,7 +1,7 @@
 <template>
     <div class="container flex gap-8 mx-auto mt-20 md:px-20">
         <!-- STICKY SIDEBAR -->
-        <aside class="top-25 left-96 self-start w-40 hidden md:block flex-initial">
+        <aside v-if="!hidden" class="top-25 left-96 self-start w-40 hidden md:block flex-initial">
             <!-- ON THIS PAGE LINKS -->
             <label class="amiko text-first font-semibold text-xl">On this page</label>
             <ul class="text-base underline-offset-4">
@@ -110,7 +110,8 @@ export default {
         return {
             id: this.$route.params.id,
             datas: {},
-            symptoms: null
+            symptoms: null,
+            hidden: false
         }
     },
     methods: {
@@ -131,7 +132,7 @@ export default {
                 })
         }
     },
-    created() {
+    mounted() {
         this.getData(this.id)
     }
 }
