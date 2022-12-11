@@ -44,7 +44,7 @@
 
 <script>
 import axios from 'axios';
-import parseCookie from '../utils/parseCookie';
+;
 export default {
     methods: {
         loginForm(){

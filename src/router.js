@@ -38,7 +38,7 @@ const routes = [
     { path: '/resetpassword', name: 'ResetPassword', component: ResetPassword, meta: {requireLogin: true} },
     { path: '/profile', name: 'Profile', component: Profile, meta: {requireLogin: true} },
     { path: '/upload', name: 'Upload', component: Upload, meta: {requireLogin: true} },
-    { path: '/uploadresult', name: 'UploadResult', component: UploadResult, meta: {requireLogin: true} },
+    { path: '/uploadresult/:id', name: 'UploadResult', component: UploadResult, meta: {requireLogin: true} },
 
     { path: '/cardslider', name: 'CardSlider', component: CardSlider },
 

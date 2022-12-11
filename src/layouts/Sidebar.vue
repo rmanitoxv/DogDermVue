@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import parseCookie from '../utils/parseCookie';
+;
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 export default {
     created() {

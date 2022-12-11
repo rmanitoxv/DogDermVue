@@ -52,18 +52,16 @@ import axios from 'axios';
     export default {
         methods: {
             registerForm() {
-                axios.post('/api/users/', {
-                    url: upload.value,
-                    first_name: first_name.value, 
-                    last_name: last_name.value,
-                    email: email.value,
-                    password: password.value,
-                    is_staff: 0,
-                    is_superuser: 0,
-                    is_active: 1
-                })
+                axios.post('/api/user/', {
+                first_name: first_name.value,
+                last_name: last_name.value,
+                email: email.value,
+                password: password.value,
+                is_staff: 0,
+                url: upload.value,
+            }
+                )
                 .then((response) => {
-                    document.cookie =`token=${response.data}`;
                     this.$router.push({ name: "Homepage" })
                 })
                 .catch((error) => {

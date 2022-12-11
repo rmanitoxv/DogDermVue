@@ -2,13 +2,13 @@
     <div class="flex-col justify-center mt-[10.75rem] text-center">
         <p class="text-[2.5rem] text-second font-semibold"> SKIN DISEASE DETECTION </p>
         <p class="text-[0.875rem] font-medium text-sixth">Results are in!</p>
-        <p class="text-4xl font-semibold italic text-first">Ringworms Detected</p>
+        <p class="text-4xl font-semibold italic text-first">{{ datas.disease }} Detected</p>
         <div class="flex mt-14 justify-center">
             <div class="flex w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] mr-[6.5rem]">
-
+                <img :src="datas.url" class="object-cover rounded-[1.5rem]" />
             </div>
             <div class="w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] relative">
-                <p class="text-3xl top-4 absolute w-full z-5">Ringworms</p>
+                <p class="text-3xl top-4 absolute w-full z-5">{{ datas.disease }}</p>
                 <Swiper :slides-per-view="1" :space-between="50" :modules="[Navigation, Pagination, Virtual, Autoplay]"
                     :navigation="{ nextEl: '.nextArrow', prevEl: '.prevArrow' }" :pagination="{ clickable: true }" autoplay
                     grab-cursor class="object-cover w-[24.5rem] h-[24.5rem]">
@@ -22,8 +22,8 @@
                     </div>
                     <SwiperSlide class="relative">
                         <div class="absolute w-full top-[40%]">
-                            <p class="text-6xl mb-1"> 82% </p>
-                            <p class="text-grey"> ringworms </p>
+                            <p class="text-6xl mb-1"> {{ datas.confidence }}% </p>
+                            <p class="text-grey"> {{ datas.disease }} </p>
                         </div>
                         <div class="flex items-center justify-center h-full text-">
                             <circle-progress :percent="82" :viewport="true" fill-color="#112B3C" empty-color="#ECF1F8"
@@ -31,15 +31,11 @@
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <div class="flex items-center justify-center h-full">
-                            <div class="flex flex-col justify-center w-full">
-                                <div class="flex mt-1" v-for="item in datas">
-                                    <div class="text-end w-[50%] mr-2 text-grey">{{ item.disease }}</div>
-                                    <div class="w-[50%] flex items-center">
-                                        <div class="text-start bg-grey h-2" :style="{ width: item.result }"> &nbsp; </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="flex flex-col items-center justify-center h-full mt-12">
+                            <h3> TREATMENTS </h3>
+                            <p class="pb-24 overflow-auto mx-5 ">
+                                {{ treatment }}
+                            </p>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide class="flex flex-col items-center justify-center">
@@ -61,27 +57,67 @@ import 'swiper/css';
 import 'swiper/css/bundle';
 </script>
 <script>
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
+import axios from 'axios';
 export default {
     data() {
         return {
-            datas: [
-                { disease: 'Ringworms', result: '82%' },
-                { disease: 'MRSA', result: '70%' },
-                { disease: 'Sarcoptic Mange', result: '60%' },
-                { disease: 'Flea Infestation', result: '50%' },
-                { disease: 'Tick-borne Disease', result: '50%' },
-                { disease: 'Harvest Mites', result: '0%' },
-                { disease: 'Yeast Infestations', result: '0%' },
-                { disease: 'Hotspot', result: '0%' },
-                { disease: 'Folliculitis', result: '0%' },
-                { disease: 'Carbuncles', result: '0%' }
-            ]
+            data: [
+                'Sarcoptic Mange',
+                'MRSA',
+                'Ringworms',
+                'Flea Infestation',
+                'Tickborne Disease',
+                'Harvest Mites',
+                'Yeast Infection',
+                'Hotspots',
+                'Folliculitis'
+            ],
+            id: this.$route.params.id,
+            datas: {},
+            treatment: null
+        }
+    },
+    methods:{
+        getResults(){
+            axios.get(`/api/results/${this.id}`)
+            .then((response) => {
+                this.datas = response.data
+                this.datas.confidence = this.datas.confidence.toFixed(2) * 100
+                const storage = getStorage();
+                    const storageRef = ref(storage, 'images/' + this.datas.url);
+                    getDownloadURL(storageRef)
+                        .then((url) => {
+                            this.datas.url = url
+                        })
+                this.getTreatments()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        },
+        getTreatments(){
+            for(let i = 0; i<=8; i++){
+                if (this.data[i] == this.datas.disease){
+                    axios.get(`/api/diseases/${i+1}`)
+                    .then((response) => {
+                        console.log(response.data)
+                        this.treatment = response.data.treatment
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                }
+            }
         }
     },
     components() {
         { CircleProgress }
+    },
+    created(){
+        this.getResults()
     }
 }
 
