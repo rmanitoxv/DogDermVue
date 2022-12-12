@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col justify-center mt-[10.75rem] text-center">
-        <p class="text-[2.5rem] text-second font-semibold"> SKIN DISEASE DETECTION </p>
+    <div class="flex flex-col justify-center my-[10.75rem] text-center">
+        <p class="text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
         <p class="text-[0.875rem] font-medium text-sixth">Upload a picture of your dog’s skin.</p>
         <form class="align-self-center" @submit.prevent="afterComplete(file)">
             <div class="flex flex-col justify-center items-center">
@@ -74,7 +74,8 @@ export default {
             bind: "",
             canvas: false,
             dataUrl: null,
-            dburl: null
+            dburl: null,
+            file: null
         }
     },
     methods: {
@@ -113,6 +114,7 @@ export default {
             })
         },
         useCamera(){
+            this.file = null
             this.video = !this.video
             if(this.url){
                 this.url = null
@@ -143,14 +145,40 @@ export default {
             const context = self.$refs.canvas.getContext('2d')
             context.drawImage(self.$refs.camera, 0, 0, 500, 400)
             this.dataUrl = self.$refs.canvas.toDataURL("image/png")
+            this.file =  dataURItoBlob(this.dataUrl);
+            function dataURItoBlob(dataURI) {
+                // convert base64/URLEncoded data component to raw binary data held in a string
+                var byteString;
+                if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                    byteString = atob(dataURI.split(',')[1]);
+                else
+                    byteString = unescape(dataURI.split(',')[1]);
+                // separate out the mime component
+                var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+                // write the bytes of the string to a typed array
+                var ia = new Uint8Array(byteString.length);
+                for (var i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ia], {type:mimeString});
+            }
             this.canvas = true
             this.video = false
         },
         async afterComplete(e) {
-            const file = upload.files[0];
-            const re = /(?:\.([^.]+))?$/;
-            const ext = re.exec(file.name)[1];
-            const fileName = uuid() + '.' + ext ;
+            let fileName
+            let file
+            if (this.file){
+                file = this.file
+                fileName = uuid()
+
+            }
+            else{
+                file = upload.files[0];
+                const re = /(?:\.([^.]+))?$/;
+                let ext = re.exec(file.name)[1];
+                fileName = uuid() + '.' + ext ;
+            }
             const storage = getStorage();
             const storageRef = ref(storage, 'images/' + fileName);
             await uploadBytesResumable(storageRef, file);

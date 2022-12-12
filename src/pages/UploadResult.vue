@@ -1,11 +1,11 @@
 <template>
     <div class="flex-col justify-center my-[10.75rem] text-center">
-        <p class="text-[2.5rem] text-second font-semibold"> SKIN DISEASE DETECTION </p>
+        <p class="text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
         <p class="text-[0.875rem] font-medium text-sixth">Results are in!</p>
         <p class="text-4xl font-semibold italic text-first">{{ datas.disease }} Detected</p>
         <div class="flex mt-14 justify-center">
             <div class="flex w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] mr-[6.5rem]">
-                <img :src="datas.url" class="object-cover rounded-[1.5rem]" />
+                <img :src="datas.url" class="object-cover rounded-[1.5rem] w-[24.5rem] h-[24.5rem]" />
             </div>
             <div class="w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] relative">
                 <p class="text-3xl top-4 absolute w-full z-5">{{ datas.disease }}</p>
@@ -26,7 +26,7 @@
                             <p class="text-grey"> {{ datas.disease }} </p>
                         </div>
                         <div class="flex items-center justify-center h-full text-">
-                            <circle-progress :percent="82" :viewport="true" fill-color="#112B3C" empty-color="#ECF1F8"
+                            <circle-progress :percent="datas.confidence " :viewport="true" fill-color="#112B3C" empty-color="#ECF1F8"
                                 :size="225" />
                         </div>
                     </SwiperSlide>

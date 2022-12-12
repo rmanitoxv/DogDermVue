@@ -7,7 +7,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-2 grid-cols-1 three wide column">
-            <form class="!m-0 ui segment large form" @submit.prevent="findCloseByButtonPressed()">
+            <form class="!m-0 ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
                 <div class="ui segment">
                     <!-- LOCATION COORDINATES -->
                     <div class="field">
@@ -28,10 +28,9 @@
 
                             <div class="field">
                                 <select id="radius">
-                                    <option value="5">5 KM</option>
-                                    <option value="10">10 KM</option>
-                                    <option value="15">15 KM</option>
-                                    <option value="20">20 KM</option>
+                                    <option :value=2>2 KM</option>
+                                    <option :value=4>4 KM</option>
+                                    <option :value=6>6 KM</option>
                                 </select>
                             </div>
                         </div>
@@ -41,11 +40,12 @@
                 
                 <!-- LIST OF PLACES -->
                 <div class="ui segment"  style="max-height:500px;overflow:scroll">
-                    <div class="ui divided items">
-                        <div class="item" v-for="place in places" :key="place.id">
-                            <div class="content">
-                                <div class="amiko font-bold text-lg">{{place.name}}</div>
-                                <div class="meta">{{place.vicinity}}</div>
+                    <div v-if="sidebar" class="ui divided items">
+                        <div class="item !flex !flex-col">
+                            <div v-for="place in markers" class="content">
+                                <div v-if="calcCrow(lat, lng, place.x, place.y) < radius" class="pt-4 amiko font-bold text-lg">{{place.name}}</div>
+                                <div v-if="calcCrow(lat, lng, place.x, place.y) < radius" class="!pb-4 meta">{{place.address}}</div>
+                                <hr v-if="calcCrow(lat, lng, place.x, place.y) < radius" class="w-full"/>
                             </div>
                         </div>
                     </div>
@@ -98,244 +98,151 @@ export default {
             lat: 0,
             lng: 0,
             type: "veterinary_care",
-            radius: "",
+            radius: null,
             places: [],
             clinics: {},
+            sidebar: false,
             markers: [
-                [
-                    "PETLINK - R.PAPA",
-                    14.636930813048608,
-                    120.98053919140165,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "BETERINARYO NG TONDO CO.",
-                    14.628076606999961,
-                    120.97350294232788,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "MT.ZION ANIMAL CLINIC",
-                    14.630642723499628,
-                    120.97392976240079,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "NORTH BAY VETERINARY CLINIC & PET SUPPLY",
-                    14.625592301109746,
-                    120.96715440361679,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "PETS AVENUE ANIMAL WELLNESS CENTER",
-                    14.602766074471445,
-                    121.00966905101234,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "CITIVET VETERINARY CLINIC & PET SUPPLY CO",
-                    14.616956460393375,
-                    120.99402463188937,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "VITAS VETERINARY INSPECTION BOARD",
-                    14.627287793020551,
-                    120.96202445718099,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "CAYCO ANIMAL CLINIC",
-                    14.60509795506496, 
-                    120.99656962273642,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "VET FRONT ANIMAL WELLNESS CENTER",
-                    14.616735955018765,
-                    120.99130209993999,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "VETCARE PLUS VETERINARY CLINIC",
-                    14.610780847677502,
-                    120.97515652881145,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "CURA PET ANIMAL CLINIC",
-                    14.58185385942606,
-                    121.01088339210655,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "SANTA ANA ANIMAL HEALTH CLINIC",
-                    14.5823136266778,
-                    121.01342271904925,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "DAVID A DELOS TRINOS VETERINARY CLINIC",
-                    14.61548106002311,
-                    120.97333075582075,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "MINDZ PET VETERINARY SERVICES",
-                    14.616068665850529,
-                    120.96972171904923,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "TOLENTINOS ANIMAL CLINIC",
-                    14.633548130080529,
-                    120.97867437301643,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "GREEN CROWN VETERINARY CLINIC",
-                    14.576443865263428,
-                    121.01148825445321,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "PETCORE ANIMAL CLINIC",
-                    14.584042317013353,
-                    121.00140946560653,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "HANNA PET WELLNESS CENTER INC",
-                    14.567134104619678,
-                    121.00209682698359,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "NOMAR ANIMAL CLINIC",
-                    14.613830786530714,
-                    120.99909537301644,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "THE ANIMAL HOUSE VET CLINIC",
-                    14.599799673073766,
-                    120.97428209765603,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "FIL-CHINESE VETERINARY SVCS",
-                    14.608999074954193,
-                    120.97915787301642,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "GOLDWINGS VETERINARY CLINIC",
-                    14.61584358662534,
-                    120.97050091111487,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "YOUR VETS ANIMAL CLINIC",
-                    14.609117394266548,
-                    121.0037726441486,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "BMC VETERINARY CLINIC",
-                    14.614881541768046,
-                    120.96888510181853,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "MANILA VETS ANIMAL CLINIC CO.",
-                    14.607154196355271,
-                    121.0083082846219,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "DOWNTOWN ANIMAL CLINIC",
-                    14.620905340951756,
-                    120.97705633851383,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "DAGUPAN VETERINARY CLINIC",
-                    14.616015585914177,
-                    120.97349577716068,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "PAMPOLINA VETERINARY CLINIC AND GROOMING CENTER",
-                    14.567609290635087,
-                    120.99423492311043,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "KINGIYAMAN PET CLINIC",
-                    14.615279971805675,
-                    121.0012785536699,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "PET ACCESS VETERINARY CLINIC CO.",
-                    14.603005758703782,
-                    121.01393303850716,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "PHILIPPINE SOCIETY FOR THE PREVENTION OF CRUELTY TO ANIMALS INC",
-                    14.601976226480554,
-                    120.98781190771591,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "PRIMITIVA VETERINARY CLINIC",
-                    14.578223124604916, 
-                    121.00101089562749,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "WT ANIMAL WELLNESS AND VETERINARY CLINIC",
-                    14.611662191206603,
-                    121.00569563552321,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "JOSE ABAD SANTOS VET CLINIC",
-                    14.61801609903854, 
-                    120.97747105046797,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "FURRPET VETERINARY SERVICES",
-                    14.603024671703157,
-                    120.96226687109395,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "TVC VETERINARY CLINIC SAMPALOC BRANCH",
-                    14.611666882301027, 
-                    120.99550178462951,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "TVC VETERINARY CLINIC TONDO BRANCH",
-                    14.611666882301027,
-                    120.99550178462952,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "TAMANI VETERINARY CLINIC",
-                    14.617660284209116,
-                    120.9727862532989,
-                    "vet-loc-marker.png"
-                ],
-                [
-                    "VETZONE ANIMAL CLINIC CO",
-                    14.588672149260733,
-                    121.02190537292338,
-                    "vet-loc-marker.png"
-                ],
+                {
+                    "name": "PETLINK - R.PAPA",
+                    "x": 14.636930813048608,
+                    "y": 120.98053919140165,
+                    "icon": "vet-loc-marker.png",
+                    "address": "3432 Arsenio Herrera St, Tondo, Manila, Metro Manila"
+                },
+                {
+                    "name": "BETERINARYO NG TONDO CO.",
+                    "x": 14.628076606999961,
+                    "y": 120.97350294232788,
+                    "icon": "vet-loc-marker.png",
+                    "address": "2508 Juan Luna St, Tondo, Manila, Metro Manila"
+                },
+                {
+                    "name": "MT.ZION ANIMAL CLINIC",
+                    "x": 14.630642723499628,
+                    "y": 120.97392976240079,
+                    "icon": "vet-loc-marker.png",
+                    "address": "2707 B Manotoc St, Tondo, Manila, Metro Manila"
+                },
+                {
+                    "name": "NORTH BAY VETERINARY CLINIC & PET SUPPLY",
+                    "x": 14.625592301109746,
+                    "y": 120.96715440361679,
+                    "icon": "vet-loc-marker.png",
+                    "address": "434 Honorio Lopez Blvd.corner Fidel St., Brgy 148, Zone 13, Tondo, Manila"
+                },
+                {
+                    "name": "PETS AVENUE ANIMAL WELLNESS CENTER",
+                    "x": 14.602766074471445,
+                    "y": 121.00966905101234,
+                    "icon": "vet-loc-marker.png",
+                    "address": "3574 Buenos Aires St. cor. Altura St. Sampaloc, Manila, Philippines"
+                },
+                {
+                    "name": "CITIVET VETERINARY CLINIC & PET SUPPLY CO",
+                    "x": 14.616956460393375,
+                    "y": 120.99402463188937,
+                    "icon": "vet-loc-marker.png",
+                    "address": "1913 Dapitan St, Sampaloc, Manila, 1008 Metro Manila"
+                },
+                {
+                    "name": "VITAS VETERINARY INSPECTION BOARD",
+                    "x": 14.627287793020551,
+                    "y": 120.96202445718099,
+                    "icon": "vet-loc-marker.png",
+                    "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila"
+                },
+                {
+                    "name": "VET FRONT ANIMAL WELLNESS CENTER",
+                    "x": 14.616735955018765,
+                    "y": 120.99130209993999,
+                    "icon": "vet-loc-marker.png",
+                    "address": "1764 Laong Laan Rd, Sampaloc, Manila, 1008 Metro Manila"
+                },
+                {
+                    "name": "SANTA ANA ANIMAL HEALTH CLINIC",
+                    "x": 14.5823136266778,
+                    "y": 121.01342271904925,
+                    "icon": "vet-loc-marker.png",
+                    "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila"
+                },
+                {
+                    "name": "TOLENTINOS ANIMAL CLINIC",
+                    "x": 14.633548130080529,
+                    "y": 120.97867437301643,
+                    "icon": "vet-loc-marker.png",
+                    "address": "Hermosa Arcade Center, 3067 Molave St, Tondo, Manila, 1013 Metro Manila"
+                },
+                {
+                    "name": "PETCORE ANIMAL CLINIC",
+                    "x": 14.584042317013353,
+                    "y": 121.00140946560653,
+                    "icon": "vet-loc-marker.png",
+                    "address": "Unit 1, Clean Fuel Gasoline Station, 1883 Pres, Quirino Ave, Pandacan, Manila"
+                },
+                {
+                    "name": "HANNA PET WELLNESS CENTER INC",
+                    "x": 14.567134104619678,
+                    "y": 121.00209682698359,
+                    "icon": "vet-loc-marker.png",
+                    "address": "1266 P. Ocampo St., corner G. del Pilar St., 756, Manila, 1110 Metro Manila"
+                },
+                {
+                    "name": "NOMAR ANIMAL CLINIC",
+                    "x": 14.613830786530714,
+                    "y": 120.99909537301644,
+                    "icon": "vet-loc-marker.png",
+                    "address": "1984, S.H. Loyola, corner Maceda St, Sampaloc, Manila, 1008 Metro Manila"
+                },
+                {
+                    "name": "THE ANIMAL HOUSE VET CLINIC",
+                    "x": 14.599799673073766,
+                    "y": 120.97428209765603,
+                    "icon": "vet-loc-marker.png",
+                    "address": "AH Binondo 599 Quintin Paredes"
+                },
+                {
+                    "name": "GOLDWINGS VETERINARY CLINIC",
+                    "x": 14.61584358662534,
+                    "y": 120.97050091111487,
+                    "icon": "vet-loc-marker.png",
+                    "address": "1601 Juan Luna St, Tondo, Manila, Metro Manila"
+                },
+                {
+                    "name": "PAMPOLINA VETERINARY CLINIC AND GROOMING CENTER",
+                    "x": 14.567609290635087,
+                    "y": 120.99423492311043,
+                    "icon": "vet-loc-marker.png",
+                    "address": "2380 Leon Guinto St, Malate, Manila, 1004 Metro Manila"
+                },
+                {
+                    "name": "KINGIYAMAN PET CLINIC",
+                    "x": 14.615279971805675,
+                    "y": 121.0012785536699,
+                    "icon": "vet-loc-marker.png",
+                    "address": "856 Sto Tomas St., 529, Maynila, 1008 Kalakhang Maynila"
+                },
+                {
+                    "name": "PET ACCESS VETERINARY CLINIC CO.",
+                    "x": 14.603005758703782,
+                    "y": 121.01393303850716,
+                    "icon": "vet-loc-marker.png",
+                    "address": "3946 Magsaysay Blvd, Santa Mesa, Manila, Metro Manila"
+                },
+                {
+                    "name": "PHILIPPINE SOCIETY FOR THE PREVENTION OF CRUELTY TO ANIMALS INC",
+                    "x": 14.601976226480554,
+                    "y": 120.98781190771591,
+                    "icon": "vet-loc-marker.png",
+                    "address": "Philippine Society for the Prevention of Cruelty to Animals @ 2044 C.M. Recto Ave.,Quiapo Manila "
+                },
+                {
+                    "name": "WT ANIMAL WELLNESS AND VETERINARY CLINIC",
+                    "x": 14.611662191206603,
+                    "y": 121.00569563552321,
+                    "icon": "vet-loc-marker.png",
+                    "address": "1971 Gerardo Tuazon St. Sampaloc (beside I Love Milktea), Manila, Philippines"
+                },
             ]
         };
     },
@@ -374,22 +281,6 @@ export default {
             //     }
             // );
         },
-
-        findCloseByButtonPressed() {
-            const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat},${this.lng}&type=${this.type}&radius=${radius.value * 1000}&key=AIzaSyCSvvmwaZ3j0VaHbCE2MJZSKxguQRPcS-o`;
-
-            axios
-                .get(URL)
-                .then(response => {
-                    this.places = response.data.results;
-                    this.addLocationsToGoogleMaps();
-                    console.log(URL)
-                })
-                .catch(error => {
-                console.log(error);
-            });
-        },
-
         addLocationsToGoogleMaps() {
             var map = new google.maps.Map(this.$refs['map'], {
                 zoom: 15,
@@ -400,27 +291,31 @@ export default {
             var infowindow = new google.maps.InfoWindow();
 
             this.markers.forEach(markers => {
-                const lat = markers[1];
-                const lng = markers[2];
+                this.radius = radius.value
+                const lat = markers.x;
+                const lng = markers.y;
+                const distance = this.calcCrow(this.lat, this.lng, lat, lng)
+                console.log(markers.name, distance, radius.value)
+                if (distance < radius.value){
+                    let marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(lat, lng),
+                        map: map,
+                        icon: {
+                            url: markers.icon,
+                            scaledSize: new google.maps.Size(40, 40),
+                        }
+                    });
 
-                let marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(lat, lng),
-                    map: map,
-                    icon: {
-                        url: markers[3],
-                        scaledSize: new google.maps.Size(40, 40),
-                    }
-                });
-
-                google.maps.event.addListener(marker, "click", () => {
-                    infowindow.setContent(
-                        `<div class="ui header">${markers[0]}`
-                    );
-                    
-                    infowindow.open(map, marker);
-                });
+                    google.maps.event.addListener(marker, "click", () => {
+                        infowindow.setContent(
+                            `<div class="ui header">${markers.name}</div><p>${markers.address}`
+                        );
+                        
+                        infowindow.open(map, marker);
+                    });
+                }
             });
-            
+            this.sidebar = true
 
             // FOR LOOP FOR MARKER LOCATIONS
             // for(let i = 0; i<markers.length; i++) {
@@ -457,6 +352,22 @@ export default {
             // });
 
             // markers.setMap(map);
+        },
+        calcCrow(lat1, lon1, lat2, lon2) {
+            let R = 6371; // km
+            let dLat = this.toRad(lat2-lat1);
+            let dLon = this.toRad(lon2-lon1);
+            lat1 = this.toRad(lat1);
+            lat2 = this.toRad(lat2);
+
+            let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+            let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            let d = R * c;
+            return d;
+        },
+        toRad(Value){
+            return Value * Math.PI / 180;
         },
         getClinics() {
             axios.get('/api/clinics/')
