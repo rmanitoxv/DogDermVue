@@ -52,17 +52,18 @@
                 </div>
                 <div v-else-if="canvas" class="flex justify-between w-[24.5rem]">
                     <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
-                    <button class="mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center">Submit</button>
+                    <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <div v-else class="flex justify-between w-[24.5rem]">
                     <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Use Camera</button>
-                    <button class="mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center">Submit</button>
+                    <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
             </div>
         </form>
     </div>
 </template>
 <script>
+import { submit } from "dom7";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
 export default {
@@ -75,7 +76,10 @@ export default {
             canvas: false,
             dataUrl: null,
             dburl: null,
-            file: null
+            file: null,
+            status: "Submit",
+            submitClass: "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center",
+            saving: 0
         }
     },
     methods: {
@@ -84,13 +88,15 @@ export default {
             this.url = URL.createObjectURL(file);
             this.fileName = upload.files.item(0).name
             const reader = new FileReader();
-
             reader.onloadend = () => {
                 this.dataUrl =  reader.result
             };
             reader.readAsDataURL(file);
         },
         uploadImage(){
+            this.saving = 1
+            this.status = "Detecting..."
+            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-grey text-white align-self-center"
             axios.post("https://rmanitoxv-dogderma.hf.space/run/predict", {
                 data: [
                     this.dataUrl
@@ -106,6 +112,9 @@ export default {
                     this.$router.push({ name: "UploadResult", params: { id: response.data.id } })
                 })
                 .catch((error) => {
+                    this.saving = 0
+                    this.status = "Submit"
+                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center"
                     console.log(error)
                 })
             })

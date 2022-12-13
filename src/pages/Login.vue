@@ -24,7 +24,7 @@
 
                         <router-link to="/forgotpassword" class="login__forgot">Forgot password?</router-link>
 
-                        <button class="login__button w-full">Sign In</button>
+                        <button :class="loginButton" :disabled="loggingIn"> {{status}} </button>
 
                         <div>
                             <span class="login__account">Don't have an account?</span>
@@ -48,8 +48,10 @@ import axios from 'axios';
 export default {
     methods: {
         loginForm(){
+            this.loginButton = "login__button w-full !bg-grey"
+            this.loggingIn = 1
+            this.status = "Signing In"
             axios.defaults.headers.common['Authorization'] = ""
-
             localStorage.removeItem("token")
             axios.post('/api/token/login/', {
                 email: email.value,
@@ -76,17 +78,22 @@ export default {
                 })
             })
             .catch((error) => {
-                console.log(JSON.stringify(error))
+                this.loginButton = "login__button w-full"
+                this.loggingIn = 0
+                this.status = "Sign In"
+                console.log(error)
                 for (const prop in error.response.data){
-                    this.response = `${error.response.data[prop]}`
+                    this.response = "Wrong Username or Password"
                 }
-
             })
         }
     },
     data() {
         return{
-            response: null
+            response: null,
+            loginButton: "login__button w-full",
+            status: "Sign In",
+            loggingIn: 0
         }
     }
 }
