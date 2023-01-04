@@ -1,46 +1,48 @@
 <template>
-    <div class="flex-col justify-center my-[10.75rem] text-center">
-        <p class="text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
-        <p class="text-[0.875rem] font-medium text-sixth">Results are in!</p>
-        <p class="text-4xl font-semibold italic text-first">{{ datas.disease }} Detected</p>
-        <div class="flex mt-14 justify-center">
-            <div class="flex w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] mr-[6.5rem]">
-                <img :src="datas.url" class="object-cover rounded-[1.5rem] w-[24.5rem] h-[24.5rem]" />
+    <div class=" my-[10.75rem] ">
+        <div class="flex-col justify-center text-center">
+            <p class="text-2xl sm:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
+            <p class="text-xs sm:text-[0.875rem] font-medium text-sixth">Results are in!</p>
+            <p v-if="datas.disease != 'Unidentified'" class="text-2xl sm:text-4xl font-semibold italic text-first">{{ datas.disease }} Detected</p>
+            <p v-else class="text-2xl sm:text-4xl font-semibold italic text-first">Image is Unidentified</p>
+            <div class="hidden sm:flex mt-14 justify-center">
+                <div class="flex w-80 h-80 sm:w-96 sm:h-96 bg-seventh rounded-[1.5rem]">
+                    <img :src="url" class="object-cover rounded-[1.5rem] w-80 h-80 sm:w-96 sm:h-96" @error="onImgError" @load="onImgLoad"/>
+                </div>
+                <div v-if="datas.disease != 'Unidentified'" class="ml-20 flex flex-col justify-center items-center w-96 h-96 bg-seventh rounded-[1.5rem] ">
+                    <p class="text-3xl w-full z-5">{{ datas.disease }}</p>
+                    <img src="/images/map.svg" class="h-[55%] mb-3"/>
+                    <router-link to="/clinics"
+                        class=" w-auto px-3 text-first border-[.15rem] border-first py-[.35rem] rounded-3xl text-xl transition delay-75 hover:bg-first hover:text-seventh">
+                        Locate Nearby Clinics
+                    </router-link>
+                </div>
             </div>
-            <div class="w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] relative">
-                <p class="text-3xl top-4 absolute w-full z-5">{{ datas.disease }}</p>
-                <Swiper :slides-per-view="1" :space-between="50" :modules="[Navigation, Pagination, Virtual, Autoplay]"
-                    :navigation="{ nextEl: '.nextArrow', prevEl: '.prevArrow' }" :pagination="{ clickable: true }" autoplay
-                    grab-cursor class="object-cover w-[24.5rem] h-[24.5rem]">
+            <Swiper :slides-per-view="1" :space-between="50" :modules="[Navigation, Pagination, Virtual, Autoplay]"
+                    :navigation="{ nextEl: '.nextArrow', prevEl: '.prevArrow' }" autoplay
+                    grab-cursor class="w-80 h-80 sm:hidden">
                     <div class="navigation">
-                        <div class="nav-indicator prevArrow text-3xl cursor-pointer">
+                        <div class="nav-indicator text-first prevArrow text-3xl cursor-pointer">
                             <i class="bi bi-chevron-left"></i>
                         </div>
-                        <div class="nav-indicator nextArrow text-3xl cursor-pointer">
+                        <div class="nav-indicator text-first nextArrow text-3xl cursor-pointer">
                             <i class="bi bi-chevron-right"></i>
                         </div>
                     </div>
-                    <SwiperSlide class="relative">
-                        <div class="absolute w-full top-[40%]">
-                            <p class="text-6xl mb-1"> {{ datas.confidence }}% </p>
-                            <p class="text-grey"> {{ datas.disease }} </p>
-                        </div>
-                        <div class="flex items-center justify-center h-full text-">
-                            <circle-progress :percent="datas.confidence " :viewport="true" fill-color="#112B3C" empty-color="#ECF1F8"
-                                :size="225" />
-                        </div>
+                    <SwiperSlide class="flex w-80 h-80 sm:w-96 sm:h-96 bg-seventh rounded-[1.5rem]">
+                        <img :src="url" class="object-cover rounded-[1.5rem] w-80 h-80 sm:w-96 sm:h-96" @error="onImgError" @load="onImgLoad"/>
                     </SwiperSlide>
-                    <SwiperSlide class="flex flex-col items-center justify-center">
+                    <SwiperSlide class="flex flex-col justify-center items-center w-96 h-96 bg-seventh rounded-[1.5rem] ">
+                        <p class="text-3xl w-full z-5">{{ datas.disease }}</p>
                         <img src="/images/map.svg" class="h-[55%] mb-3"/>
                         <router-link to="/clinics"
-                            class="w-auto px-3 text-first border-[.15rem] border-first py-[.35rem] rounded-3xl text-xl mb-[-2rem] transition delay-75 hover:bg-first hover:text-seventh">
+                            class=" w-auto px-3 text-first border-[.15rem] border-first py-[.35rem] rounded-3xl text-xl transition delay-75 hover:bg-first hover:text-seventh">
                             Locate Nearby Clinics
                         </router-link>
                     </SwiperSlide>
-                </Swiper>
-            </div>
+            </Swiper>
         </div>
-        <IndivDiseaseVue ref="childComponent" />
+        <IndivDiseaseVue v-if="datas.disease != 'Unidentified'" ref="childComponent" />
     </div>
 </template>
 <script setup>
@@ -51,8 +53,6 @@ import 'swiper/css/bundle';
 </script>
 <script>
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import "vue3-circle-progress/dist/circle-progress.css";
-import CircleProgress from "vue3-circle-progress";
 import IndivDiseaseVue from './IndivDisease.vue';
 export default {
     data() {
@@ -65,11 +65,13 @@ export default {
                 'Tickborne Disease',
                 'Harvest Mites',
                 'Yeast Infection',
-                'Hotspots',
-                'Folliculitis'
+                'Hot Spots',
+                'Folliculitis',
+                'Carbuncles'
             ],
             id: this.$route.params.id,
             datas: {},
+            url: null
         }
     },
     methods:{
@@ -77,12 +79,12 @@ export default {
             axios.get(`/api/results/${this.id}`)
             .then((response) => {
                 this.datas = response.data
-                this.datas.confidence = this.datas.confidence.toFixed(2) * 100
                 const storage = getStorage();
                     const storageRef = ref(storage, 'images/' + this.datas.url);
                     getDownloadURL(storageRef)
                         .then((url) => {
                             this.datas.url = url
+                            this.url = url
                         })
                         this.getTreatments()
                     })
@@ -103,14 +105,20 @@ export default {
                     })
                 }
             }
+        },
+        onImgLoad(){
+            this.url = this.datas.url
+        },
+        onImgError(){
+            this.url = `/loading/Loading_Rocket.gif`
         }
     },
-    components() {
-        IndivDiseaseVue,
-        { CircleProgress }
+    components:{
+        IndivDiseaseVue
     },
     created(){
         this.getResults()
+        this.url = `/loading/Loading_Rocket.gif`
     }
 }
 

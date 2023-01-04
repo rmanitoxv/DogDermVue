@@ -20,7 +20,7 @@
                                 </path>
                             </svg>
 
-                            dogderma2022@gmail.com
+                            dogderma@gmail.com
                         </p>
 
                         <!-- PHONE NUMBER -->
@@ -45,17 +45,17 @@
                     </h6>
                     <!-- START OF FOOTER LINKS -->
 
-                    <!-- ABOUT US -->
-                    <router-link to="#about"> 
-                        <p class="flex items-center justify-center md:justify-start mb-4">
-                            About Us
+                    <!-- FEATURES -->
+                    <router-link to="/"> 
+                        <p class="!text-first hover:text-gray-900 flex items-center justify-center md:justify-start mb-4">
+                            Features
                         </p>
                     </router-link>
 
-                    <!-- FEATURES -->
-                    <router-link to="#features"> 
-                        <p class="text-gray-900 flex items-center justify-center md:justify-start mb-4">
-                            Features
+                    <!-- FAQS -->
+                    <router-link to="/"> 
+                        <p class="!text-first hover:text-gray-900 flex items-center justify-center md:justify-start mb-4">
+                            FAQs
                         </p>
                     </router-link>
                     
@@ -70,22 +70,22 @@
                     <!-- START OF FOOTER LINKS -->
 
                     <!-- CAUSES -->
-                    <router-link to="#"> 
-                        <p class="flex items-center justify-center md:justify-start mb-4">
+                    <router-link to="/diseases"> 
+                        <p class="!text-first flex items-center justify-center md:justify-start mb-4">
                             Causes
                         </p>
                     </router-link>
                     
                     <!-- TREATMENT -->
-                    <router-link to="#"> 
-                        <p class="flex items-center justify-center md:justify-start mb-4">
+                    <router-link to="/diseases"> 
+                        <p class="!text-first flex items-center justify-center md:justify-start mb-4">
                             Treatment
                         </p>
                     </router-link>
 
                     <!-- PREVENTION -->
-                    <router-link to="#"> 
-                        <p class="flex items-center justify-center md:justify-start mb-4">
+                    <router-link to="/diseases"> 
+                        <p class="!text-first flex items-center justify-center md:justify-start mb-4">
                             Prevention
                         </p>
                     </router-link>
@@ -102,14 +102,14 @@
 
                     <!-- LOCATIONS -->
                     <router-link to="/clinics"> 
-                        <p class="flex items-center justify-center md:justify-start mb-4">
+                        <p class="!text-first flex items-center justify-center md:justify-start mb-4">
                             Locations
                         </p>
                     </router-link>
 
                     <!-- CLINIC INFORMATION -->
                     <router-link to="/clinics"> 
-                        <p class="flex items-center justify-center md:justify-start mb-4">
+                        <p class="!text-first flex items-center justify-center md:justify-start mb-4">
                             Clinic Information
                         </p>
                     </router-link>

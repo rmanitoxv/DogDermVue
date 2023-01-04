@@ -55,8 +55,10 @@
                     </div>
                     <div v-if="symptoms.length" class="flex mt-5 ml-40 w-[30rem]">
                         Symptoms:
-                        <div v-for="item in symptoms" class="flex border border-grey rounded-full px-3 mx-1 text-grey">
-                            <button type="button" class="mr-3" @click="removeSymptom(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                        <div class="flex flex-wrap">
+                            <div v-for="item in symptoms" class="flex flex-wrap border border-grey rounded-full px-3 m-1 text-grey">
+                                <button type="button" class="mr-3" @click="removeSymptom(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                            </div>
                         </div>
                     </div>
                     <div class="flex justify-end">
@@ -64,7 +66,7 @@
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-xl mr-6">
-                            Treatment:
+                            Treatment Overview:
                         </label>
                         <div class="login__box1 w-[30rem] mt-0">
                             <textarea type="text" placeholder="Treatment" class="login__input resize-none" rows="10" id="treatment" v-model="datas.treatment"></textarea>
@@ -72,11 +74,45 @@
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-xl mr-6">
-                            Prevention:
+                            Treatment Processes:
+                        </label>
+                        <div class="login__box1 w-[30rem] mt-0">
+                            <textarea placeholder="Treatments" class="login__input resize-none" rows="3" id="treatments"></textarea>
+                        </div>
+                    </div>
+                    <div v-if="treatments.length" class="flex mt-5 ml-40 w-[30rem]">
+                        Treatments:
+                        <div v-for="item in treatments" class="flex border border-grey rounded-full px-3 mx-1 text-grey">
+                            <button type="button" class="mr-3" @click="removeTreatment(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="w-[10rem] text-first border-[.15rem] border-first py-[.35rem] rounded-2xl mt-3 text-lg" @click="addTreatments">Add Treatment</button>
+                    </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-xl mr-6">
+                            Prevention Overview:
                         </label>
                         <div class="login__box1 w-[30rem] mt-0">
                             <textarea type="text" placeholder="Prevention" class="login__input resize-none" rows="10" id="prevention" v-model="datas.prevention"></textarea>
                         </div>
+                    </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-xl mr-6">
+                            Prevention Processes:
+                        </label>
+                        <div class="login__box1 w-[30rem] mt-0">
+                            <textarea placeholder="Preventions" class="login__input resize-none" rows="3" id="preventions"></textarea>
+                        </div>
+                    </div>
+                    <div v-if="preventions.length" class="flex mt-5 ml-40 w-[30rem]">
+                        Preventions:
+                        <div v-for="item in preventions" class="flex border border-grey rounded-full px-3 mx-1 text-grey">
+                            <button type="button" class="mr-3" @click="removeTreatment(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="w-[10rem] text-first border-[.15rem] border-first py-[.35rem] rounded-2xl mt-3 text-lg" @click="addPreventions">Add Prevention</button>
                     </div>
                     <div class="flex items-center mt-[1rem] justify-end">
                         <button :class="buttonClass" :disabled="saving">
@@ -102,7 +138,9 @@ export default {
             status: 'Edit',
             saving: 0,
             buttonClass: 'w-[7.5rem] bg-first text-white py-2 rounded-2xl mt-[2.5rem] text-lg',
-            symptoms: []
+            symptoms: [],
+            treatments: [],
+            preventions: [],
         }
     },
     methods: {
@@ -113,6 +151,8 @@ export default {
                 causes: this.datas.causes,
                 treatment: this.datas.treatment,
                 prevention: this.datas.prevention,
+                treatments: JSON.stringify(this.treatments),
+                preventions: JSON.stringify(this.preventions),
                 url: this.dburl,
                 symptoms: JSON.stringify(this.symptoms)
             }
@@ -132,7 +172,15 @@ export default {
             axios.get(`/api/diseases/${id}/`)
             .then((response) => {
                 this.datas = response.data
-                this.symptoms = JSON.parse(response.data.symptoms)
+                if(response.data.symptoms){
+                    this.symptoms = JSON.parse(response.data.symptoms)
+                }
+                if(response.data.treatments){
+                    this.treatments = JSON.parse(response.data.treatments)
+                }
+                if(response.data.preventions){
+                    this.preventions = JSON.parse(response.data.preventions)
+                }
                 this.dburl = response.data.url
                 const storage = getStorage();
                 const storageRef = ref(storage, 'images/' + this.datas.url);
@@ -140,7 +188,6 @@ export default {
                     .then((url) => {
                         this.url = url
                     })
-                this.symptoms = JSON.parse(this.datas.symptoms)
             })
             .catch((error) => {
                 console.log(error)
@@ -150,9 +197,35 @@ export default {
             this.file = upload.files[0];
             this.url = URL.createObjectURL(this.file);
         },
+        addSymptoms() {
+            if (symptoms.value){
+                this.symptoms.push(symptoms.value)
+                symptoms.value = null
+            }
+        },
         removeSymptom(e){
             let index = this.symptoms.indexOf(e);
             this.symptoms.splice(index, 1);
+        },
+        addTreatments() {
+            if (treatments.value){
+                this.treatments.push(treatments.value)
+                treatments.value = null
+            }
+        },
+        removeTreatment(e){
+            let index = this.treatments.indexOf(e);
+            this.treatments.splice(index, 1);
+        },
+        addPreventions() {
+            if (preventions.value){
+                this.preventions.push(preventions.value)
+                preventions.value = null
+            }
+        },
+        removePrevention(e){
+            let index = this.preventions.indexOf(e);
+            this.preventions.splice(index, 1);
         },
         async afterComplete(e) {
             this.saving = 1

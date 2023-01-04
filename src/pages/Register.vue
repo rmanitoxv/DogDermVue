@@ -14,12 +14,12 @@
     
                         <div class="login__box">
                             <i class='bx bx-user login__icon'></i>
-                            <input type="text" placeholder="First Name" class="login__input" id="first_name">
+                            <input type="text" placeholder="First Name" class="login__input capitalize" id="first_name">
                         </div>
     
                         <div class="login__box">
                             <i class='bx bx-user login__icon'></i>
-                            <input type="text" placeholder="Last Name" class="login__input" id="last_name">
+                            <input type="text" placeholder="Last Name" class="login__input capitalize" id="last_name">
                         </div>
     
                         <div class="login__box">

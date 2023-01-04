@@ -1,58 +1,79 @@
 <template>
     <div>
         <form @submit.prevent="afterComplete(file)">
-            <div class="flex mt-32 justify-center">
-                <div class="ml-[4.5rem] text-center">
-                    <img v-if="url" :src="url" class="rounded-full w-[21.625rem] h-[21.625rem] mb-6 object-cover" />
-                    <img v-else src="/images/sample-profile.svg"
-                        class="rounded-full w-[21.625rem] h-[21.625rem] mb-6 object-cover" />
-                    <label for="upload"
-                        :class="labelClass">
-                        Upload Image
-                    </label>
-                    <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg"
-                        class="hidden" @input="getImage()" />
+            <div class="flex sm:flex-row flex-col my-32 justify-center">
+                <div class="mb-4 sm:mb-0 sm:w-1/4 w-full flex flex-col justify-center items-center sm:ml-[4.5rem] text-center">
+                    <div class="sm:block sm:w-auto flex w-9/12 items-center mb-2">
+                        <div class="sm:block sm:w-auto w-1/2 flex justify-center">
+                            <img v-if="url" :src="url" class="rounded-full w-24 h-24 sm:w-[21.625rem] sm:h-[21.625rem] sm:mb-6 object-cover" />
+                            <img v-else src="/images/sample-profile.svg"
+                                class="rounded-full w-24 h-24 sm:w-[21.625rem] sm:h-[21.625rem] sm:mb-6 object-cover" />
+                        </div>
+                        <div class="sm:hidden text-3xl w-full">
+                            {{ datas.first_name }} {{ datas.last_name }}
+                            <p class="text-grey text-sm">{{ datas.email }}</p>
+                        </div>
+                    </div>
+                    <div class="sm:block flex w-9/12 items-center">
+                        <div class="sm:block sm:w-auto w-1/2 flex justify-center">
+                            <label class="cursor-pointer" for="upload"
+                                :class="labelClass">
+                                Upload Image
+                            </label>
+                            <input type="file" :disabled="validated == 1" id="upload" accept=".jpeg,.jpg,.png,.svg" class="hidden" @input="getImage()" />
+                        </div>
+                        <div class="w-full">
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-[2.5rem] mx-[5.5rem] ">
-                    <div class="flex items-center justify-end">
-                        <label class="text-2xl mr-6">
+                <div class="sm:mt-[2.5rem] 2xs:mx-16 mx-4 sm:mx-[5.5rem]">
+                    <div class="flex items-center w-full justify-center">
+                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             First Name:
                         </label>
-                        <div class="login__box w-[18.75rem] mt-0">
-                            <input :disabled="validated == 1" type="text" placeholder="First Name" class="login__input" id="first_name" v-model="datas.first_name">
+                        <div class="justify-start login__box w-full !mt-0">
+                            <input :disabled="validated == 1" type="text" placeholder="First Name" class="login__input capitalize" id="first_name" v-model="datas.first_name">
                         </div>
                     </div>
-                    <div class="flex items-center mt-3 justify-end">
-                        <label class="text-2xl mr-6">
+                    <div class="flex items-center mt-3 justify-center lg:justify-end">
+                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             Last Name:
                         </label>
-                        <div class="login__box w-[18.75rem] mt-0">
-                            <input :disabled="validated == 1" type="text" placeholder="Last Name" class="login__input" id="last_name" v-model="datas.last_name">
+                        <div class="justify-start login__box w-full !mt-0">
+                            <input :disabled="validated == 1" type="text" placeholder="Last Name" class="login__input capitalize" id="last_name" v-model="datas.last_name">
                         </div>
                     </div>
-                    <div class="flex items-center mt-3 justify-end">
-                        <label class="text-2xl mr-6">
+                    <div class="flex items-center mt-3 justify-center lg:justify-end">
+                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             Email:
                         </label>
-                        <div class="login__box w-[18.75rem] mt-0">
+                        <div class="justify-start login__box w-full !mt-0">
                             <input :disabled="validated == 1" type="text" placeholder="Email" class="login__input" id="email" v-model="datas.email">
                         </div>
                     </div>
-                    <div class="flex items-center mt-3 justify-end">
-                        <label class="text-2xl mr-6">
+                    <div class="flex items-center mt-3 justify-center lg:justify-end">
+                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             Password:
                         </label>
-                        <div class="login__box w-[18.75rem] mt-0">
-                            <input :disabled="validated == 1" type="password" placeholder="Password" class="login__input" id="password" v-model="datas.password">
+                        <div class="justify-start login__box w-full !mt-0">
+                            <input :disabled="validated == 1" type="password" placeholder="Password" class="login__input" id="password">
                         </div>
                     </div>
-                    <div class="flex items-center mt-[1rem] justify-end">
+                    <div class="flex items-center mt-3 justify-center lg:justify-end">
+                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
+                            Confirm Password:
+                        </label>
+                        <div class="justify-start login__box w-full !mt-0">
+                            <input :disabled="validated == 1" type="password" placeholder="Confirm Password" class="login__input" id="confirmpassword">
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1rem] justify-center lg:justify-end">
                         <button type="button"
-                            class="mr-[1.125rem] w-[7.5rem] text-first border-[.15rem] border-first py-[.35rem] rounded-3xl mt-[2.5rem] text-lg"
+                            class="mr-[1.125rem] w-[7.5rem] text-first border-[.15rem] border-first py-[.35rem] rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg"
                             @click="editProfile()">
                             Edit
                         </button>
-                        <button :class="buttonClass" :disabled="validated == 1">
+                        <button data-bs-toggle="modal" data-bs-target="#notifModal" :class="buttonClass" :disabled="validated == 1" onclick="return confirm('Are you sure?')">
                             {{ buttonLabel }}
                         </button>
                     </div>
@@ -76,8 +97,8 @@ export default {
             file: null,
             dburl: null,
             isLoading: false,
-            labelClass: 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg',
-            buttonClass: 'w-[7.5rem] bg-grey text-white p-2 rounded-3xl mt-[2.5rem] text-lg',
+            labelClass: 'sm:w-[15rem] bg-grey text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg',
+            buttonClass: 'w-[7.5rem] bg-grey text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg',
             buttonLabel: 'Save'
         }
     },
@@ -87,13 +108,13 @@ export default {
     methods: {
         editProfile() {
             this.validated = !this.validated
-            if (this.labelClass == 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'){
-                this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl mt-[2.5rem] text-lg cursor-pointer'
-                this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
+            if (this.labelClass == 'sm:w-[15rem] bg-grey text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg'){
+                this.labelClass = 'sm:w-[15rem] bg-first text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg cursor-pointer'
+                this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg"
             }
             else{
-                this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
-                this.buttonClass = "w-[7.5rem] bg-grey text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
+                this.labelClass = 'sm:w-[15rem] bg-grey text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg'
+                this.buttonClass = "w-[7.5rem] bg-grey text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg"
             }
         },
         getUserData() {
@@ -131,12 +152,12 @@ export default {
                         this.response = "Successfully Saved"
                         this.responseClass = "text-green text-end"
                         this.buttonLabel = 'Save'
-                        this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
+                        this.labelClass = 'sm:w-[15rem] bg-grey text-white p-3 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg'
                     })
                     .catch((error) => {
                         this.buttonLabel = 'Save'
-                        this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl mt-[2.5rem] text-lg cursor-pointer'
-                        this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
+                        this.labelClass = 'sm:w-[15.rem] bg-first text-white p-3 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg cursor-pointer'
+                        this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg"
                         this.response = "There was an Error Editing Profile"
                         this.responseClass = "text-red text-end"
                         this.validated=0
@@ -157,12 +178,12 @@ export default {
                         this.response = "Successfully Saved"
                         this.responseClass = "text-green text-end"
                         this.buttonLabel = 'Save'
-                        this.labelClass = 'w-[15.5rem] bg-grey text-white p-3 rounded-3xl mt-[2.5rem] text-lg'
+                        this.labelClass = 'sm:w-[15.rem] bg-grey text-white p-3 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg'
                     })
                     .catch((error) => {
                         this.buttonLabel = 'Save'
-                        this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl mt-[2.5rem] text-lg cursor-pointer'
-                        this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl mt-[2.5rem] text-lg"
+                        this.labelClass = 'w-[15.5rem] bg-first text-white p-3 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg cursor-pointer'
+                        this.buttonClass = "w-[7.5rem] bg-first text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg"
                         this.response = "There was an Error Editing Profile"
                         this.responseClass = "text-red text-end"
                         console.log(error)
@@ -171,7 +192,7 @@ export default {
         },
         async afterComplete(e) {
             this.validated = 1
-            this.buttonClass = "w-[7.5rem] bg-grey text-white py-2 rounded-3xl mt-[2.5rem] text-lg"
+            this.buttonClass = "w-[7.5rem] bg-grey text-white py-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg"
             this.buttonLabel = 'Saving...'
             if (this.file) {
                 this.isLoading = true;

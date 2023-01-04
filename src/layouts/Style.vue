@@ -154,6 +154,7 @@ img {
 
 /*=============== NAV ===============*/
 .nav {
+    margin-top: 0rem !important;
     height: var(--header-height);
     display: flex;
     justify-content: space-between;
@@ -173,6 +174,7 @@ img {
 
 @media screen and (max-width: 767px) {
     .nav__menu {
+        z-index: 100;
         position: fixed;
         bottom: 0;
         left: 0;

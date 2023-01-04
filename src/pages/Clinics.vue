@@ -1,58 +1,69 @@
 <template>
-    <div class="container mx-auto mt-20 mb-40">
+    <div class="container mx-auto mt-20 mb-40 w-auto">
         <!-- FIND NEARBY -->
         <div class="my-3">
             <p class="amiko font-thin text-first text-sm tracking-widest">FIND NEARBY</p>
-            <p class="amiko font-bold text-2xl">Veterinary Clinics</p>
+            <p class="amiko font-bold text-2xl">Veterinary Clinics in Manila</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-2 grid-cols-1 three wide column">
-            <form class="!m-0 ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
+            <form class="!m-0 lg:!h-[50rem] ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
+                <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1]">
+                    <p class="amiko text-first text-xs font-semibold">
+                            <b>NOTE:</b>  Clinic results are only limited to registered veterinary clinics within the city of Manila, Metro Manila.
+                    </p>
+                </div>
                 <div class="ui segment">
                     <!-- LOCATION COORDINATES -->
                     <div class="field">
-                        <div class="ui right icon input large">
-                            <input type="text" placeholder="Enter your address" v-model="coordinates" />
-                            <i class="dot circle link icon" @click="locatorButtonPressed"></i>
+                        <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0 !mt-3">
+                            <p class="amiko text-first text-xs font-semibold">
+                                LATITUDE
+                            </p>
+                        </div>
+                        <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0">
+                            <input type="text" class="!w-full" placeholder="Enter your address" v-model="lat" />
+                            <div class="3xs:mx-1 lg:mx-2"> </div>
+                            <input type="text" class="!w-full" placeholder="Enter your address" v-model="lng" />
                         </div>
                     </div>
 
                     <!-- SELECT -->
-                    <div class="field">
-                        <div class="two fields">
-                            <div class="field">
+                    
+                        <div class="flex items-center w-full space-x-4">
+                            <!-- <div class="field">
                                 <select v-model="type">
                                     <option value="veterinary_care">Veterinary Care</option>
                                 </select>
-                            </div>
+                            </div> -->
 
-                            <div class="field">
-                                <select id="radius">
+                            <div class="flex-initial field !w-56 !mb-0">
+                                <select id="radius" v-model="rad">
                                     <option :value=2>2 KM</option>
                                     <option :value=4>4 KM</option>
                                     <option :value=6>6 KM</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                    <button class="ui button fill-yellow font-semibold">Find Clinic</button>
+
+                            <button class="flex-initial ui button !rounded-3xl max-md:!text-sm !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
+                        </div>                    
                 </div>
                 
                 <!-- LIST OF PLACES -->
-                <div class="ui segment"  style="max-height:500px;overflow:scroll">
+                <div class="ui segment overflow-scroll max-h-[34rem]" >
                     <div v-if="sidebar" class="ui divided items">
                         <div class="item !flex !flex-col">
-                            <div v-for="place in markers" class="content">
-                                <div v-if="calcCrow(lat, lng, place.x, place.y) < radius" class="pt-4 amiko font-bold text-lg">{{place.name}}</div>
-                                <div v-if="calcCrow(lat, lng, place.x, place.y) < radius" class="!pb-4 meta">{{place.address}}</div>
-                                <hr v-if="calcCrow(lat, lng, place.x, place.y) < radius" class="w-full"/>
+                            <div v-for="place in place" class="hover:font-bold content cursor-pointer" @click=infoWindow(place)>
+                                <div class="pt-4 amiko text-lg">{{place.name}}</div>
+                                <div class="!pb-4 meta">{{place.address}}</div>
+                                <hr class="w-full"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
             
-            <div class="ten wide column segment ui !m-0" ref="map">
+            <div class="ten wide column segment ui !m-0 !h-[50rem]" ref="map">
             </div>
             
         </div>
@@ -60,39 +71,45 @@
     </div>
     
 
-    <div class="container mx-auto mb-40">
-        <!-- POPULAR CLINICS -->
+    <div class="container mx-auto mb-40 w-auto">
+        <!-- NEARBY CLINICS -->
         <!-- NEED CRUD HERE -->
         <div class="my-3">
-            <p class="amiko font-thin text-first text-sm tracking-widest">POPULAR</p>
-            <p class="amiko font-bold text-2xl">Veterinary Clinics</p>
+            <p class="amiko font-thin text-first text-sm tracking-widest">CHECK OUT REGISTERED</p>
+            <p class="amiko font-bold text-2xl">Veterinary Clinics in Manila</p>
         </div>
 
         <!-- VET INFORMATION -->
-        <div v-for="item in clinics">
-            <div class="container rounded-lg bg-white my-4 mx-0 drop-shadow-lg flex items-center">
-                <!-- IMG -->
-                <div class="flex-initial w-45 py-3 px-1">
-                    <img class="object-cover rounded-lg w-40 h-40" :src="item.url">
+            <div v-for="item in clinics" class="container rounded-lg bg-white my-4 mx-0 drop-shadow-lg w-auto">
+                <a :href="item.clinic_fb" target="_blank" class="text-second">
+                <div class="items-center w-auto md:flex">
+                    <!-- IMG -->
+                    <div class="flex-none md:flex-initial md:p-3">
+                        <img class="object-cover rounded-t-lg w-full h-60 object-center mx-auto md:rounded-lg md:w-60 md:h-40" :src="item.url">
+                    </div>
+                    <!-- DETAILS -->
+                    <div class="flex-none md:flex-initial w-45 py-3 pl-5 inline-block">
+                        <p class="amiko font-bold text-lg">{{item.clinic_name}}</p>
+                        <ul>
+                            <li class="poppins text-sm"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
+                            <li class="poppins text-sm"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
+                            <li class="poppins text-sm"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
+                            <li class="poppins text-sm"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
+                        </ul>
+                    </div>
                 </div>
-                <!-- DETAILS -->
-                <div class="flex-initial w-45 py-3 pl-5 inline-block">
-                    <p class="amiko font-bold text-lg">{{item.clinic_name}}</p>
-                    <ul>
-                        <li class="poppins text-sm"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
-                        <li class="poppins text-sm"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
-                        <li class="poppins text-sm"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
-                    </ul>
-                </div>
+                </a>
             </div>
-        </div>
+            
     </div>
 
 </template>
 
 <script>
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+let infowindow;
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 export default {
+    
     data() {
         return {
             lat: 0,
@@ -100,8 +117,12 @@ export default {
             type: "veterinary_care",
             radius: null,
             places: [],
+            place: [],
             clinics: {},
             sidebar: false,
+            map: null,
+            rad: 2,
+            gmaps: window.google,
             markers: [
                 {
                     "name": "PETLINK - R.PAPA",
@@ -251,11 +272,6 @@ export default {
             return `${this.lat}, ${this.lng}`;
         }
     },
-    async mounted() {
-        const externalScript = document.createElement('script')
-        externalScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCSvvmwaZ3j0VaHbCE2MJZSKxguQRPcS-o')
-        document.head.appendChild(externalScript)
-    },
     methods: {
         locatorButtonPressed() {
             this.$getLocation({
@@ -266,92 +282,92 @@ export default {
             .then(coordinates => {
                 this.lat = coordinates.lat;
                 this.lng = coordinates.lng;
+                this.openMaps()
             })
             .catch(err => {
                 console.log(err)
             })
-            // navigator.geolocation.getCurrentPosition(
-            //     position => {
-            //         console.log(position)
-            //         this.lat = position.coords.latitude;
-            //         this.lng = position.coords.longitude;
-            //     },
-            //     error => {
-            //         console.log("Error getting location");
-            //     }
-            // );
         },
         addLocationsToGoogleMaps() {
-            var map = new google.maps.Map(this.$refs['map'], {
+            this.map = new google.maps.Map(this.$refs['map'], {
                 zoom: 15,
                 center: new google.maps.LatLng(this.lat, this.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            var infowindow = new google.maps.InfoWindow();
+            let map = this.map
+            if (infowindow) {
+                infowindow.close();
+            }
+            infowindow = new google.maps.InfoWindow();
+            
+            let marker = new google.maps.Marker({
+                position: new google.maps.LatLng(this.lat, this.lng),
+                map: map,
+                icon: {
+                    url: 'user-loc-marker.png',
+                    scaledSize: new google.maps.Size(50, 50),
+                }
+                
+            });
 
+            google.maps.event.addListener(marker, "click", () => {
+                infowindow.setContent(
+                    `<div class="ui header">YOUR LOCATION HERE</div>`
+                );
+                infowindow.open(map, marker);
+            });
+            this.place = []
+            let count = 0
             this.markers.forEach(markers => {
-                this.radius = radius.value
                 const lat = markers.x;
                 const lng = markers.y;
                 const distance = this.calcCrow(this.lat, this.lng, lat, lng)
-                console.log(markers.name, distance, radius.value)
-                if (distance < radius.value){
+                if (distance < this.rad){
+                    count += 1
                     let marker = new google.maps.Marker({
                         position: new google.maps.LatLng(lat, lng),
-                        map: map,
+                        map: this.map,
                         icon: {
                             url: markers.icon,
                             scaledSize: new google.maps.Size(40, 40),
                         }
                     });
-
-                    google.maps.event.addListener(marker, "click", () => {
+                    
+                    marker.infowindow = google.maps.event.addListener(marker, "click", () => {
                         infowindow.setContent(
                             `<div class="ui header">${markers.name}</div><p>${markers.address}`
-                        );
-                        
-                        infowindow.open(map, marker);
-                    });
+                                );
+                                
+                                infowindow.open(this.map, marker);
+                            });
+                    marker.name = markers.name
+                    marker.address = markers.address
+                    marker.distance = distance
+                    this.place.push(marker)
                 }
             });
+            if (count == 0 && this.rad < 6){
+                this.rad += 2
+                this.addLocationsToGoogleMaps()
+            }
+            this.place = this.place.sort(
+                (m1, m2) => (m1.distance < m2.distance) ? -1 : (m1.distance > m2.distance) ? 1 : 0);
             this.sidebar = true
-
-            // FOR LOOP FOR MARKER LOCATIONS
-            // for(let i = 0; i<markers.length; i++) {
-            //     const currMarker = markers[i];
-
-            //     const marker = new google.maps.Marker({
-            //         position: new google.maps.LatLng(currMarker[1], currMarker[2]),
-            //         map: map,
-            //         title: currMarker[0],
-            //         icon: {
-            //             url: currMarker[3],
-            //             scaledSize: new google.maps.Size(currMarker[4], currMarker[5]),
-            //         }
-            //     });
-
-            //     google.maps.event.addListener(marker, "click", () => {
-            //         infowindow.setContent(
-            //             `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
-            //         );
-                    
-            //         infowindow.open(map, marker);
-            //     });
-            // }
-        
-            // INFO WINDOW
-            // var infowindow1 = new google.maps.infowindow({
-            // const infowindow1 = new google.maps.infowindow({
-            //     content: currMarker[0],
-            // });
-
-            // // OPEN INFO WINDOW
-            // markers.addListener("click", () => {
-            //     infowindow1.open(map, marker);
-            // });
-
-            // markers.setMap(map);
+        },
+        infoWindow(place){
+            if (infowindow) {
+                infowindow.close();
+            }
+            infowindow = new google.maps.InfoWindow();
+            let marker = place
+            if(infowindow) {
+                infowindow.close();
+            }
+            infowindow.setContent(
+                `<div class="ui header">${place.name}</div><p>${place.address}`
+            );
+            infowindow.open(this.map, marker);
         },
         calcCrow(lat1, lon1, lat2, lon2) {
             let R = 6371; // km
@@ -386,10 +402,60 @@ export default {
                     console.log(error)
                 })
         },
+        create_map(){
+            this.map = new google.maps.Map(this.$refs['map'], {
+                zoom: 15,
+                center: new google.maps.LatLng(this.lat, this.lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            let map = this.map
+            if (infowindow) {
+                infowindow.close();
+            }
+            infowindow = new google.maps.InfoWindow();
+            
+            let marker = new google.maps.Marker({
+                position: new google.maps.LatLng(this.lat, this.lng),
+                map: map,
+                icon: {
+                    url: 'user-loc-marker.png',
+                    scaledSize: new google.maps.Size(50, 50),
+                }
+            });
+
+            google.maps.event.addListener(marker, "click", () => {
+                infowindow.setContent(
+                    `<div class="ui header">YOUR LOCATION HERE</div>`
+                );
+                infowindow.open(map, marker);
+            });
+        },
+        openMaps(){
+            if (window.google && window.google.maps) {
+            this.create_map();
+            return;
+            }
+
+            let self = this;
+            let script = document.createElement("script");
+            script.onload = function () {
+                if (!window.google && !window.google.maps)
+                    return void (console.error("no google maps script included"));
+
+                self.create_map();
+            };
+
+            script.async = true;
+            script.defer = true;
+            script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCSvvmwaZ3j0VaHbCE2MJZSKxguQRPcS-o";
+            document.getElementsByTagName("head")[0].appendChild(script);
+            }
     },
-    created() {
+    created(){
         this.getClinics()
-    }
+        this.locatorButtonPressed()
+        },
 }
 
 </script>

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Style />
         <div>
             <div v-if="isAdmin == 0">
                 <Navbar />

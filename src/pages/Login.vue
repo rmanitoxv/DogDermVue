@@ -22,8 +22,6 @@
                             <input type="password" placeholder="Password" class="login__input" id="password">
                         </div>
 
-                        <router-link to="/forgotpassword" class="login__forgot">Forgot password?</router-link>
-
                         <button :class="loginButton" :disabled="loggingIn"> {{status}} </button>
 
                         <div>
@@ -82,6 +80,7 @@ export default {
                 this.loggingIn = 0
                 this.status = "Sign In"
                 console.log(error)
+                this.response = error
                 for (const prop in error.response.data){
                     this.response = "Wrong Username or Password"
                 }

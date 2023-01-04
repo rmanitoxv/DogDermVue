@@ -26,7 +26,7 @@
                             Disease:
                         </label>
                         <div class="login__box1 w-[30rem] mt-0">
-                            <input type="text" placeholder="Disease" class="login__input" id="disease" >
+                            <input type="text" placeholder="Disease" class="login__input capitalize" id="disease" >
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
@@ -64,19 +64,53 @@
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-xl mr-6">
-                            Treatment:
+                            Treatment Overview:
                         </label>
                         <div class="login__box1 w-[30rem] mt-0">
-                            <textarea placeholder="Treatment" class="login__input resize-none" rows="10" id="treatment"></textarea>
+                            <textarea placeholder="Treatment" class="login__input resize-none" rows="3" id="treatment"></textarea>
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-xl mr-6">
-                            Prevention:
+                            Treatment Processes:
                         </label>
                         <div class="login__box1 w-[30rem] mt-0">
-                            <textarea placeholder="Prevention" class="login__input resize-none" rows="10" id="prevention"></textarea>
+                            <textarea placeholder="Treatments" class="login__input resize-none" rows="3" id="treatments"></textarea>
                         </div>
+                    </div>
+                    <div v-if="treatments.length" class="flex mt-5 ml-40 w-[30rem]">
+                        Treatments:
+                        <div v-for="item in treatments" class="flex border border-grey rounded-full px-3 mx-1 text-grey">
+                            <button type="button" class="mr-3" @click="removeTreatment(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="w-[10rem] text-first border-[.15rem] border-first py-[.35rem] rounded-2xl mt-3 text-lg" @click="addTreatments">Add Treatment</button>
+                    </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-xl mr-6">
+                            Prevention Overview:
+                        </label>
+                        <div class="login__box1 w-[30rem] mt-0">
+                            <textarea placeholder="Prevention" class="login__input resize-none" rows="3" id="prevention"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-xl mr-6">
+                            Prevention Processes:
+                        </label>
+                        <div class="login__box1 w-[30rem] mt-0">
+                            <textarea placeholder="Preventions" class="login__input resize-none" rows="3" id="preventions"></textarea>
+                        </div>
+                    </div>
+                    <div v-if="preventions.length" class="flex mt-5 ml-40 w-[30rem]">
+                        Preventions:
+                        <div v-for="item in preventions" class="flex border border-grey rounded-full px-3 mx-1 text-grey">
+                            <button type="button" class="mr-3" @click="removeTreatment(item)"><i class="bi bi-x-lg text-grey"></i></button>{{item}}
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="w-[10rem] text-first border-[.15rem] border-first py-[.35rem] rounded-2xl mt-3 text-lg" @click="addPreventions">Add Prevention</button>
                     </div>
                     <div class="flex items-center mt-[1rem] justify-end">
                         <button :class="buttonClass" :disabled="saving">
@@ -101,6 +135,8 @@ export default {
                 causes: causes.value,
                 treatment: treatment.value,
                 prevention: prevention.value,
+                treatments: JSON.stringify(this.treatments),
+                preventions: JSON.stringify(this.preventions),
                 url: this.url,
                 symptoms: JSON.stringify(this.symptoms)
             }
@@ -146,7 +182,27 @@ export default {
         removeSymptom(e){
             let index = this.symptoms.indexOf(e);
             this.symptoms.splice(index, 1);
-        }
+        },
+        addTreatments() {
+            if (treatments.value){
+                this.treatments.push(treatments.value)
+                treatments.value = null
+            }
+        },
+        removeTreatment(e){
+            let index = this.treatments.indexOf(e);
+            this.treatments.splice(index, 1);
+        },
+        addPreventions() {
+            if (preventions.value){
+                this.preventions.push(preventions.value)
+                preventions.value = null
+            }
+        },
+        removePrevention(e){
+            let index = this.preventions.indexOf(e);
+            this.preventions.splice(index, 1);
+        },
     },
     props: {
         sidebarFunction: Function
@@ -160,7 +216,9 @@ export default {
             status: 'Add',
             saving: 0,
             buttonClass: 'w-[7.5rem] bg-first text-white py-2 rounded-2xl mt-[2.5rem] text-lg',
-            symptoms: []
+            symptoms: [],
+            treatments: [],
+            preventions: [],
         }
     }
 }

@@ -1,14 +1,14 @@
 <template>
-    <div class="container my-20 mx-auto" id="app">
+    <div class="container my-20 mx-auto w-auto" id="app">
         <!-- MAIN TITLE -->
         <div class="my-3">
             <p class="amiko font-thin text-first text-sm tracking-widest">LEARN MORE ABOUT</p>
             <p class="amiko font-bold text-2xl">Dog Skin Disease</p>
         </div>
 
-        <div v-if="datas" class="grid md:grid-cols-3 gap-7 grid-cols-2">
+        <div v-if="datas" class="grid grid-cols-2 max-sm:grid-cols-1 md:grid-cols-3 gap-7">
             <!-- INDIV ARTICLE CONTAINER -->
-            <div v-for="items in datas" class="rounded-xl bg-white drop-shadow-lg">
+            <div v-for="items in datas" class="rounded-xl bg-white drop-shadow-lg w-full">
                 <!-- IMAGE -->
                 <DiseasesContainer :item="items" />
             </div>

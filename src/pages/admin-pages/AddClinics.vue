@@ -61,6 +61,14 @@
                             <input type="text" placeholder="Email" class="login__input" id="clinic_email">
                         </div>
                     </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-2xl mr-6">
+                            Facebook Link:
+                        </label>
+                        <div class="login__box1 w-[18.75rem] mt-0">
+                            <input type="text" placeholder="Facebook Link" class="login__input" id="clinic_fb">
+                        </div>
+                    </div>
                     <div class="flex items-center mt-[1rem] justify-end">
                         <button :class="buttonClass" :disabled="saving">
                             {{ status }}
@@ -73,7 +81,6 @@
     </div>
 </template>
 <script>
-import parseCookie from '../../utils/parseCookie'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
 export default {
@@ -85,7 +92,8 @@ export default {
                 clinic_address: clinic_address.value,
                 clinic_mobile: clinic_mobile.value,
                 clinic_landline: clinic_landline.value,
-                clinic_email: clinic_email.value
+                clinic_email: clinic_email.value,
+                clinic_fb: clinic_fb.value
             })
                 .then((response) => {
                     this.$router.push({name: 'AdminClinics'})

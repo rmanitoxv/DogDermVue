@@ -1,6 +1,9 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import store from './store'
 
+import NotFound from './pages/NotFound.vue';
+// import Modal from './pages/Modal.vue';
+
 import Homepage from './pages/Homepage.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
@@ -31,11 +34,15 @@ import AddUser from './pages/admin-pages/AddUser.vue';
 import EditUser from './pages/admin-pages/EditUser.vue';
 
 const routes = [
+
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    // { path: '/modal', name: 'Modal', component: Modal },
+
     { path: '/', name: 'Homepage', component: Homepage },
-    { path: '/login', name: 'Login', component: Login },
-    { path: '/register', name: 'Register', component: Register },
-    { path: '/forgotpassword', name: 'ForgotPassword', component: ForgotPassword, meta: {requireLogin: true} },
-    { path: '/resetpassword', name: 'ResetPassword', component: ResetPassword, meta: {requireLogin: true} },
+    { path: '/login', name: 'Login', component: Login , meta: {loggedOut: true} },
+    { path: '/register', name: 'Register', component: Register, meta: {loggedOut: true} },
+    // { path: '/forgotpassword', name: 'ForgotPassword', component: ForgotPassword, meta: {requireLogin: true} },
+    // { path: '/resetpassword', name: 'ResetPassword', component: ResetPassword, meta: {requireLogin: true} },
     { path: '/profile', name: 'Profile', component: Profile, meta: {requireLogin: true} },
     { path: '/upload', name: 'Upload', component: Upload, meta: {requireLogin: true} },
     { path: '/uploadresult/:id', name: 'UploadResult', component: UploadResult, meta: {requireLogin: true} },
@@ -74,6 +81,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
     next('/login')
   }
+
   else{
     next()
   }

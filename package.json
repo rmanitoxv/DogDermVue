@@ -2,7 +2,7 @@
   "name": "dogderm-fe",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "watch": "vite build --watch"

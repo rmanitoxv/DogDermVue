@@ -1,12 +1,12 @@
 <template>
-    <div class="flex flex-col justify-center my-[10.75rem] text-center">
-        <p class="text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
-        <p class="text-[0.875rem] font-medium text-sixth">Upload a picture of your dog’s skin.</p>
+    <div class="flex flex-col justify-center my-20 lg:my-[10.75rem] text-center">
+        <p class="text-2xl lg:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
+        <p class="text-xs lg:text-sm font-medium text-sixth">Upload a close-up picture of the affected area of your dog.</p>
         <form class="align-self-center" @submit.prevent="afterComplete(file)">
             <div class="flex flex-col justify-center items-center">
                 <div v-if="canvas || video">
                     <div
-                        class="flex w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl">
+                        class="flex w-80 lg:w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl">
                         <p class="text-white cursor-pointer">
                             No File Selected
                         </p>
@@ -15,7 +15,7 @@
                 <div v-else>
                     <label for="upload">
                         <div
-                            class="flex w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl">
+                            class="flex w-80 lg:w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl">
                             <p v-if="fileName == null" class="text-white cursor-pointer">
                                 No File Selected
                             </p>
@@ -25,15 +25,15 @@
                         </div>
                     </label>
                 </div>
-                <div v-if="canvas" class="flex w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] items-center align-self-center justify-center">
+                <div v-if="canvas" class="flex w-80 h-80 lg:w-[24.5rem] lg:h-[24.5rem] bg-seventh rounded-[1.5rem] items-center align-self-center justify-center">
                     <img :src="dataUrl"  class="object-cover rounded-[1.5rem]" />                    
                     </div>
-                <div v-else-if="video" class="flex w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] items-center align-self-center justify-center">
-                    <video autoplay="true" class="object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]" ref="camera" :srcObject.prop="bind"></video>                        
+                <div v-else-if="video" class="flex w-80 h-80 lg:w-[24.5rem] lg:h-[24.5rem] bg-seventh rounded-[1.5rem] items-center align-self-center justify-center">
+                    <video autoplay="true" class="object-cover w-80 h-80 lg:w-[24.5rem] lg:h-[24.5rem] rounded-[1.5rem]" ref="camera" :srcObject.prop="bind"></video>                        
                 </div>
                 <div v-else>
                     <label for="upload"
-                        class="flex w-[24.5rem] h-[24.5rem] bg-seventh rounded-[1.5rem] items-center align-self-center justify-center cursor-pointer">
+                        class="flex w-80 h-80 lg:w-[24.5rem] lg:h-[24.5rem] bg-seventh rounded-[1.5rem] items-center align-self-center justify-center cursor-pointer">
                         <div v-if="url">
                             <img :src="url"  class="object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]" />                    
                         </div>
@@ -46,15 +46,15 @@
                 </div>
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
                 <input type="file" accept=".jpeg,.jpg,.png,.svg" class="hidden" id="upload" @change="getFileName(e)" />
-                <div v-if="video" class="flex justify-between w-[24.5rem]">
+                <div v-if="video" class="flex justify-between w-80 lg:w-[24.5rem]">
                     <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
                     <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
                 </div>
-                <div v-else-if="canvas" class="flex justify-between w-[24.5rem]">
+                <div v-else-if="canvas" class="flex justify-between w-80 lg:w-[24.5rem]">
                     <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
-                <div v-else class="flex justify-between w-[24.5rem]">
+                <div v-else class="flex justify-between w-80 lg:w-[24.5rem]">
                     <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
@@ -63,7 +63,6 @@
     </div>
 </template>
 <script>
-import { submit } from "dom7";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
 export default {
@@ -94,10 +93,7 @@ export default {
             reader.readAsDataURL(file);
         },
         uploadImage(){
-            this.saving = 1
-            this.status = "Detecting..."
-            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-grey text-white align-self-center"
-            axios.post("https://rmanitoxv-dogderma.hf.space/run/predict", {
+            axios.post("https://9de526fd-7c0f-4dbf.gradio.live/run/predict", {
                 data: [
                     this.dataUrl
                 ]
@@ -175,6 +171,9 @@ export default {
             this.video = false
         },
         async afterComplete(e) {
+            this.saving = 1
+            this.status = "Detecting..."
+            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-grey text-white align-self-center"
             let fileName
             let file
             if (this.file){
