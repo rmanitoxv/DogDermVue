@@ -1,9 +1,9 @@
 <template>
-<!-- Button trigger modal -->
+<!-- Button trigger modal
 <button type="button" class="px-6
       py-2.5
       bg-blue-600
-      text-white
+
       font-medium
       text-xs
       leading-tight
@@ -17,7 +17,7 @@
       duration-150
       ease-in-out" data-bs-toggle="modal" data-bs-target="#notifModal">
   Launch demo modal
-</button>
+</button> -->
 
 <!-- Modal -->
 <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
@@ -40,7 +40,7 @@
         <button type="button" class="px-6
           py-2.5
           bg-red-100
-          text-white
+    
           font-medium
           text-xs
           leading-tight
@@ -56,7 +56,7 @@
         <button type="button" class="px-6
       py-2.5
       bg-blue-600
-      text-white
+
       font-medium
       text-xs
       leading-tight

@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import store from './store'
 
 import NotFound from './pages/NotFound.vue';
-// import Modal from './pages/Modal.vue';
+import Modal from './pages/Modal.vue';
 
 import Homepage from './pages/Homepage.vue';
 import Login from './pages/Login.vue';
@@ -36,7 +36,7 @@ import EditUser from './pages/admin-pages/EditUser.vue';
 const routes = [
 
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
-    // { path: '/modal', name: 'Modal', component: Modal },
+    { path: '/modal', name: 'Modal', component: Modal },
 
     { path: '/', name: 'Homepage', component: Homepage },
     { path: '/login', name: 'Login', component: Login , meta: {loggedOut: true} },

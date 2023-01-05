@@ -2,7 +2,7 @@
     <div>
         <form @submit.prevent="afterComplete(file)">
             <div class="flex sm:flex-row flex-col my-32 justify-center">
-                <div class="mb-4 sm:mb-0 sm:w-1/4 w-full flex flex-col justify-center items-center sm:ml-[4.5rem] text-center">
+                <div class="mb-4 sm:mb-0 sm:w-1/4 w-full flex flex-col justify-center items-center text-center">
                     <div class="sm:block sm:w-auto flex w-9/12 items-center mb-2">
                         <div class="sm:block sm:w-auto w-1/2 flex justify-center">
                             <img v-if="url" :src="url" class="rounded-full w-24 h-24 sm:w-[21.625rem] sm:h-[21.625rem] sm:mb-6 object-cover" />
@@ -26,9 +26,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="sm:mt-[2.5rem] 2xs:mx-16 mx-4 sm:mx-[5.5rem]">
+                <div class="sm:w-[40rem] sm:mt-[2.5rem] sm:mx-0 2xs:mx-8 mx-4 xs:mx-16">
                     <div class="flex items-center w-full justify-center">
-                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
+                        <label class="sm:w-full w-2/5 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             First Name:
                         </label>
                         <div class="justify-start login__box w-full !mt-0">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-center lg:justify-end">
-                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
+                        <label class="sm:w-full w-2/5 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             Last Name:
                         </label>
                         <div class="justify-start login__box w-full !mt-0">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-center lg:justify-end">
-                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
+                        <label class="sm:w-full w-2/5 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             Email:
                         </label>
                         <div class="justify-start login__box w-full !mt-0">
@@ -52,19 +52,11 @@
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-center lg:justify-end">
-                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
+                        <label class="sm:w-full w-2/5 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
                             Password:
                         </label>
                         <div class="justify-start login__box w-full !mt-0">
                             <input :disabled="validated == 1" type="password" placeholder="Password" class="login__input" id="password">
-                        </div>
-                    </div>
-                    <div class="flex items-center mt-3 justify-center lg:justify-end">
-                        <label class="sm:w-full w-1/2 flex justify-end text-base 2xs:text-lg mr-2 sm:text-2xl sm:mr-6">
-                            Confirm Password:
-                        </label>
-                        <div class="justify-start login__box w-full !mt-0">
-                            <input :disabled="validated == 1" type="password" placeholder="Confirm Password" class="login__input" id="confirmpassword">
                         </div>
                     </div>
                     <div class="flex items-center mt-[1rem] justify-center lg:justify-end">
@@ -73,17 +65,19 @@
                             @click="editProfile()">
                             Edit
                         </button>
-                        <button data-bs-toggle="modal" data-bs-target="#notifModal" :class="buttonClass" :disabled="validated == 1" onclick="return confirm('Are you sure?')">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#notifModal" :class="buttonClass" :disabled="validated == 1">
                             {{ buttonLabel }}
                         </button>
                     </div>
                     <p v-if="response" :class="responseClass">{{response}}</p>
                 </div>
             </div>
+            <Modal />
         </form>
     </div>
 </template>
 <script>
+import Modal from './Modal.vue'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuid } from 'uuid';
 export default {
@@ -99,8 +93,11 @@ export default {
             isLoading: false,
             labelClass: 'sm:w-[15rem] bg-grey text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg',
             buttonClass: 'w-[7.5rem] bg-grey text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg',
-            buttonLabel: 'Save'
+            buttonLabel: 'Save',
         }
+    },
+    components: {
+        Modal
     },
     created() {
         this.getUserData()
