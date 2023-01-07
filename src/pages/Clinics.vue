@@ -20,6 +20,10 @@
                             <p class="amiko text-first text-xs font-semibold">
                                 LATITUDE
                             </p>
+                            <div class="3xs:mx-1 lg:mx-2"> </div>
+                            <p class="amiko text-first text-xs font-semibold">
+                                LATITUDE
+                            </p>
                         </div>
                         <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0">
                             <input type="text" class="!w-full" placeholder="Enter your address" v-model="lat" />

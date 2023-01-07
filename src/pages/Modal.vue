@@ -1,83 +1,50 @@
 <template>
-<!-- Button trigger modal
-<button type="button" class="px-6
-      py-2.5
-      bg-blue-600
-
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" data-bs-toggle="modal" data-bs-target="#notifModal">
-  Launch demo modal
-</button> -->
-
-<!-- Modal -->
-<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
-  <div class="modal-dialog relative w-auto pointer-events-none">
-    <div
-      class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+  <!-- Modal -->
+  <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+    id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
+    <div class="modal-dialog relative w-auto pointer-events-none">
       <div
-        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-        <h5 class="text-xl font-medium leading-normal text-gray-800" id="notifModalLabel">Confirm Changes</h5>
-        <button type="button"
-          class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-          data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body relative p-4">
-        Are you sure you want to save these changes?
-      </div>
-      <div
-        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button" class="px-6
-          py-2.5
-          bg-red-100
-    
-          font-medium
-          text-xs
-          leading-tight
-          uppercase
-          rounded
-          shadow-md
-          hover:bg-red-700 hover:shadow-lg
-          focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0
-          active:bg-purple-800 active:shadow-lg
-          transition
-          duration-150
-          ease-in-out" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="px-6
-      py-2.5
-      bg-blue-600
-
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out
-      ml-1">Save changes</button>
+        class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-3xl outline-none text-current">
+        <div class="m-8">
+          <p class="text-xl !mb-0 font-bold"> Confirm Changes? </p>
+          <div class="modal-body relative !mt-0 mb-4 text-grey">
+            Please type your password below to confirm changes.
+          </div>
+          <div class="flex items-center mr-16 mb-4">
+            <label class="sm:w-full w-2/5 flex justify-end text-sm 2xs:text-base mr-2 sm:text-lg">
+              Password:
+            </label>
+            <div class="justify-start login__box w-full !mt-0">
+              <input :disabled="validated == 1" type="password" placeholder="Password" class="login__input"
+                id="password">
+            </div>
+          </div>
+          <div class="flex items-center mr-16">
+            <label class="sm:w-full w-2/5 flex justify-end text-sm 2xs:text-base mr-2 sm:text-lg">
+              Re-type Password:
+            </label>
+            <div class="justify-start login__box w-full !mt-0">
+              <input :disabled="validated == 1" type="password" placeholder="Password" class="login__input"
+                id="password">
+            </div>
+          </div>
+          <div class="flex w-full justify-end">
+            <button type="button"
+              class="mr-[1.125rem] w-[7.5rem] text-first border-[.15rem] border-first py-[.35rem] rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" data-bs-dismiss="modal" class="w-[7.5rem] bg-first text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg">
+                Save
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
-  <script>
-  export {
+<script>
+export {
 
-  }
+}
 </script>

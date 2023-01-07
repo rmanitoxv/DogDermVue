@@ -93,7 +93,7 @@ export default {
             reader.readAsDataURL(file);
         },
         uploadImage(){
-            axios.post("https://9de526fd-7c0f-4dbf.gradio.live/run/predict", {
+            axios.post("https://rmanitoxv-dogderma.hf.space/run/predict", {
                 data: [
                     this.dataUrl
                 ]
