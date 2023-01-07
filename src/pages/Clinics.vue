@@ -7,7 +7,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-2 grid-cols-1 three wide column">
-            <form class="!m-0 lg:!h-[50rem] ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
+            <form class="!m-0 lg:!h-[55rem] ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
                 <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1]">
                     <p class="amiko text-first text-xs font-semibold">
                             <b>NOTE:</b>  Clinic results are only limited to registered veterinary clinics within the city of Manila, Metro Manila.
@@ -67,7 +67,7 @@
                 </div>
             </form>
             
-            <div class="ten wide column segment ui !m-0 !h-[50rem]" ref="map">
+            <div class="ten wide column segment ui !m-0 !h-[55rem]" ref="map">
             </div>
             
         </div>
