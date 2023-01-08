@@ -452,7 +452,7 @@ export default {
 
             script.async = true;
             script.defer = true;
-            script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCSvvmwaZ3j0VaHbCE2MJZSKxguQRPcS-o";
+            script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDGead9gW1P2QFcuDR8TSVQ2Q-bvLKk2Lc";
             document.getElementsByTagName("head")[0].appendChild(script);
             }
     },
