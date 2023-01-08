@@ -12,7 +12,7 @@ import 'bootstrap';
 import axios from 'axios';
 window.axios = axios;
 
-window.axios.defaults.baseURL = 'http://13.250.100.240:8000';
+window.axios.defaults.baseURL = 'https://13.250.100.240:8000';
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
