@@ -88,19 +88,19 @@
         <!-- VET INFORMATION -->
             <div v-for="item in clinics" class="container rounded-lg bg-white my-4 mx-0 drop-shadow-lg w-auto">
                 <a :href="item.clinic_fb" target="_blank" class="text-second">
-                <div class="items-center w-auto md:flex md:!break-all">
+                <div class="items-center w-auto md:flex md:!break-words">
                     <!-- IMG -->
                     <div class="flex-none md:flex-initial md:p-3">
                         <img class="object-cover rounded-t-lg w-full h-60 object-center mx-auto md:rounded-lg md:w-60 md:h-40" :src="item.url">
                     </div>
                     <!-- DETAILS -->
-                    <div class="flex-none md:flex-initial w-45 py-3 pl-5 inline-block md:!break-all">
-                        <p class="amiko font-bold text-lg md:!break-all">{{item.clinic_name}}</p>
+                    <div class="flex-none md:flex-initial w-45 py-3 pl-5 inline-block md:!break-words">
+                        <p class="amiko font-bold text-lg md:!break-words">{{item.clinic_name}}</p>
                         <ul>
-                            <li class="poppins text-sm max-md:!break-all"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
-                            <li class="poppins text-sm max-md:!break-all"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
-                            <li class="poppins text-sm max-md:!break-all"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
-                            <li class="poppins text-sm max-md:!break-all"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
                         </ul>
                     </div>
                 </div>
