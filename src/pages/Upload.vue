@@ -1,9 +1,8 @@
 <template>
     <div class="flex flex-col justify-center my-20 lg:my-[10.75rem] text-center">
         <p class="text-2xl lg:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
-        <p class="text-sm lg:text-md font-medium py-2 text-sixth"><br>Upload a close-up picture of the affected area of your dog.</p>
-        <p class="amiko text-first text-sm !text-left font-semibold">
-                <b>NOTES:</b> Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
+        <p class="text-sm lg:text-md font-medium py-2 text-sixth"><br>Upload a close-up picture of the affected area of your dog. <br>
+                Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
                 <br><br>MRSA, Ringworms, Sarcoptic Mange, Flea Infestation, Tickborne Disease, Harvest Mites, Yeast Infections, Hot Spot, Folliculitis, and Carbuncles
         </p>
         <form class="align-self-center" @submit.prevent="afterComplete(file)">
