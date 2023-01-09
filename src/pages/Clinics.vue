@@ -17,11 +17,11 @@
                     <!-- LOCATION COORDINATES -->
                     <div class="field">
                         <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0 !mt-3">
-                            <p class="amiko text-first text-xs font-semibold">
+                            <p class="!w-full amiko text-first text-xs font-semibold">
                                 LATITUDE
                             </p>
                             <div class="3xs:mx-1 lg:mx-2"> </div>
-                            <p class="amiko text-first text-xs font-semibold">
+                            <p class="!w-full amiko text-first text-xs font-semibold">
                                 LATITUDE
                             </p>
                         </div>
@@ -33,24 +33,26 @@
                     </div>
 
                     <!-- SELECT -->
-                    
-                        <div class="flex items-center w-full space-x-4">
-                            <!-- <div class="field">
-                                <select v-model="type">
-                                    <option value="veterinary_care">Veterinary Care</option>
-                                </select>
-                            </div> -->
+                    <p class="amiko text-first text-xs font-semibold">
+                        DISTANCE
+                    </p>
+                    <div class="flex items-center w-full space-x-4">
+                        <!-- <div class="field">
+                            <select v-model="type">
+                                <option value="veterinary_care">Veterinary Care</option>
+                            </select>
+                        </div> -->
 
-                            <div class="flex-initial field !w-56 !mb-0">
-                                <select id="radius" v-model="rad">
-                                    <option :value=2>2 KM</option>
-                                    <option :value=4>4 KM</option>
-                                    <option :value=6>6 KM</option>
-                                </select>
-                            </div>
+                        <div class="flex-initial field !w-56 !mb-0">
+                            <select id="radius" v-model="rad">
+                                <option :value=2>2 KM</option>
+                                <option :value=4>4 KM</option>
+                                <option :value=6>6 KM</option>
+                            </select>
+                        </div>
 
-                            <button class="flex-initial ui button !rounded-3xl max-md:!text-sm !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
-                        </div>                    
+                        <button class="flex-initial ui button !rounded-3xl max-md:!text-sm !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
+                    </div>                    
                 </div>
                 
                 <!-- LIST OF PLACES -->
