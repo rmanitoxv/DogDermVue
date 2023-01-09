@@ -6,7 +6,7 @@
             <div class="flex flex-col justify-center items-center">
                 <div class="my-3 !mt-5 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-words !text-left">
                     <p class="amiko text-first text-sm !text-left font-semibold">
-                        <b>NOTE:</b> Please keep in mind that this version is limited to only 10 dog skin diseases included in the <router-link to="/"><u><b>FAQs.</b></u></router-link>.
+                        <b>NOTE:</b> Please keep in mind that this version is limited to only 10 dog skin diseases such as ringworms, hot spots, folliculitis and other diseases included in the <router-link to="/"><u><b>FAQs.</b></u></router-link>
                     </p>
                 </div>
             </div>
