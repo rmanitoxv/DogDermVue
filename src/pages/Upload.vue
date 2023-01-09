@@ -55,7 +55,7 @@
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <div v-else class="flex justify-between w-80 lg:w-[24.5rem]">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Use Camera</button>
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
             </div>
