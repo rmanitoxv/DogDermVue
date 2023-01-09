@@ -3,7 +3,7 @@
         <p class="text-2xl lg:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
         <p class="text-sm lg:text-md font-medium py-2 text-sixth"><br>Upload a close-up picture of the affected area of your dog.</p>
         <form class="align-self-center" @submit.prevent="afterComplete(file)">
-                <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-all items-center">
+                <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-all items-center justify-center">
                     <p class="amiko text-first text-sm font-semibold">
                             <b>NOTE: Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
                             <br> Ringworms, MRSA, Sarcoptic Mange, Flea Infestation, Tickborne Disease, Harvest Mites, Yeast Infections, Hot Spot, Folliculitis, and Carbuncles</b>
