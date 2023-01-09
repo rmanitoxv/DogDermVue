@@ -100,7 +100,7 @@
                             <li class="poppins text-sm"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
                             <li class="poppins text-sm"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
                             <li class="poppins text-sm"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
-                            <li class="poppins text-sm"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
+                            <li class="poppins text-sm break-all"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
                         </ul>
                     </div>
                 </div>
