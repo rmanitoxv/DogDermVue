@@ -51,7 +51,7 @@
                             </select>
                         </div>
 
-                        <button class="flex-initial ui button !rounded-3xl max-md:!text-sm !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
+                        <button class="flex-initial ui button !rounded-3xl max-md:!text-xs !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
                     </div>                    
                 </div>
                 
