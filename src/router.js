@@ -3,6 +3,7 @@ import store from './store'
 
 import NotFound from './pages/NotFound.vue';
 import Modal from './pages/Modal.vue';
+import Modal-Info from './pages/Modal-Info.vue';
 
 import Homepage from './pages/Homepage.vue';
 import Login from './pages/Login.vue';
@@ -37,6 +38,7 @@ const routes = [
 
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     { path: '/modal', name: 'Modal', component: Modal },
+    { path: '/modal', name: 'Modal-Info', component: Modal-Info },
 
     { path: '/', name: 'Homepage', component: Homepage },
     { path: '/login', name: 'Login', component: Login , meta: {loggedOut: true} },
