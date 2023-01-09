@@ -1,7 +1,7 @@
 <template>
   <!-- Modal -->
   <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-    id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
+    id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog relative w-auto pointer-events-none">
       <div
         class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-3xl outline-none text-current">
