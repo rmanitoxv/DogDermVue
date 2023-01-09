@@ -59,8 +59,11 @@
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-all items-center justify-center">
+                    <p class="amiko text-first text-xl font-bold">
+                        NOTE:
+                    </p>
                     <p class="amiko text-first text-sm font-semibold">
-                            <b>NOTE: Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
+                            <b>Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
                             <br><br>MRSA, Ringworms, Sarcoptic Mange, Flea Infestation, Tickborne Disease, Harvest Mites, Yeast Infections, Hot Spot, Folliculitis, and Carbuncles</b>
                     </p>
                 </div>
