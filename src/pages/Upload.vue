@@ -58,7 +58,7 @@
                     <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
-                <div class="my-10 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-words !text-left">
+                <div class="my-3 mt-5 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-words !text-left">
                     <p class="amiko text-first text-sm !text-left font-semibold">
                             <b>NOTES:</b> Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
                             <br><br>MRSA, Ringworms, Sarcoptic Mange, Flea Infestation, Tickborne Disease, Harvest Mites, Yeast Infections, Hot Spot, Folliculitis, and Carbuncles
