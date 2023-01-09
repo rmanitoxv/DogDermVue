@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col justify-center my-20 lg:my-[10.75rem] text-center">
         <p class="text-2xl lg:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
-        <p class="text-xs lg:text-sm font-medium py-5 mb-2 text-sixth"><br>Upload a close-up picture of the affected area of your dog.</p>
+        <p class="text-sm lg:text-md font-medium py-5 mb-2 text-sixth"><br>Upload a close-up picture of the affected area of your dog.</p>
         <form class="align-self-center" @submit.prevent="afterComplete(file)">
             <div class="flex flex-col justify-center items-center">
                 <div v-if="canvas || video">
