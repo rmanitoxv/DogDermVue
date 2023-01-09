@@ -2,7 +2,7 @@
     <div class=" my-[10.75rem] ">
         <div class="flex-col justify-center text-center">
             <p class="text-2xl sm:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
-            <p class="text-xs sm:text-[0.875rem] font-medium text-sixth">Results are in!</p>
+            <p class="text-sm lg:text-md font-medium py-2 text-sixth"><br>Results are in!</p>
             <p v-if="datas.disease != 'Unidentified'" class="text-2xl sm:text-4xl font-semibold italic text-first">{{ datas.disease }} Detected</p>
             <p v-else class="text-2xl sm:text-4xl font-semibold italic text-first">Image is Unidentified</p>
             <div class="hidden sm:flex mt-14 justify-center">
