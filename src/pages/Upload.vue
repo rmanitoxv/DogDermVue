@@ -61,18 +61,7 @@
                 <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-all items-center justify-center">
                     <p class="amiko text-first text-sm font-semibold">
                             <b>NOTE: Please keep in mind that this is still a beta version that can only support 10 dog skin diseases which are:
-                            <br><br><ol>
-                                <li>Ringworms</li>
-                                <li>MRSA</li>
-                                <li>Sarcoptic Mange</li>
-                                <li>Flea Infestation</li>
-                                <li>Tickborne Disease</li>
-                                <li>Harvest Mites</li>
-                                <li>Yeast Infections</li>
-                                <li>Hot Spot</li>
-                                <li>Folliculitis</li>
-                                <li>Carbuncles</li>
-                            </ol></b>
+                            <br><br>MRSA, Ringworms, Sarcoptic Mange, Flea Infestation, Tickborne Disease, Harvest Mites, Yeast Infections, Hot Spot, Folliculitis, and Carbuncles</b>
                     </p>
                 </div>
             </div>
