@@ -18,7 +18,7 @@
                     <div class="field">
                         <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0 !mt-3">
                             <p class="!w-full amiko text-first text-xs font-semibold">
-                                LATITUDE
+                                LONGITUDE
                             </p>
                             <div class="3xs:mx-1 lg:mx-2"> </div>
                             <p class="!w-full amiko text-first text-xs font-semibold">
