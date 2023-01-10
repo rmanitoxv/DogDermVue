@@ -1,5 +1,5 @@
 <template>
-    <div class="relative overflow-hidden w-full h-full from-cyan-500 via-rose-100 to-rose-300">
+    <div class="relative overflow-hidden w-full h-full from-cyan-500 via-rose-100 to-rose-300 animate-fade-in-down">
         <!-- <div class="relative overflow-hidden bg-linear-gradient(to right bottom, rgb(6, 182, 212), rgb(255, 228, 230), rgb(253, 164, 175)) w-full h-full"> -->
         <!-- HOME TOP -->
         <main class="mx-auto mt-10 max-w-7xl px-4 py-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
