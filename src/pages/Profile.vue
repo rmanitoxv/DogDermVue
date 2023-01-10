@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="animate-fade-in-down">
         <form @submit.prevent="afterComplete(file)">
             <div class="flex sm:flex-row flex-col my-32 justify-center">
                 <div class="mb-4 sm:mb-0 sm:w-1/4 w-full flex flex-col justify-center items-center text-center">
