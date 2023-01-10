@@ -1,6 +1,6 @@
 <template>
-    <div class=" my-[10.75rem] ">
-        <div class="flex-col justify-center text-center">
+    <div class=" my-[10.75rem] animate-fade-in-down">
+        <div class="flex-col justify-center text-center animate-fade-in-down">
             <p class="text-2xl sm:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
             <p class="text-sm lg:text-md font-medium py-2 text-sixth"><br>Results are in!</p>
             <p v-if="datas.disease != 'Unidentified'" class="text-2xl sm:text-4xl font-semibold italic text-first">{{ datas.disease }} Detected</p>
