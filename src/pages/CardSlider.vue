@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="animate-fade-in-down">
         <div class="py-4">
             <div class="flex container">
                 <div class="w-2/12 flex item-center border border-red-5">
