@@ -1,5 +1,5 @@
 <template>
-    <div class="container flex gap-8 mx-auto mt-20 md:px-20 w-auto">
+    <div class="container flex gap-8 mx-auto mt-20 md:px-20 w-auto animate-fade-in-down">
         <!-- STICKY SIDEBAR -->
         <aside v-if="!hidden" class="top-25 left-96 self-start w-40 hidden md:block flex-initial">
             <!-- ON THIS PAGE LINKS -->
