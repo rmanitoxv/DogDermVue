@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-            <div class="login__content">
+            <div class="login__content animate-fade-in-down">
                 <div class="recoveracc__img">
                     <img src="/images/login-dog-vector.svg" alt="">
                 </div>
