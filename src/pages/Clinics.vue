@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto mt-20 mb-40 w-auto">
+    <div class="container mx-auto mt-20 mb-40 w-auto animate-fade-in-down">
         <!-- FIND NEARBY -->
         <div class="my-3">
             <p class="amiko font-thin text-first text-sm tracking-widest">FIND NEARBY</p>
