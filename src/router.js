@@ -8,7 +8,6 @@ import Modal from './pages/Modal.vue';
 import Homepage from './pages/Homepage.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
-import ForgotPassword from './pages/ForgotPassword.vue';
 import ResetPassword from './pages/ResetPassword.vue';
 import Profile from './pages/Profile.vue'
 import Upload from './pages/Upload.vue'
