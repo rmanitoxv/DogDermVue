@@ -63,9 +63,9 @@
                 </div>
                 <div v-else class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
                     <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
-                    <input type="file" accept="image/*" class="hidden" id="camera" capture="environment" @change="getFileName(e)" />
-                    <label for="camera" class="h-full">
-                        <button type="button" class="lg:hidden w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md">Use Camera</button>
+                    <input type="file" accept="image/*" class="hidden" id="openCamera" capture="camera" @change="getFileName(e)" />
+                    <label for="openCamera" class="lg:hidden">
+                        <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md">Use Camera</button>
                     </label>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
