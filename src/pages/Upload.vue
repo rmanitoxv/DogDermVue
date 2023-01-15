@@ -53,15 +53,15 @@
                 </div>
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
                 <input type="file" accept="image/*" class="hidden" id="upload" @change="getFileName(e)" />
-                <div v-if="video" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
+                <div v-if="video" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
                     <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
                     <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
                 </div>
-                <div v-else-if="canvas" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
+                <div v-else-if="canvas" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
                     <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
-                <div v-else class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
+                <div v-else class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
                     <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
