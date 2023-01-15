@@ -63,12 +63,13 @@
                 </div>
                 <div v-else class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
                     <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
-                    <input type="file" accept="image/*" class="hidden" id="openCamera" capture="camera" @change="getFileName(e)" />
+                    <input type="file" accept="image/*" class="hidden" id="openCamera" capture @change="getFileName(e)" />
                     <label for="openCamera" class="lg:hidden">
                         <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md">Use Camera</button>
                     </label>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
+                <p v-if="error" class="text-red text-lg justify-self-end"></p>
             </div>
         </form>
     </div>
@@ -89,7 +90,8 @@ export default {
             file: null,
             status: "Submit",
             submitClass: "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border",
-            saving: 0
+            saving: 0,
+            error: null
         }
     },
     methods: {
@@ -185,24 +187,29 @@ export default {
             this.saving = 1
             this.status = "Detecting..."
             this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center"
-            let fileName
-            let file
-            if (this.file){
-                file = this.file
-                fileName = uuid()
+            try {
+                let fileName
+                let file
+                if (this.file){
+                    file = this.file
+                    fileName = uuid()
 
+                }
+                else{
+                    file = upload.files[0];
+                    const re = /(?:\.([^.]+))?$/;
+                    let ext = re.exec(file.name)[1];
+                    fileName = uuid() + '.' + ext ;
+                }
+                const storage = getStorage();
+                const storageRef = ref(storage, 'images/' + fileName);
+                await uploadBytesResumable(storageRef, file);
+                this.dburl = fileName
+                this.uploadImage()
+            } catch (error) {
+                console.log(error)
+                this.error("Image is required.")
             }
-            else{
-                file = upload.files[0];
-                const re = /(?:\.([^.]+))?$/;
-                let ext = re.exec(file.name)[1];
-                fileName = uuid() + '.' + ext ;
-            }
-            const storage = getStorage();
-            const storageRef = ref(storage, 'images/' + fileName);
-            await uploadBytesResumable(storageRef, file);
-            this.dburl = fileName
-            this.uploadImage()
         },
     }
 }
