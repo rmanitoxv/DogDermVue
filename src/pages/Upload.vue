@@ -54,18 +54,18 @@
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
                 <input type="file" accept="image/*" class="hidden" id="upload" @change="getFileName(e)" />
                 <div v-if="video" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[1rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
-                    <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
+                    <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
                 </div>
                 <div v-else-if="canvas" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[1rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <div v-else class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[1rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
-                    <input type="file" accept=".png" class="hidden" id="camera" capture="environment" @change="getFileName(e)" />
+                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
+                    <input type="file" accept="image/*" class="hidden" id="camera" capture="environment" @change="getFileName(e)" />
                     <label for="camera" class="h-full">
-                        <button type="button" class="lg:hidden w-[7.5rem] text-first border-[.15rem] border-first py-[1rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md">Use Camera</button>
+                        <button type="button" class="lg:hidden w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md">Use Camera</button>
                     </label>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
@@ -88,7 +88,7 @@ export default {
             dburl: null,
             file: null,
             status: "Submit",
-            submitClass: "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center border",
+            submitClass: "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border",
             saving: 0
         }
     },
@@ -121,7 +121,7 @@ export default {
                 .catch((error) => {
                     this.saving = 0
                     this.status = "Submit"
-                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center border"
+                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border"
                     console.log(error)
                 })
             })
@@ -184,7 +184,7 @@ export default {
         async afterComplete(e) {
             this.saving = 1
             this.status = "Detecting..."
-            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-grey text-white align-self-center"
+            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center"
             let fileName
             let file
             if (this.file){
