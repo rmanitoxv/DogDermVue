@@ -88,7 +88,7 @@ export default {
             dburl: null,
             file: null,
             status: "Submit",
-            submitClass: "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center",
+            submitClass: "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center border",
             saving: 0
         }
     },
@@ -121,7 +121,7 @@ export default {
                 .catch((error) => {
                     this.saving = 0
                     this.status = "Submit"
-                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center"
+                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center border"
                     console.log(error)
                 })
             })
