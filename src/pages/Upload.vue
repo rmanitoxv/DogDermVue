@@ -69,7 +69,7 @@
                     </label>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
-                <p v-if="error" class="text-red text-lg justify-self-end"></p>
+                <p v-if="error" class="text-red text-lg justify-self-end"> {{ error }}</p>
             </div>
         </form>
     </div>
