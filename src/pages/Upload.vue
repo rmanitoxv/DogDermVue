@@ -208,7 +208,7 @@ export default {
                 this.uploadImage()
             } catch (error) {
                 console.log(error)
-                this.error("Image is required.")
+                this.error = "Image is required."
                 this.status = "Submit"
                 this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border"
                 this.saving = 0
