@@ -131,6 +131,9 @@ export default {
             if(this.video){
                 this.openCamera()
             }
+            else {
+                navigator.mediaDevices.getUserMedia({video: false})
+            }
         },
         async openCamera(){
             try {
