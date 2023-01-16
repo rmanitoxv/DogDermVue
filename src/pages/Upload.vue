@@ -155,7 +155,7 @@ export default {
         },
         async closeCamera(){
             try {
-                await getUserMedia({video: false});
+                await navigator.mediaDevices.getUserMedia({video: true});
             }
             catch(err){
                 console.log(err)
