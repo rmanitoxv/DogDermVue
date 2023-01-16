@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto mt-20 mb-40 w-auto">
+    <div class="container mx-auto mt-20 mb-40 w-auto animate-fade-in-down">
         <!-- FIND NEARBY -->
         <div class="my-3">
             <p class="amiko font-thin text-first text-sm tracking-widest">FIND NEARBY</p>
@@ -7,9 +7,9 @@
         </div>
 
         <div class="grid md:grid-cols-2 gap-2 grid-cols-1 three wide column">
-            <form class="!m-0 lg:!h-[50rem] ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
+            <form class="!m-0 lg:!h-[55rem] ui segment large form" @submit.prevent="addLocationsToGoogleMaps()">
                 <div class="my-3 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1]">
-                    <p class="amiko text-first text-xs font-semibold">
+                    <p class="amiko text-first text-sm font-semibold">
                             <b>NOTE:</b>  Clinic results are only limited to registered veterinary clinics within the city of Manila, Metro Manila.
                     </p>
                 </div>
@@ -17,7 +17,11 @@
                     <!-- LOCATION COORDINATES -->
                     <div class="field">
                         <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0 !mt-3">
-                            <p class="amiko text-first text-xs font-semibold">
+                            <p class="!w-full amiko text-first text-xs font-semibold">
+                                LONGITUDE
+                            </p>
+                            <div class="3xs:mx-1 lg:mx-2"> </div>
+                            <p class="!w-full amiko text-first text-xs font-semibold">
                                 LATITUDE
                             </p>
                         </div>
@@ -29,24 +33,26 @@
                     </div>
 
                     <!-- SELECT -->
-                    
-                        <div class="flex items-center w-full space-x-4">
-                            <!-- <div class="field">
-                                <select v-model="type">
-                                    <option value="veterinary_care">Veterinary Care</option>
-                                </select>
-                            </div> -->
+                    <p class="amiko text-first text-xs font-semibold">
+                        DISTANCE
+                    </p>
+                    <div class="flex items-center w-full space-x-4">
+                        <!-- <div class="field">
+                            <select v-model="type">
+                                <option value="veterinary_care">Veterinary Care</option>
+                            </select>
+                        </div> -->
 
-                            <div class="flex-initial field !w-56 !mb-0">
-                                <select id="radius" v-model="rad">
-                                    <option :value=2>2 KM</option>
-                                    <option :value=4>4 KM</option>
-                                    <option :value=6>6 KM</option>
-                                </select>
-                            </div>
+                        <div class="flex-initial field !w-56 !mb-0">
+                            <select id="radius" v-model="rad">
+                                <option :value=2>2 KM</option>
+                                <option :value=4>4 KM</option>
+                                <option :value=6>6 KM</option>
+                            </select>
+                        </div>
 
-                            <button class="flex-initial ui button !rounded-3xl max-md:!text-sm !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
-                        </div>                    
+                        <button class="flex-initial ui button !rounded-3xl max-md:!text-xs !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
+                    </div>                    
                 </div>
                 
                 <!-- LIST OF PLACES -->
@@ -63,7 +69,7 @@
                 </div>
             </form>
             
-            <div class="ten wide column segment ui !m-0 !h-[50rem]" ref="map">
+            <div class="ten wide column segment ui !m-0 !h-[55rem]" ref="map">
             </div>
             
         </div>
@@ -82,19 +88,19 @@
         <!-- VET INFORMATION -->
             <div v-for="item in clinics" class="container rounded-lg bg-white my-4 mx-0 drop-shadow-lg w-auto">
                 <a :href="item.clinic_fb" target="_blank" class="text-second">
-                <div class="items-center w-auto md:flex">
+                <div class="items-center w-auto md:flex md:!break-all">
                     <!-- IMG -->
                     <div class="flex-none md:flex-initial md:p-3">
                         <img class="object-cover rounded-t-lg w-full h-60 object-center mx-auto md:rounded-lg md:w-60 md:h-40" :src="item.url">
                     </div>
                     <!-- DETAILS -->
                     <div class="flex-none md:flex-initial w-45 py-3 pl-5 inline-block">
-                        <p class="amiko font-bold text-lg">{{item.clinic_name}}</p>
+                        <p class="amiko font-bold text-lg md:!break-words">{{item.clinic_name}}</p>
                         <ul>
-                            <li class="poppins text-sm"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
-                            <li class="poppins text-sm"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
-                            <li class="poppins text-sm"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
-                            <li class="poppins text-sm"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
+                            <li class="poppins text-sm max-md:!break-all"><i class='bx bxl-facebook-circle text-first'></i> &nbsp; {{item.clinic_fb}}</li>
                         </ul>
                     </div>
                 </div>
@@ -448,7 +454,7 @@ export default {
 
             script.async = true;
             script.defer = true;
-            script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCSvvmwaZ3j0VaHbCE2MJZSKxguQRPcS-o";
+            script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDGead9gW1P2QFcuDR8TSVQ2Q-bvLKk2Lc";
             document.getElementsByTagName("head")[0].appendChild(script);
             }
     },

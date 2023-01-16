@@ -1,5 +1,5 @@
 <template>
-    <div class="container flex gap-8 mx-auto mt-20 md:px-20 w-auto">
+    <div class="container flex gap-8 mx-auto mt-20 md:px-20 w-auto animate-fade-in-down">
         <!-- STICKY SIDEBAR -->
         <aside v-if="!hidden" class="top-25 left-96 self-start w-40 hidden md:block flex-initial">
             <!-- ON THIS PAGE LINKS -->
@@ -84,7 +84,7 @@
                         This article can provide general information about different types of skin diseases in dogs, but it is not a substitute for professional veterinary care.
                     </p>
                     <p class="amiko text-first text-sm font-semibold">
-                        If you have any concerns about your dog's health, it's always best to consult with a veterinarian who can examine your pet in person and provide a proper diagnosis and treatment plan.
+                        <br>If you have any concerns about your dog's health, it's always best to consult with a veterinarian who can examine your pet in person and provide a proper diagnosis and treatment plan.
                     </p>
                 </div>
                 <!-- MANAGEMENT AND TREATMENT -->

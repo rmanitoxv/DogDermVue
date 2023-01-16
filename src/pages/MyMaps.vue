@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="animate-fade-in-down">
       <gmap-map
         :center="center"
         :zoom="zoom"

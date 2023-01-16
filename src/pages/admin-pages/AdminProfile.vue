@@ -198,6 +198,9 @@ export default {
                 await uploadBytesResumable(storageRef, file);
                 this.dburl = fileName
             }
+            else{
+                this.dburl = this.datas.url
+            }
             this.saveProfile(this.datas.id)
         },
         getImage() {

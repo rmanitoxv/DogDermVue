@@ -1,8 +1,15 @@
 <template>
-    <div class="flex flex-col justify-center my-20 lg:my-[10.75rem] text-center">
+    <div class="flex flex-col justify-center my-20 lg:my-[10.75rem] text-center animate-fade-in-down">
         <p class="text-2xl lg:text-[2.5rem] text-second font-semibold"> DOG SKIN DISEASE DETECTION </p>
-        <p class="text-xs lg:text-sm font-medium text-sixth">Upload a close-up picture of the affected area of your dog.</p>
+        <p class="text-sm lg:text-md font-medium py-2 text-sixth"><br>Upload a close-up picture of the affected area of your dog.</p>
         <form class="align-self-center" @submit.prevent="afterComplete(file)">
+            <div class="flex flex-col justify-center items-center">
+                <div class="my-3 !mt-5 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-words !text-left">
+                    <p class="amiko text-first text-sm !text-left font-semibold">
+                        <b>NOTE:</b> Please keep in mind that this version is limited to only 10 dog skin diseases such as ringworms, hot spots, folliculitis and other diseases included in the <router-link to="/"><u><b>FAQs.</b></u></router-link>
+                    </p>
+                </div>
+            </div>
             <div class="flex flex-col justify-center items-center">
                 <div v-if="canvas || video">
                     <div
@@ -45,19 +52,20 @@
                     </label>
                 </div>
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
-                <input type="file" accept=".jpeg,.jpg,.png,.svg" class="hidden" id="upload" @change="getFileName(e)" />
-                <div v-if="video" class="flex justify-between w-80 lg:w-[24.5rem]">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
-                    <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
+                <input type="file" accept="image/*" class="hidden" id="upload" @change="getFileName(e)" />
+                <div v-if="video" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
+                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
+                    <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
                 </div>
-                <div v-else-if="canvas" class="flex justify-between w-80 lg:w-[24.5rem]">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
+                <div v-else-if="canvas" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
+                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
-                <div v-else class="flex justify-between w-80 lg:w-[24.5rem]">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Use Camera</button>
+                <div v-else class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
+                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
+                <p v-if="error" class="text-red text-lg justify-self-end"> {{ error }}</p>
             </div>
         </form>
     </div>
@@ -77,8 +85,9 @@ export default {
             dburl: null,
             file: null,
             status: "Submit",
-            submitClass: "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center",
-            saving: 0
+            submitClass: "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border",
+            saving: 0,
+            error: null
         }
     },
     methods: {
@@ -93,7 +102,7 @@ export default {
             reader.readAsDataURL(file);
         },
         uploadImage(){
-            axios.post("https://9de526fd-7c0f-4dbf.gradio.live/run/predict", {
+            axios.post("https://rmanitoxv-dogderma.hf.space/run/predict", {
                 data: [
                     this.dataUrl
                 ]
@@ -110,7 +119,7 @@ export default {
                 .catch((error) => {
                     this.saving = 0
                     this.status = "Submit"
-                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-first text-white align-self-center"
+                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border"
                     console.log(error)
                 })
             })
@@ -176,25 +185,33 @@ export default {
         async afterComplete(e) {
             this.saving = 1
             this.status = "Detecting..."
-            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[1rem] rounded-[2.75rem] bg-grey text-white align-self-center"
-            let fileName
-            let file
-            if (this.file){
-                file = this.file
-                fileName = uuid()
+            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center"
+            try {
+                let fileName
+                let file
+                if (this.file){
+                    file = this.file
+                    fileName = uuid()
 
+                }
+                else{
+                    file = upload.files[0];
+                    const re = /(?:\.([^.]+))?$/;
+                    let ext = re.exec(file.name)[1];
+                    fileName = uuid() + '.' + ext ;
+                }
+                const storage = getStorage();
+                const storageRef = ref(storage, 'images/' + fileName);
+                await uploadBytesResumable(storageRef, file);
+                this.dburl = fileName
+                this.uploadImage()
+            } catch (error) {
+                console.log(error)
+                this.error = "Image is required."
+                this.status = "Submit"
+                this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border"
+                this.saving = 0
             }
-            else{
-                file = upload.files[0];
-                const re = /(?:\.([^.]+))?$/;
-                let ext = re.exec(file.name)[1];
-                fileName = uuid() + '.' + ext ;
-            }
-            const storage = getStorage();
-            const storageRef = ref(storage, 'images/' + fileName);
-            await uploadBytesResumable(storageRef, file);
-            this.dburl = fileName
-            this.uploadImage()
         },
     }
 }

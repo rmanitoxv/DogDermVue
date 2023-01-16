@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="login animate-fade-in-down">
             <div class="login__content">
                 <div class="login__img">
                     <img src="/images/register-dog-vector.svg" alt="">

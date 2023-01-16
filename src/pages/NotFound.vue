@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto mt-20 mb-40">
+    <div class="container mx-auto mt-20 mb-40 animate-fade-in-down">
         <div class="lg:-mx-6 lg:flex">          
             <!-- NOT FOUND -->
             <div class="mt-6 lg:w-1/2 lg:mt-0 lg:mx-6">

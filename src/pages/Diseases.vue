@@ -1,5 +1,5 @@
 <template>
-    <div class="container my-20 mx-auto w-auto" id="app">
+    <div class="container my-20 mx-auto w-auto animate-fade-in-down" id="app">
         <!-- MAIN TITLE -->
         <div class="my-3">
             <p class="amiko font-thin text-first text-sm tracking-widest">LEARN MORE ABOUT</p>

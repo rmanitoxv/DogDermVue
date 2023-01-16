@@ -85,6 +85,7 @@ export default {
             status: 'Edit',
             saving: 0,
             buttonClass: 'w-[7.5rem] bg-first text-white py-2 rounded-2xl mt-[2.5rem] text-lg',
+            password: null
         }
     },
     methods: {
@@ -94,6 +95,7 @@ export default {
                 last_name: this.datas.last_name,
                 email: this.datas.email,
                 password: this.datas.password,
+                cpassword: this.password,
                 is_staff: this.datas.is_staff
             }
                 )
@@ -109,6 +111,7 @@ export default {
             axios.get(`/api/alluser/${id}`)
             .then((response) => {
                 this.datas = response.data
+                this.password = response.data.password
                 this.dburl = response.data.url
                 const storage = getStorage();
                 const storageRef = ref(storage, 'images/' + this.datas.url);

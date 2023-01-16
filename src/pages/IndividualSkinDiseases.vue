@@ -1,5 +1,5 @@
 <template>
-    <div class="flex">
+    <div class="flex animate-fade-in-down">
         <!-- STICKY SIDEBAR -->
         <aside class="h-screen sticky top-0">
             <!-- ON THIS PAGE LINKS -->
