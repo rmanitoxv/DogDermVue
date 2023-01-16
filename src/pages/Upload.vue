@@ -141,13 +141,21 @@ export default {
                 this.openCamera()
             }
             else {
-                navigator.mediaDevices.getUserMedia({video: false})
+                this.closeCamera()
             }
         },
         async openCamera(){
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({video: true});
                 this.handleSuccess(stream);
+            }
+            catch(err){
+                console.log(err)
+            }
+        },
+        async closeCamera(){
+            try {
+                await getUserMedia({video: false});
             }
             catch(err){
                 console.log(err)
