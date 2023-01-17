@@ -19,8 +19,8 @@
                         <form @submit.prevent="afterComplete(file)">
                             <input type="file" id="upload" accept="image/*" class="hidden" @input="getImage()" />
                             <label v-if="!changedImage" for="upload"
-                                class="w-[7.5rem] bg-first text-white p-2 rounded-3xl sm:mt-[2.5rem] mx-2 text-sm sm:text-lg cursor-pointer">
-                                Upload Image
+                                class="sm:w-[15rem] bg-first text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg cursor-pointer hover:!bg-second ease-in-out">
+                                &nbsp; Upload Image &nbsp;
                             </label>
                             <button v-else
                                 class="w-[7.5rem] bg-first text-white p-2 rounded-3xl mx-2 text-sm sm:text-lg"
@@ -89,7 +89,7 @@
                 </div>
                 <div class="flex items-center mt-[1rem] justify-center lg:justify-end">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#notifModal1"
-                        class="sm:w-[15rem] bg-first text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg cursor-pointer">
+                        class="sm:w-[15rem] bg-first text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg cursor-pointer hover:!bg-second ease-in-out">
                         Change Password
                     </button>
                 </div>
@@ -101,7 +101,7 @@
                 <div
                     class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-3xl outline-none text-current">
                     <div v-if="changingPassword" class="m-8">
-                        <p class="text-xl !mb-0 font-bold hover:!bg-second ease-in-out"> Change Password </p>
+                        <p class="text-xl !mb-0 font-bold hover:!bg-second ease-in-out "> Change Password </p>
                         <div class="modal-body relative !mt-0 mb-4 text-grey">
                             Type your New and Old Password.
                         </div>
@@ -138,7 +138,7 @@
                             </div>
                             <div class="flex w-full justify-end">
                                 <button type="button"
-                                    class="mr-[1.125rem] w-[7.5rem] text-first border-[.15rem] border-first py-[.35rem] rounded-3xl mt-[2.5rem] mx-2 text-sm sm:text-lg hover:!text-second hover:!text-bold !ease-in-out"
+                                    class="mr-[1.125rem] w-[7.5rem] text-first border-[.15rem] border-first py-[.35rem] rounded-3xl mt-[2.5rem] mx-2 text-sm sm:text-lg hover:!text-second hover:!text-bold hover:!border-third !ease-in-out"
                                     data-bs-dismiss="modal">
                                     Cancel
                                 </button>

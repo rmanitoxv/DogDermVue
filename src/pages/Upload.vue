@@ -55,11 +55,11 @@
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
                 <input type="file" accept="image/*" class="hidden" id="upload" @change="getFileName(e)" />
                 <div v-if="video" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold hover:!border-third !ease-in-out" @click="useCamera">Cancel</button>
                     <button type="button" class="mt-[2.25rem] w-[7.25rem] border-[.15rem] py-[.5rem] mx-[1rem] rounded-[2.75rem] bg-first text-white align-self-center text-md" @click="captureImage">Capture</button>
                 </div>
                 <div v-else-if="canvas" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold hover:!border-third !ease-in-out" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <div v-else class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">

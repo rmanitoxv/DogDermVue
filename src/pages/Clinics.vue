@@ -454,7 +454,7 @@ export default {
                     marker.name = markers.name
                     marker.hours = markers.hours
                     marker.contact = markers.contact
-                    markers.email = markers.email
+                    marker.email = markers.email
                     marker.address = markers.address
                     marker.fb = markers.fb
                     marker.distance = distance
