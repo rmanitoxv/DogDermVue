@@ -3,12 +3,10 @@ import store from './store'
 
 import NotFound from './pages/NotFound.vue';
 import Modal from './pages/Modal.vue';
-// import ModalInfo from './pages/ModalInfo.vue';
 
 import Homepage from './pages/Homepage.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
-import ResetPassword from './pages/ResetPassword.vue';
 import Profile from './pages/Profile.vue'
 import Upload from './pages/Upload.vue'
 import UploadResult from './pages/UploadResult.vue'
@@ -37,7 +35,6 @@ const routes = [
 
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     { path: '/modal', name: 'Modal', component: Modal },
-//     { path: '/modal', name: 'ModalInfo', component: ModalInfo },
 
     { path: '/', name: 'Homepage', component: Homepage },
     { path: '/login', name: 'Login', component: Login , meta: {loggedOut: true} },
@@ -82,7 +79,9 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
     next('/login')
   }
-
+  // else if (to.matched.some(record => record.meta.loggedOut) && store.state.isAuthenticated ) {
+  //   next('/')
+  // }
   else{
     next()
   }

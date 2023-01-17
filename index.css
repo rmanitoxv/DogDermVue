@@ -551,6 +551,16 @@
         border-radius: .5rem;
     }
     
+    .pass__box {
+        display: flex;
+        column-gap: .5rem;
+        align-items: center;
+        padding: 1.125rem;
+        background-color: var(--light-gray);
+        margin: 1rem 0 0;
+        border-radius: .5rem;
+    }
+
     .login__box1 {
         display: grid;
         padding: 1.125rem;
@@ -559,6 +569,14 @@
         border-radius: .5rem;
     }
     
+    .login__box2 {
+        column-gap: .5rem;
+        padding: 1.125rem;
+        background-color: var(--light-gray);
+        margin: 1rem 0 0;
+        border-radius: .5rem;
+    }
+
     .login__icon {
         font-size: 1.5rem;
         color: var(--orange-1);

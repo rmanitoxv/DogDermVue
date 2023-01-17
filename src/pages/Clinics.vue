@@ -15,7 +15,7 @@
                 </div>
                 <div class="ui segment">
                     <!-- LOCATION COORDINATES -->
-                    <div class="field">
+                    <div class="field hidden">
                         <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0 !mt-3">
                             <p class="!w-full amiko text-first text-xs font-semibold">
                                 LONGITUDE
@@ -26,9 +26,9 @@
                             </p>
                         </div>
                         <div class="two 3xs:!flex 3xs:!flex-nowrap lg:block fields w-full !m-0">
-                            <input type="text" class="!w-full" placeholder="Enter your address" v-model="lat" />
+                            <input type="text" disabled class="!w-full" placeholder="Enter your address" v-model="lat" />
                             <div class="3xs:mx-1 lg:mx-2"> </div>
-                            <input type="text" class="!w-full" placeholder="Enter your address" v-model="lng" />
+                            <input type="text" disabled class="!w-full" placeholder="Enter your address" v-model="lng" />
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@
                             </select>
                         </div>
 
-                        <button class="flex-initial ui button !rounded-3xl max-md:!text-xs !text-white !bg-first hover:!bg-third !h-10 !w-23">Find Clinic</button>
+                        <button class="flex-initial ui button !rounded-3xl max-md:!text-xs !text-white !bg-first hover:!bg-second ease-in-out !h-10 !w-23">Find Clinic</button>
                     </div>                    
                 </div>
                 
@@ -59,9 +59,17 @@
                 <div class="ui segment overflow-scroll max-h-[34rem]" >
                     <div v-if="sidebar" class="ui divided items">
                         <div class="item !flex !flex-col">
-                            <div v-for="place in place" class="hover:font-bold content cursor-pointer" @click=infoWindow(place)>
+                            <div v-for="place in place" class="hover:!bg-grayhover ease-in-out content cursor-pointer" @click=infoWindow(place)>
                                 <div class="pt-4 amiko text-lg">{{place.name}}</div>
-                                <div class="!pb-4 meta">{{place.address}}</div>
+                                <div class="!pb-4 meta pl-3 ml-3">
+                                    <b>Opening Hours: </b> {{place.hours}}
+                                    <br><br>
+                                    <b>Contact: </b> {{place.contact}}
+                                    <br><br>
+                                    <b>Address: </b>{{place.address}}
+                                    <br><br>
+                                    <b>Facebook: </b>{{place.fb}}
+                                </div>
                                 <hr class="w-full"/>
                             </div>
                         </div>
@@ -97,6 +105,8 @@
                     <div class="flex-none md:flex-initial w-45 py-3 pl-5 inline-block">
                         <p class="amiko font-bold text-lg md:!break-words">{{item.clinic_name}}</p>
                         <ul>
+                            <!-- OPENING HOURS -->
+                            <li class="poppins text-sm max-md:!break-words"><i class='bx bx-time text-first'></i> &nbsp; {{item.clinic_hours}}</li>
                             <li class="poppins text-sm max-md:!break-words"><i class='bx bx-location-plus text-first'></i> &nbsp; {{item.clinic_address}}</li>
                             <li class="poppins text-sm max-md:!break-words"><i class='bx bxs-phone-call text-first'></i> &nbsp; {{item.clinic_mobile}} | {{item.clinic_landline}}</li>
                             <li class="poppins text-sm max-md:!break-words"><i class='bx bx-envelope text-first'></i> &nbsp; {{item.clinic_email}}</li>
@@ -135,140 +145,200 @@ export default {
                     "x": 14.636930813048608,
                     "y": 120.98053919140165,
                     "icon": "vet-loc-marker.png",
-                    "address": "3432 Arsenio Herrera St, Tondo, Manila, Metro Manila"
+                    "hours": "Open Mon-Sun 24 Hours",
+                    "contact": "0999 955 9743 | 0995 901 8097",
+                    "address": "3432 Arsenio Herrera St, Tondo, Manila, Metro Manila",
+                    "fb":"https://www.facebook.com/petlinkrpapa/"
                 },
                 {
                     "name": "BETERINARYO NG TONDO CO.",
                     "x": 14.628076606999961,
                     "y": 120.97350294232788,
                     "icon": "vet-loc-marker.png",
-                    "address": "2508 Juan Luna St, Tondo, Manila, Metro Manila"
+                    "hours": "Mon-Sun 08:00 AM-10:00 PM",
+                    "contact": "0922 820 4782",
+                    "address": "2508 Juan Luna St, Tondo, Manila, Metro Manila",
+                    "fb":"https://www.facebook.com/profile.php?id=100064036147771"
                 },
                 {
                     "name": "MT.ZION ANIMAL CLINIC",
                     "x": 14.630642723499628,
                     "y": 120.97392976240079,
                     "icon": "vet-loc-marker.png",
-                    "address": "2707 B Manotoc St, Tondo, Manila, Metro Manila"
+                    "hours": "Mon-Sun 08:30 AM-08:30 PM",
+                    "contact": "0933 578 5714",
+                    "address": "2707 B Manotoc St, Tondo, Manila, Metro Manila",
+                    "fb":"https://www.facebook.com/MountZionVeterinarian/"
                 },
                 {
                     "name": "NORTH BAY VETERINARY CLINIC & PET SUPPLY",
                     "x": 14.625592301109746,
                     "y": 120.96715440361679,
                     "icon": "vet-loc-marker.png",
-                    "address": "434 Honorio Lopez Blvd.corner Fidel St., Brgy 148, Zone 13, Tondo, Manila"
+                    "hours": "Mon-Sun 09:00 AM-06:00 PM",
+                    "contact": "0932 138 4489",
+                    "address": "434 Honorio Lopez Blvd.corner Fidel St., Brgy 148, Zone 13, Tondo, Manila",
+                    "fb":"https://www.facebook.com/northbayvetclinic/"
                 },
                 {
                     "name": "PETS AVENUE ANIMAL WELLNESS CENTER",
                     "x": 14.602766074471445,
                     "y": 121.00966905101234,
                     "icon": "vet-loc-marker.png",
-                    "address": "3574 Buenos Aires St. cor. Altura St. Sampaloc, Manila, Philippines"
+                    "hours": "Mon-Sun 09:00 AM-06:00 PM",
+                    "contact": "0956 852 1191",
+                    "address": "3574 Buenos Aires St. cor. Altura St. Sampaloc, Manila, Philippines",
+                    "fb":"https://www.facebook.com/Petsavenueph/"
                 },
                 {
                     "name": "CITIVET VETERINARY CLINIC & PET SUPPLY CO",
                     "x": 14.616956460393375,
                     "y": 120.99402463188937,
                     "icon": "vet-loc-marker.png",
-                    "address": "1913 Dapitan St, Sampaloc, Manila, 1008 Metro Manila"
+                    "hours": "Mon-Sun 09:00 AM-06:00 PM",
+                    "contact": "(02) 741 9410",
+                    "address": "1913 Dapitan St, Sampaloc, Manila, 1008 Metro Manila",
+                    "fb":"https://www.facebook.com/pages/Citivet%20Veterinary%20Clinic/212455948924134/photos/"
                 },
                 {
                     "name": "VITAS VETERINARY INSPECTION BOARD",
                     "x": 14.627287793020551,
                     "y": 120.96202445718099,
                     "icon": "vet-loc-marker.png",
-                    "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila"
+                    "hours": "Mon-Sun 08:00 AM-05:00 PM",
+                    "contact": "0949 355 6014",
+                    "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila",
+                    "fb":"https://www.facebook.com/bittenanimalbitecenter/"
                 },
                 {
                     "name": "VET FRONT ANIMAL WELLNESS CENTER",
                     "x": 14.616735955018765,
                     "y": 120.99130209993999,
                     "icon": "vet-loc-marker.png",
-                    "address": "1764 Laong Laan Rd, Sampaloc, Manila, 1008 Metro Manila"
+                    "hours": "Mon-Sun 08:00 AM-08:00 PM",
+                    "contact": "0927 835 3189",
+                    "address": "1764 Laong Laan Rd, Sampaloc, Manila, 1008 Metro Manila",
+                    "fb":"https://www.facebook.com/VetfrontPH/"
                 },
                 {
                     "name": "SANTA ANA ANIMAL HEALTH CLINIC",
                     "x": 14.5823136266778,
                     "y": 121.01342271904925,
                     "icon": "vet-loc-marker.png",
-                    "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila"
+                    "hours": "Mon-Sun 09:00 AM-05:00 PM",
+                    "contact": "(02) 8241 7224",
+                    "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila",
+                    "fb":"https://www.facebook.com/manilavetclinic/"
                 },
                 {
                     "name": "TOLENTINOS ANIMAL CLINIC",
                     "x": 14.633548130080529,
                     "y": 120.97867437301643,
                     "icon": "vet-loc-marker.png",
-                    "address": "Hermosa Arcade Center, 3067 Molave St, Tondo, Manila, 1013 Metro Manila"
+                    "hours": "Mon-Sun 09:00 AM-06:00 PM",
+                    "contact": "(02) 8281 4502 | 0932 887 0736",
+                    "address": "Hermosa Arcade Center, 3067 Molave St, Tondo, Manila, 1013 Metro Manila",
+                    "fb":"https://www.facebook.com/tolentinosanimalclinic/"
                 },
                 {
                     "name": "PETCORE ANIMAL CLINIC",
                     "x": 14.584042317013353,
                     "y": 121.00140946560653,
                     "icon": "vet-loc-marker.png",
-                    "address": "Unit 1, Clean Fuel Gasoline Station, 1883 Pres, Quirino Ave, Pandacan, Manila"
+                    "hours": "Mon-Sun 09:00 AM-05:00 PM",
+                    "contact": "0917 120 0596",
+                    "address": "Unit 1, Clean Fuel Gasoline Station, 1883 Pres, Quirino Ave, Pandacan, Manila",
+                    "fb":"https://www.facebook.com/petcoreanimalclinic/"
                 },
                 {
                     "name": "HANNA PET WELLNESS CENTER INC",
                     "x": 14.567134104619678,
                     "y": 121.00209682698359,
                     "icon": "vet-loc-marker.png",
-                    "address": "1266 P. Ocampo St., corner G. del Pilar St., 756, Manila, 1110 Metro Manila"
+                    "hours": "Mon-Sun 11:00 AM-06:00 PM",
+                    "contact": "0916 415 8426",
+                    "address": "1266 P. Ocampo St., corner G. del Pilar St., 756, Manila, 1110 Metro Manila",
+                    "fb":"https://www.facebook.com/HannaPetWellness"
                 },
                 {
                     "name": "NOMAR ANIMAL CLINIC",
                     "x": 14.613830786530714,
                     "y": 120.99909537301644,
                     "icon": "vet-loc-marker.png",
-                    "address": "1984, S.H. Loyola, corner Maceda St, Sampaloc, Manila, 1008 Metro Manila"
+                    "hours": "Mon-Sun 09:00 AM-07:00 PM",
+                    "contact": "(02) 8742 3362",
+                    "address": "1984, S.H. Loyola, corner Maceda St, Sampaloc, Manila, 1008 Metro Manila",
+                    "fb":"https://www.facebook.com/NOMARCLINIC/"
                 },
                 {
                     "name": "THE ANIMAL HOUSE VET CLINIC",
                     "x": 14.599799673073766,
                     "y": 120.97428209765603,
                     "icon": "vet-loc-marker.png",
-                    "address": "AH Binondo 599 Quintin Paredes"
+                    "hours": "Mon-Sun 08:00 AM-06:00 PM",
+                    "contact": "0917 8073 694 | (02) 8355-8772 | (02) 8401-1248",
+                    "address": "AH Binondo 599 Quintin Paredes",
+                    "fb":"https://www.facebook.com/AnimalHousePH/"
                 },
                 {
                     "name": "GOLDWINGS VETERINARY CLINIC",
                     "x": 14.61584358662534,
                     "y": 120.97050091111487,
                     "icon": "vet-loc-marker.png",
-                    "address": "1601 Juan Luna St, Tondo, Manila, Metro Manila"
+                    "hours": "Mon-Sun 09:00 AM-05:00 PM",
+                    "contact": "0995 953 6523",
+                    "address": "1601 Juan Luna St, Tondo, Manila, Metro Manila",
+                    "fb":"https://www.facebook.com/people/Goldwings-Veterinary-clinic/100044585756034/"
                 },
                 {
                     "name": "PAMPOLINA VETERINARY CLINIC AND GROOMING CENTER",
                     "x": 14.567609290635087,
                     "y": 120.99423492311043,
                     "icon": "vet-loc-marker.png",
-                    "address": "2380 Leon Guinto St, Malate, Manila, 1004 Metro Manila"
+                    "hours": "Mon-Sun 09:00 AM-07:00 PM",
+                    "contact": "(02) 697 1871",
+                    "address": "2380 Leon Guinto St, Malate, Manila, 1004 Metro Manila",
+                    "fb":"https://www.facebook.com/pamvetclinicph"
                 },
                 {
                     "name": "KINGIYAMAN PET CLINIC",
                     "x": 14.615279971805675,
                     "y": 121.0012785536699,
                     "icon": "vet-loc-marker.png",
-                    "address": "856 Sto Tomas St., 529, Maynila, 1008 Kalakhang Maynila"
+                    "hours": "Mon-Sun 09:00 AM-06:00 PM",
+                    "contact": "0939 840 5988",
+                    "address": "856 Sto Tomas St., 529, Maynila, 1008 Kalakhang Maynila",
+                    "fb":"https://www.facebook.com/KingIyamanPetClinic/"
                 },
                 {
                     "name": "PET ACCESS VETERINARY CLINIC CO.",
                     "x": 14.603005758703782,
                     "y": 121.01393303850716,
                     "icon": "vet-loc-marker.png",
-                    "address": "3946 Magsaysay Blvd, Santa Mesa, Manila, Metro Manila"
+                    "hours": "Mon-Sun 08:00 AM-06:00 PM",
+                    "contact": "0906 557 1552",
+                    "address": "3946 Magsaysay Blvd, Santa Mesa, Manila, Metro Manila",
+                    "fb":"https://www.facebook.com/profile.php?id=100076161670749&paipv=0&eav=AfZG3IHTX6uHaeCnlfr3om-PluI3-zyOrn5NO4sZqXDYCFkPXi2LZ0vYHGFOV1ebfek&_"
                 },
                 {
                     "name": "PHILIPPINE SOCIETY FOR THE PREVENTION OF CRUELTY TO ANIMALS INC",
                     "x": 14.601976226480554,
                     "y": 120.98781190771591,
                     "icon": "vet-loc-marker.png",
-                    "address": "Philippine Society for the Prevention of Cruelty to Animals @ 2044 C.M. Recto Ave.,Quiapo Manila "
+                    "hours": "Mon-Sun 8:00 AM–12:00 PM and 1:00 PM–4:00 PM",
+                    "contact": "(02) 8293 9698",
+                    "address": "Philippine Society for the Prevention of Cruelty to Animals @ 2044 C.M. Recto Ave.,Quiapo Manila ",
+                    "fb":"https://www.facebook.com/PSPCAph"
                 },
                 {
                     "name": "WT ANIMAL WELLNESS AND VETERINARY CLINIC",
                     "x": 14.611662191206603,
                     "y": 121.00569563552321,
                     "icon": "vet-loc-marker.png",
-                    "address": "1971 Gerardo Tuazon St. Sampaloc (beside I Love Milktea), Manila, Philippines"
+                    "hours": "Mon-Sun 09:00 AM-06:00 PM",
+                    "contact": "0936 059 2621",
+                    "address": "1971 Gerardo Tuazon St. Sampaloc (beside I Love Milktea), Manila, Philippines",
+                    "fb":"https://www.facebook.com/WaggingTailsManila/"
                 },
             ]
         };
@@ -342,13 +412,25 @@ export default {
                     
                     marker.infowindow = google.maps.event.addListener(marker, "click", () => {
                         infowindow.setContent(
-                            `<div class="ui header">${markers.name}</div><p>${markers.address}`
+                            `<div class="ui header">${markers.name}</div>
+                                <p><b>Opening Hours: </b>${markers.hours}</p>
+                                <br>
+                                <p><b>Contact: </b>${markers.contact}</p>
+                                <br>
+                                <p><b>Address:</b><br>
+                                    ${markers.address}</p>
+                                <br>
+                                <p><b>Facebook:</b><br>
+                                    ${markers.fb}</p>`
                                 );
                                 
                                 infowindow.open(this.map, marker);
                             });
                     marker.name = markers.name
+                    marker.hours = markers.hours
+                    marker.contact = markers.contact
                     marker.address = markers.address
+                    marker.fb = markers.fb
                     marker.distance = distance
                     this.place.push(marker)
                 }
@@ -371,7 +453,21 @@ export default {
                 infowindow.close();
             }
             infowindow.setContent(
-                `<div class="ui header">${place.name}</div><p>${place.address}`
+                `<div class="ui header">${place.name}</div>
+                <p><b>Opening Hours:</b><br>
+                    ${place.hours}</p>
+                <br>
+                <p><b>Contact:</b><br>
+                    ${place.contact}</p>
+                <br>
+                <p><b>Email Address:</b><br>
+                    ${place.email}</p>
+                <br>
+                <p><b>Address:</b><br>
+                    ${place.address}</p>
+                <br>
+                <p><b>Facebook:</b><br>
+                    ${place.fb}</p>`
             );
             infowindow.open(this.map, marker);
         },
@@ -432,7 +528,7 @@ export default {
 
             google.maps.event.addListener(marker, "click", () => {
                 infowindow.setContent(
-                    `<div class="ui header">YOUR LOCATION HERE</div>`
+                    `<div class="ui header">YOU ARE HERE</div>`
                 );
                 infowindow.open(map, marker);
             });

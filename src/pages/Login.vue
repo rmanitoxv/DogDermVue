@@ -1,42 +1,43 @@
 <template>
     <!-- NEW UI!!!!! -->
-        <div class="login animate-fade-in-down">
-            <div class="login__content">
-                <div class="login__img">
-                    <img src="/images/register-dog-vector.svg" alt="">
-                </div>
+    <div class="login animate-fade-in-down">
+        <div class="login__content">
+            <div class="login__img">
+                <img src="/images/register-dog-vector.svg" alt="">
+            </div>
 
-                <div class="login__forms">
-                    <!-- =====  SIGN IN =====  -->
-                    <form action="" class="login__registre" id="login-in" @submit.prevent="loginForm">
-                        <h1 class="logo__title"><span>Dog</span>Derma </h1>
-                        <h1 class="login__title">Sign In</h1>
-    
-                        <div class="login__box">
-                            <i class='bx bx-user login__icon'></i>
-                            <input type="text" placeholder="Email" class="login__input" id="email">
-                        </div>
-    
-                        <div class="login__box">
-                            <i class='bx bx-lock-alt login__icon'></i>
-                            <input type="password" placeholder="Password" class="login__input" id="password">
-                        </div>
+            <div class="login__forms">
+                <!-- =====  SIGN IN =====  -->
+                <form action="" class="login__registre" id="login-in" @submit.prevent="loginForm">
+                    <h1 class="logo__title"><span>Dog</span>Derma </h1>
+                    <h1 class="login__title">Sign In</h1>
 
-                        <button :class="loginButton" :disabled="loggingIn"> {{status}} </button>
+                    <div class="login__box">
+                        <i class='bx bx-user login__icon'></i>
+                        <input type="text" placeholder="Email" class="login__input" id="email">
+                    </div>
 
-                        <div>
-                            <span class="login__account">Don't have an account?</span>
-                            <router-link to="/register">
-                                <span class="login__signin" id="sign-up"> Register here!</span>
-                            </router-link>
-                        </div>
-                        <p v-if="response" class="text-red text-end">
-                                {{response}}
-                        </p>
-                    </form>
-                </div>
+                    <div class="pass__box">
+                        <i class='bx bx-lock-alt login__icon'></i>
+                        <input :type="password" placeholder="Password" class="login__input" id="password" />
+                        <button type="button" @click="showPass()"> <i :class="passClass"></i> </button>
+                    </div>
+
+                    <button :class="loginButton" :disabled="loggingIn"> {{ status }} </button>
+
+                    <div>
+                        <span class="login__account">Don't have an account?</span>
+                        <router-link to="/register">
+                            <span class="login__signin" id="sign-up"> Register here!</span>
+                        </router-link>
+                    </div>
+                    <p v-if="response" class="text-red text-end">
+                        {{ response }}
+                    </p>
+                </form>
             </div>
         </div>
+    </div>
 
 </template>
 
@@ -45,7 +46,7 @@ import axios from 'axios';
 ;
 export default {
     methods: {
-        loginForm(){
+        loginForm() {
             this.loginButton = "login__button w-full !bg-grey"
             this.loggingIn = 1
             this.status = "Signing In"
@@ -55,44 +56,56 @@ export default {
                 email: email.value,
                 password: password.value
             })
-            .then((response) => {
-                const token = response.data.auth_token
-                this.$store.commit('setToken', token)
-                axios.defaults.headers.common['Authorization'] = "Token " + token
-                localStorage.setItem("token", token)
-                axios.get('/api/users/me/'
-                )
                 .then((response) => {
-                    const role = response.data.is_staff
-                    if (role == true){
-                        this.$router.push({ name: "AdminProfile" })
-                    }
-                    else{
-                        this.$router.push({ name: "Homepage" })
-                    }
+                    const token = response.data.auth_token
+                    this.$store.commit('setToken', token)
+                    axios.defaults.headers.common['Authorization'] = "Token " + token
+                    localStorage.setItem("token", token)
+                    axios.get('/api/users/me/'
+                    )
+                        .then((response) => {
+                            const role = response.data.is_staff
+                            if (role == true) {
+                                this.$router.push({ name: "AdminProfile" })
+                            }
+                            else {
+                                this.$router.push({ name: "Homepage" })
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
                 })
                 .catch((error) => {
+                    this.loginButton = "login__button w-full"
+                    this.loggingIn = 0
+                    this.status = "Sign In"
                     console.log(error)
+                    this.response = error
+                    for (const prop in error.response.data) {
+                        this.response = "Wrong Username or Password"
+                    }
                 })
-            })
-            .catch((error) => {
-                this.loginButton = "login__button w-full"
-                this.loggingIn = 0
-                this.status = "Sign In"
-                console.log(error)
-                this.response = error
-                for (const prop in error.response.data){
-                    this.response = "Wrong Username or Password"
-                }
-            })
-        }
+        },
+        showPass() {
+            if (this.password == "password") {
+                this.password = "text"
+                this.passClass = "login__icon bi bi-eye-slash"
+            }
+            else {
+                this.password = "password"
+                this.passClass = "login__icon bi bi-eye"
+            }
+        },
     },
     data() {
-        return{
+        return {
             response: null,
             loginButton: "login__button w-full",
             status: "Sign In",
-            loggingIn: 0
+            loggingIn: 0,
+            password: "password",
+            passClass: "login__icon bi bi-eye",
         }
     }
 }

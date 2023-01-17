@@ -35,6 +35,7 @@ module.exports = {
       second: '#112B3C',
       third: '#71839B',
       fourth: '#F99D89',
+      grayhover: '#F0F0F5',
       fifth: '#324054',
       sixth: '#989898',
       seventh: '#ECF1F8',

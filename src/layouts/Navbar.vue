@@ -1,7 +1,7 @@
 <template>
     <header class="header" id="header">
         <nav class="nav sm:mx-8 md:mx-8 lg:container">
-            <router-link to="/" class="nav__logo">
+            <router-link to="/" class="nav__logo lg:mx-0 mx-4">
                 <span class="text-2xl text-first barlow">Dog</span>
                 <span class="text-2xl text-second barlow">Derma</span>
             </router-link>
@@ -106,7 +106,8 @@
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false">
                             <span class="adminmodule user-img">
-                                <img :src="url" alt="" class="w-5 inline"/>
+                                <img v-if="url" :src="url" alt="" class="rounded-full h-5 object-cover mr-2 w-5 inline"/>
+                                <img v-else src="/images/sample-profile.svg" alt="" class="ounded-full h-5 object-cover mr-2 w-5 inline" />
                                 <span class="capitalize">{{ name }}</span>
                                 
                             </span>
@@ -170,7 +171,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="authenticated" class="dropdown relative lg:hidden">
+            <div v-if="authenticated" class="dropdown relative lg:hidden mr-4">
                 <a href="#" 
                     class="dropdown-toggle
                         text-second
@@ -185,7 +186,8 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
                 <span class="adminmodule user-img">
-                    <img v-if="authenticated == true" :src="url" alt="" class="nav__img" />
+                    <img v-if="url" :src="url" alt="" class="nav__img !w-8 h-8 object-cover" />
+                    <img v-else src="/images/sample-profile.svg" alt="" class="nav__img" />
                     
                 </span>
                 </a>

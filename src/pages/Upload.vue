@@ -7,13 +7,14 @@
                 <div class="my-3 !mt-5 p-3 border-2 rounded-3xl border-first bg-[#FFEFE1] flex w-80 lg:w-[30.5rem] break-words !text-left">
                     <p class="amiko text-first text-sm !text-left font-semibold">
                         <b>NOTE:</b> Please keep in mind that this version is limited to only 10 dog skin diseases such as ringworms, hot spots, folliculitis and other diseases included in the <router-link to="/"><u><b>FAQs.</b></u></router-link>
+                        <br><br>Low resolution images or images in poor lighting conditions might not be recognized. Use high resolution pictures for optimal results.
                     </p>
                 </div>
             </div>
             <div class="flex flex-col justify-center items-center">
                 <div v-if="canvas || video">
                     <div
-                        class="flex w-80 lg:w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl">
+                        class="flex w-80 lg:w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl hover:!bg-second ease-in-out">
                         <p class="text-white cursor-pointer">
                             No File Selected
                         </p>
@@ -22,7 +23,7 @@
                 <div v-else>
                     <label for="upload">
                         <div
-                            class="flex w-80 lg:w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl">
+                            class="flex w-80 lg:w-[30.5rem] h-[3rem] bg-first items-center justify-center mt-[1.75rem] mb-[2.5rem] rounded-2xl hover:!bg-second ease-in-out">
                             <p v-if="fileName == null" class="text-white cursor-pointer">
                                 No File Selected
                             </p>
@@ -54,15 +55,15 @@
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
                 <input type="file" accept="image/*" class="hidden" id="upload" @change="getFileName(e)" />
                 <div v-if="video" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
+                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
                     <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
                 </div>
                 <div v-else-if="canvas" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg" @click="useCamera">Cancel</button>
+                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <div v-else class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="hidden lg:block w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md" @click="useCamera">Use Camera</button>
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold hover:!border-third !ease-in-out" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <p v-if="error" class="text-red text-lg justify-self-end"> {{ error }}</p>
@@ -85,9 +86,10 @@ export default {
             dburl: null,
             file: null,
             status: "Submit",
-            submitClass: "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border",
+            submitClass: "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out",
             saving: 0,
-            error: null
+            error: null,
+            stream: null
         }
     },
     methods: {
@@ -119,7 +121,7 @@ export default {
                 .catch((error) => {
                     this.saving = 0
                     this.status = "Submit"
-                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border"
+                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out"
                     console.log(error)
                 })
             })
@@ -145,9 +147,14 @@ export default {
             }
         },
         async openCamera(){
+            const constraints = {
+                video: {
+                    facingMode: (window.innerWidth < 1024 ? "environment" : "user")
+                }
+            }
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({video: true});
-                this.handleSuccess(stream);
+                this.stream = await navigator.mediaDevices.getUserMedia(constraints);
+                this.handleSuccess(this.stream);
             }
             catch(err){
                 console.log(err)
@@ -155,7 +162,10 @@ export default {
         },
         async closeCamera(){
             try {
-                await navigator.mediaDevices.getUserMedia({video: true});
+                this.stream.getTracks().forEach(function(track) {
+                    track.stop();
+                });
+                this.stream == null
             }
             catch(err){
                 console.log(err)
@@ -193,7 +203,7 @@ export default {
         async afterComplete(e) {
             this.saving = 1
             this.status = "Detecting..."
-            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center"
+            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center hover:!bg-second ease-in-out"
             try {
                 let fileName
                 let file
@@ -217,7 +227,7 @@ export default {
                 console.log(error)
                 this.error = "Image is required."
                 this.status = "Submit"
-                this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border"
+                this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out"
                 this.saving = 0
             }
         },

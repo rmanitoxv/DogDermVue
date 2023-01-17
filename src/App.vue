@@ -23,7 +23,6 @@
     import Navbar from './layouts/Navbar.vue'
     import Sidebar from './layouts/Sidebar.vue'
     import Footer from './layouts/Footer.vue'
-    import Style from './layouts/Style.vue'
     import * as firebase from 'firebase/app'
 import axios from 'axios'
     firebase.initializeApp(firebaseConfig)
@@ -43,8 +42,7 @@ import axios from 'axios'
         components: {
             Navbar,
             Sidebar,
-            Footer,
-            Style
+            Footer
         },
         methods: {
             checkAuth() {

@@ -14,7 +14,7 @@
         </aside>
         <!-- MAIN CONTENT -->
         <main class="flex-initial w-full">
-            <div class="rounded-xl bg-white md:drop-shadow-lg md:py-20 md:px-12 mx-0">
+            <div class="rounded-xl bg-white md:drop-shadow-lg md:py-20 md:px-12 mx-0 !text-justify">
                 <!-- DISEASE DESCRIPTION -->
                 <h2 class="amiko text-second font-bold text-5xl mb-6" id="overview">{{ datas.disease }}</h2>
                 <div class="desc-container">
@@ -65,14 +65,14 @@
                         class='bx bx-search align-middle'></i> CAUSES AND SYMPTOMS</h3>
                 <!-- causes -->
                 <label class="amiko text-third font-semibold text-xl my-2">Causes</label>
-                <div class="desc-container">
+                <div class="desc-container text-justify">
                     {{ datas.causes }}
                 </div>
                 <!-- symptoms -->
                 <label class="amiko text-third font-semibold text-xl mt-2">Symptoms</label>
                 <div>
                     <ul v-for="item in symptoms">
-                        <li class="ml-5 mb-2"><span class="text-xl">&#x2022;</span> {{item}}</li>
+                        <li class="ml-5 mb-2 text-justify"><span class="text-xl">&#x2022;</span> {{item}}</li>
                     </ul>
                 </div>
                 <!-- DISCLAIMER -->
@@ -90,18 +90,18 @@
                 <!-- MANAGEMENT AND TREATMENT -->
                 <h3 class="amiko text-blue font-bold text-2xl mb-5" id="management-treatment"><i
                         class='bx bx-plus-medical align-middle'></i> MANAGEMENT AND TREATMENT</h3>
-                <div class="desc-container">
+                <div class="desc-container text-justify">
                     {{ datas.treatment }}
                 </div>
                 <div class="desc-container">
                     <ul v-for="item in treatments">
-                        <li class="ml-6 mb-3"><span class="text-xl">&#x2022;</span> {{item}}</li>
+                        <li class="ml-6 mb-3 text-justify"><span class="text-xl">&#x2022;</span> {{item}}</li>
                     </ul>
                 </div>
                 <!-- PREVENTION -->
                 <h3 class="amiko text-blue font-bold text-2xl my-2" id="prevention"><i
                         class='bx bxs-hand align-middle'></i> PREVENTION</h3>
-                <div class="desc-container">
+                <div class="desc-container text-justify">
                     {{ datas.prevention }}
                 </div>
                 <div class="desc-container">

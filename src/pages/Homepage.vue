@@ -18,7 +18,7 @@
         
                         <div class="md-mx-0 mb-15 mt-5 sm:mt-8 sm:flex-none md:flex-none sm:justify-center lg:justify-start">
                             <div class="md-mx-0 mt-0 sm:mt-0 sm:ml-3">
-                                <router-link to="/upload" class="md-mx-0 font-medium py-3 px-10 rounded-3xl text-white hover:text-white button-color">
+                                <router-link to="/upload" class="md-mx-0 font-normal py-3 px-10 rounded-3xl text-white hover:text-white ease-in-out button-color">
                                     <span>Try Now!</span>
                                 </router-link>
                             </div>
