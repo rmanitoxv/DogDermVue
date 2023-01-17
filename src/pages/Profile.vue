@@ -242,6 +242,7 @@ export default {
                 axios.put(`/api/user/${id}/`, {
                     first_name: this.datas.first_name,
                     last_name: this.datas.last_name,  
+                    email: this.datas.email,
                     cpassword: this.datas.password,
                     password: this.datas.password
                 })
@@ -255,7 +256,7 @@ export default {
                         this.response = "There was an Error Editing Profile"
                         this.responseClass = "text-red text-end"
                         this.loading = false
-                        this.changedImage = false
+                        console.log(error)
                     })
             }
             else {
@@ -284,6 +285,7 @@ export default {
                             this.isLoading = false
                         })
                         .catch((error) => {
+                            console.log(error)
                             this.response = "There was an Error Editing Profile"
                             this.responseClass = "text-red text-end"
                             this.isError = true
