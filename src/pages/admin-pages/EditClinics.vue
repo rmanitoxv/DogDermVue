@@ -64,7 +64,7 @@
                             Hours Open:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
-                            <input type="text" placeholder="Email" class="login__input" id="clinic_hours" v-model="datas.clinic_hours">
+                            <input type="text" placeholder="Clinic Hours" class="login__input" id="clinic_hours" v-model="datas.clinic_hours">
                         </div>
                     </div>
                     <div class="flex items-center mt-3 justify-end">
