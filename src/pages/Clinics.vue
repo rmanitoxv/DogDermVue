@@ -66,6 +66,8 @@
                                     <br><br>
                                     <b>Contact: </b> {{place.contact}}
                                     <br><br>
+                                    <b>Email Address: </b>{{place.email}}
+                                    <br><br>
                                     <b>Address: </b>{{place.address}}
                                     <br><br>
                                     <b>Facebook: </b>{{place.fb}}
@@ -147,6 +149,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Open Mon-Sun 24 Hours",
                     "contact": "0999 955 9743 | 0995 901 8097",
+                    "email":"",
                     "address": "3432 Arsenio Herrera St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/petlinkrpapa/"
                 },
@@ -157,6 +160,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-10:00 PM",
                     "contact": "0922 820 4782",
+                    "email":"",
                     "address": "2508 Juan Luna St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/profile.php?id=100064036147771"
                 },
@@ -167,6 +171,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:30 AM-08:30 PM",
                     "contact": "0933 578 5714",
+                    "email":"",
                     "address": "2707 B Manotoc St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/MountZionVeterinarian/"
                 },
@@ -177,6 +182,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "0932 138 4489",
+                    "email":"",
                     "address": "434 Honorio Lopez Blvd.corner Fidel St., Brgy 148, Zone 13, Tondo, Manila",
                     "fb":"https://www.facebook.com/northbayvetclinic/"
                 },
@@ -187,6 +193,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "0956 852 1191",
+                    "email":"",
                     "address": "3574 Buenos Aires St. cor. Altura St. Sampaloc, Manila, Philippines",
                     "fb":"https://www.facebook.com/Petsavenueph/"
                 },
@@ -197,6 +204,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "(02) 741 9410",
+                    "email":"",
                     "address": "1913 Dapitan St, Sampaloc, Manila, 1008 Metro Manila",
                     "fb":"https://www.facebook.com/pages/Citivet%20Veterinary%20Clinic/212455948924134/photos/"
                 },
@@ -207,6 +215,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-05:00 PM",
                     "contact": "0949 355 6014",
+                    "email":"",
                     "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila",
                     "fb":"https://www.facebook.com/bittenanimalbitecenter/"
                 },
@@ -417,6 +426,9 @@ export default {
                                 <br>
                                 <p><b>Contact: </b>${markers.contact}</p>
                                 <br>
+                                <p><b>Email Address:</b><br>
+                                    ${markers.email}</p>
+                                <br>
                                 <p><b>Address:</b><br>
                                     ${markers.address}</p>
                                 <br>
@@ -429,6 +441,7 @@ export default {
                     marker.name = markers.name
                     marker.hours = markers.hours
                     marker.contact = markers.contact
+                    markers.email = markers.email
                     marker.address = markers.address
                     marker.fb = markers.fb
                     marker.distance = distance
