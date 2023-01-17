@@ -63,6 +63,14 @@
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-2xl mr-6">
+                            Hours Open:
+                        </label>
+                        <div class="login__box1 w-[18.75rem] mt-0">
+                            <input type="text" placeholder="Clinic Hours" class="login__input" id="clinic_hours">
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-2xl mr-6">
                             Facebook Link:
                         </label>
                         <div class="login__box1 w-[18.75rem] mt-0">
@@ -93,6 +101,7 @@ export default {
                 clinic_mobile: clinic_mobile.value,
                 clinic_landline: clinic_landline.value,
                 clinic_email: clinic_email.value,
+                clinic_hours: clinic_hours.value,
                 clinic_fb: clinic_fb.value
             })
                 .then((response) => {

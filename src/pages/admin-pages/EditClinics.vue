@@ -61,6 +61,14 @@
                     </div>
                     <div class="flex items-center mt-3 justify-end">
                         <label class="text-xl mr-6">
+                            Hours Open:
+                        </label>
+                        <div class="login__box1 w-[20rem] mt-0">
+                            <input type="text" placeholder="Email" class="login__input" id="clinic_hours" v-model="datas.clinic_hours">
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-3 justify-end">
+                        <label class="text-xl mr-6">
                             Facebook Link:
                         </label>
                         <div class="login__box1 w-[20rem] mt-0">
@@ -102,6 +110,7 @@ export default {
                 clinic_mobile: this.datas.clinic_mobile,
                 clinic_landline: this.datas.clinic_landline,
                 clinic_email: this.datas.clinic_email,
+                clinic_hours: this.datas.clinic_hours,
                 clinic_fb: this.datas.clinic_fb,
                 url: this.dburl
             }
