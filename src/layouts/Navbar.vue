@@ -186,8 +186,8 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
                 <span class="adminmodule user-img">
-                    <img v-if="url" :src="url" alt="" class="nav__img !w-8 h-8 object-cover" />
-                    <img v-else src="/images/sample-profile.svg" alt="" class="nav__img" />
+                    <img v-if="url" :src="url" alt="" class="nav__img !w-8 h-8 rounded-full object-cover" />
+                    <img v-else src="/images/sample-profile.svg" alt="" class="nav__img rounded-full !w-8 h-8 object-cover" />
                     
                 </span>
                 </a>

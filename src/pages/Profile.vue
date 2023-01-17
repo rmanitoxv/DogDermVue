@@ -20,7 +20,7 @@
                             <input type="file" id="upload" accept="image/*" class="hidden" @input="getImage()" />
                             <label v-if="!changedImage" for="upload"
                                 class="sm:w-[15rem] bg-first text-white p-2 sm:p-3 rounded-3xl sm:mt-[2.5rem] text-xs sm:text-lg cursor-pointer hover:!bg-second ease-in-out">
-                                &nbsp; Upload Image &nbsp;
+                                &nbsp; Upload &nbsp;
                             </label>
                             <button v-else
                                 class="w-[7.5rem] bg-first text-white p-2 rounded-3xl mx-2 text-sm sm:text-lg"
@@ -244,9 +244,12 @@ export default {
                     last_name: this.datas.last_name,  
                     email: this.datas.email,
                     cpassword: this.datas.password,
-                    password: this.datas.password
+                    password: this.datas.password,
+                    url: this.dburl
                 })
                     .then((response) => {
+                        console.log(this.datas)
+                        console.log(response.data)
                         this.response = "Successfully Saved"
                         this.responseClass = "text-green text-end"
                         this.loading = false
