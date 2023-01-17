@@ -54,16 +54,16 @@
                 </div>
                 <canvas ref="canvas" width="500" height="400"  class="hidden object-cover w-[24.5rem] h-[24.5rem] rounded-[1.5rem]"></canvas>                        
                 <input type="file" accept="image/*" class="hidden" id="upload" @change="getFileName(e)" />
-                <div v-if="video" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
-                    <button type="button" class="mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center" @click="captureImage">Capture</button>
+                <div v-if="video" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
+                    <button type="button" class="mt-[2.25rem] w-[7.25rem] border-[.15rem] py-[.5rem] mx-[1rem] rounded-[2.75rem] bg-first text-white align-self-center text-md" @click="captureImage">Capture</button>
                 </div>
-                <div v-else-if="canvas" class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] rounded-3xl mt-[2.5rem] text-lg hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
+                <div v-else-if="canvas" class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold !ease-in-out" @click="useCamera">Cancel</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
-                <div v-else class="flex justify-center lg:justify-between w-80 lg:w-[24.5rem] !mb-5">
-                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] ml-[1rem] mr-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold hover:!border-third !ease-in-out" @click="useCamera">Use Camera</button>
+                <div v-else class="flex justify-between w-80 lg:w-[24.5rem] !mb-5">
+                    <button type="button" class="w-[7.5rem] text-first border-[.15rem] border-first py-[.5rem] mx-[1rem] rounded-3xl mt-[2.5rem] text-md hover:!text-second hover:!text-bold hover:!border-third !ease-in-out" @click="useCamera">Use Camera</button>
                     <button :class="submitClass" :disabled="saving"> {{ status }} </button>
                 </div>
                 <p v-if="error" class="text-red text-lg justify-self-end"> {{ error }}</p>
@@ -86,7 +86,7 @@ export default {
             dburl: null,
             file: null,
             status: "Submit",
-            submitClass: "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out",
+            submitClass: "border-[.15rem] mx-[1rem] mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out",
             saving: 0,
             error: null,
             stream: null
@@ -121,7 +121,7 @@ export default {
                 .catch((error) => {
                     this.saving = 0
                     this.status = "Submit"
-                    this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out"
+                    this.submitClass = "text-md border-[.15rem] mx-[1rem] mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out"
                     console.log(error)
                 })
             })
@@ -199,11 +199,15 @@ export default {
             }
             this.canvas = true
             this.video = false
+            this.stream.getTracks().forEach(function(track) {
+                track.stop();
+            });
+            this.stream == null
         },
         async afterComplete(e) {
             this.saving = 1
             this.status = "Detecting..."
-            this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center hover:!bg-second ease-in-out"
+            this.submitClass = "text-md mx-[1rem] mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-grey text-white align-self-center hover:!bg-second ease-in-out"
             try {
                 let fileName
                 let file
@@ -227,7 +231,7 @@ export default {
                 console.log(error)
                 this.error = "Image is required."
                 this.status = "Submit"
-                this.submitClass = "mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out"
+                this.submitClass = "text-md border-[.15rem] mx-[1rem] mt-[2.25rem] w-[7.25rem] py-[.5rem] rounded-[2.75rem] bg-first text-white align-self-center border hover:!bg-second ease-in-out"
                 this.saving = 0
             }
         },

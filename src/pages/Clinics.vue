@@ -149,7 +149,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Open Mon-Sun 24 Hours",
                     "contact": "0999 955 9743 | 0995 901 8097",
-                    "email":"",
+                    "email": "petlink.rpapa@gmail.com",
                     "address": "3432 Arsenio Herrera St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/petlinkrpapa/"
                 },
@@ -160,7 +160,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-10:00 PM",
                     "contact": "0922 820 4782",
-                    "email":"",
+                    "email":"bntanimalclinic2016@gmail.com",
                     "address": "2508 Juan Luna St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/profile.php?id=100064036147771"
                 },
@@ -171,7 +171,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:30 AM-08:30 PM",
                     "contact": "0933 578 5714",
-                    "email":"",
+                    "email":"cabiganjudithq@gmail.com",
                     "address": "2707 B Manotoc St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/MountZionVeterinarian/"
                 },
@@ -182,7 +182,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "0932 138 4489",
-                    "email":"",
+                    "email":"northbayvetclinic@gmail.com",
                     "address": "434 Honorio Lopez Blvd.corner Fidel St., Brgy 148, Zone 13, Tondo, Manila",
                     "fb":"https://www.facebook.com/northbayvetclinic/"
                 },
@@ -193,7 +193,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "0956 852 1191",
-                    "email":"",
+                    "email":"petsavenueawc@gmail.com",
                     "address": "3574 Buenos Aires St. cor. Altura St. Sampaloc, Manila, Philippines",
                     "fb":"https://www.facebook.com/Petsavenueph/"
                 },
@@ -204,7 +204,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "(02) 741 9410",
-                    "email":"",
+                    "email":"N/A",
                     "address": "1913 Dapitan St, Sampaloc, Manila, 1008 Metro Manila",
                     "fb":"https://www.facebook.com/pages/Citivet%20Veterinary%20Clinic/212455948924134/photos/"
                 },
@@ -215,7 +215,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-05:00 PM",
                     "contact": "0949 355 6014",
-                    "email":"",
+                    "email":"vibmanila@yahoo.com",
                     "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila",
                     "fb":"https://www.facebook.com/bittenanimalbitecenter/"
                 },
@@ -226,6 +226,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-08:00 PM",
                     "contact": "0927 835 3189",
+                    "email":"vetfrontph@gmail.com",
                     "address": "1764 Laong Laan Rd, Sampaloc, Manila, 1008 Metro Manila",
                     "fb":"https://www.facebook.com/VetfrontPH/"
                 },
@@ -236,6 +237,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-05:00 PM",
                     "contact": "(02) 8241 7224",
+                    "email":"manilavetclinic@gmail.com",
                     "address": "2403 Vitas St, 101 Tondo Vitas St, 101 Tondo, Manila, 1012 Metro Manila",
                     "fb":"https://www.facebook.com/manilavetclinic/"
                 },
@@ -246,6 +248,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "(02) 8281 4502 | 0932 887 0736",
+                    "email":"tolentinosanimalclinic@gmail.com",
                     "address": "Hermosa Arcade Center, 3067 Molave St, Tondo, Manila, 1013 Metro Manila",
                     "fb":"https://www.facebook.com/tolentinosanimalclinic/"
                 },
@@ -256,6 +259,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-05:00 PM",
                     "contact": "0917 120 0596",
+                    "email":"petcoreanimalclinic@gmail.com",
                     "address": "Unit 1, Clean Fuel Gasoline Station, 1883 Pres, Quirino Ave, Pandacan, Manila",
                     "fb":"https://www.facebook.com/petcoreanimalclinic/"
                 },
@@ -266,6 +270,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 11:00 AM-06:00 PM",
                     "contact": "0916 415 8426",
+                    "email":"hannapetwellness@yahoo.com",
                     "address": "1266 P. Ocampo St., corner G. del Pilar St., 756, Manila, 1110 Metro Manila",
                     "fb":"https://www.facebook.com/HannaPetWellness"
                 },
@@ -276,6 +281,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-07:00 PM",
                     "contact": "(02) 8742 3362",
+                    "email":"nomaranimalclinic@gmail.com",
                     "address": "1984, S.H. Loyola, corner Maceda St, Sampaloc, Manila, 1008 Metro Manila",
                     "fb":"https://www.facebook.com/NOMARCLINIC/"
                 },
@@ -286,6 +292,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-06:00 PM",
                     "contact": "0917 8073 694 | (02) 8355-8772 | (02) 8401-1248",
+                    "email":"animalhouseclinic@gmail.com",
                     "address": "AH Binondo 599 Quintin Paredes",
                     "fb":"https://www.facebook.com/AnimalHousePH/"
                 },
@@ -296,6 +303,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-05:00 PM",
                     "contact": "0995 953 6523",
+                    "email":"goldwingsvet@gmail.com",
                     "address": "1601 Juan Luna St, Tondo, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/people/Goldwings-Veterinary-clinic/100044585756034/"
                 },
@@ -306,6 +314,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-07:00 PM",
                     "contact": "(02) 697 1871",
+                    "email":"nicagpampolina@yahoo.com.ph",
                     "address": "2380 Leon Guinto St, Malate, Manila, 1004 Metro Manila",
                     "fb":"https://www.facebook.com/pamvetclinicph"
                 },
@@ -316,6 +325,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "0939 840 5988",
+                    "email":"kingiyamanpetclinic@gmail.com",
                     "address": "856 Sto Tomas St., 529, Maynila, 1008 Kalakhang Maynila",
                     "fb":"https://www.facebook.com/KingIyamanPetClinic/"
                 },
@@ -326,6 +336,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 08:00 AM-06:00 PM",
                     "contact": "0906 557 1552",
+                    "email":"petsaccess8@gmail.com",
                     "address": "3946 Magsaysay Blvd, Santa Mesa, Manila, Metro Manila",
                     "fb":"https://www.facebook.com/profile.php?id=100076161670749&paipv=0&eav=AfZG3IHTX6uHaeCnlfr3om-PluI3-zyOrn5NO4sZqXDYCFkPXi2LZ0vYHGFOV1ebfek&_"
                 },
@@ -336,6 +347,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 8:00 AM–12:00 PM and 1:00 PM–4:00 PM",
                     "contact": "(02) 8293 9698",
+                    "email":"pspcarecto1904@gmail.com",
                     "address": "Philippine Society for the Prevention of Cruelty to Animals @ 2044 C.M. Recto Ave.,Quiapo Manila ",
                     "fb":"https://www.facebook.com/PSPCAph"
                 },
@@ -346,6 +358,7 @@ export default {
                     "icon": "vet-loc-marker.png",
                     "hours": "Mon-Sun 09:00 AM-06:00 PM",
                     "contact": "0936 059 2621",
+                    "email": "wtmanila20@gmail.com",
                     "address": "1971 Gerardo Tuazon St. Sampaloc (beside I Love Milktea), Manila, Philippines",
                     "fb":"https://www.facebook.com/WaggingTailsManila/"
                 },
