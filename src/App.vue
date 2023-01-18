@@ -2,7 +2,7 @@
     <div>
         <div>
             <div v-if="isAdmin == 0">
-                <Navbar />
+                <Navbar ref="navbarComponent"/>
                 <router-view></router-view>
                 <Footer />
             </div>
@@ -102,6 +102,7 @@ import axios from 'axios'
         watch:{
             $route (to, from){
                 this.checkAuth()
+                this.$ref.navbarComponent.checkAuth()
             }
         },
     }
