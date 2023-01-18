@@ -102,7 +102,7 @@ import axios from 'axios'
         watch:{
             $route (to, from){
                 this.checkAuth()
-                this.$ref.navbarComponent.checkAuth()
+                this.$refs.navbarComponent.checkAuth()
             }
         },
     }
