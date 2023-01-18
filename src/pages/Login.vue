@@ -31,6 +31,11 @@
                             <span class="login__signin" id="sign-up"> Register here!</span>
                         </router-link>
                     </div>
+                    <div>
+                        <router-link to="/forgotpassword">
+                            <p class="login__signin italic" id="sign-up"> Forgot Password?</p>
+                        </router-link>
+                    </div>
                     <p v-if="response" class="text-red text-end">
                         {{ response }}
                     </p>
@@ -43,7 +48,6 @@
 
 <script>
 import axios from 'axios';
-;
 export default {
     methods: {
         loginForm() {

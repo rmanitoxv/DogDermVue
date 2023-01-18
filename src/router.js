@@ -4,6 +4,9 @@ import store from './store'
 import NotFound from './pages/NotFound.vue';
 import Modal from './pages/Modal.vue';
 
+import ForgotPassword from './pages/ForgotPassword.vue';
+import ResetPassword from './pages/ResetPassword.vue';
+
 import Homepage from './pages/Homepage.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
@@ -39,8 +42,8 @@ const routes = [
     { path: '/', name: 'Homepage', component: Homepage },
     { path: '/login', name: 'Login', component: Login , meta: {loggedOut: true} },
     { path: '/register', name: 'Register', component: Register, meta: {loggedOut: true} },
-    // { path: '/forgotpassword', name: 'ForgotPassword', component: ForgotPassword, meta: {requireLogin: true} },
-    // { path: '/resetpassword', name: 'ResetPassword', component: ResetPassword, meta: {requireLogin: true} },
+    { path: '/forgotpassword', name: 'ForgotPassword', component: ForgotPassword},
+    { path: '/resetpassword/:code', name: 'ResetPassword', component: ResetPassword },
     { path: '/profile', name: 'Profile', component: Profile, meta: {requireLogin: true} },
     { path: '/upload', name: 'Upload', component: Upload, meta: {requireLogin: true} },
     { path: '/uploadresult/:id', name: 'UploadResult', component: UploadResult, meta: {requireLogin: true} },
