@@ -67,10 +67,15 @@ import axios from 'axios'
                     })
                     .catch((error) => {
                         console.log(error)
+                        axios.defaults.headers.common['Authorization'] = ""
+                        localStorage.removeItem("token")
+                        this.$store.commit('removeToken')
                     })
                 }
                 else{
                     this.isAdmin = 0
+                    axios.defaults.headers.common['Authorization'] = ""
+                    this.$store.commit('removeToken')
                 }
             },
             sidebarFunction(){
