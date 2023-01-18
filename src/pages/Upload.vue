@@ -165,7 +165,7 @@ export default {
                 this.stream.getTracks().forEach(function(track) {
                     track.stop();
                 });
-                this.stream == null
+                this.stream = null
             }
             catch(err){
                 console.log(err)
@@ -202,7 +202,7 @@ export default {
             this.stream.getTracks().forEach(function(track) {
                 track.stop();
             });
-            this.stream == null
+            this.stream = null
         },
         async afterComplete(e) {
             this.saving = 1
