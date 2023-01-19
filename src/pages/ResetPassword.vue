@@ -44,7 +44,7 @@
                                             <div class="absolute top-0 mt-1 w-3 h-3 rounded-full bg-first"></div>
                                         </div>
                                         <div class="text-gray-500 text-xs font-medium mt-2 text-center">
-                                            Sending email...
+                                            Saving Password...
                                         </div>
                                     </div>
                                 </div>
